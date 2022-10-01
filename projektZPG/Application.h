@@ -30,11 +30,21 @@ private:
 	const char* vertex_shader;
 
 	const char* fragment_shader;
+
+	GLFWwindow* window;
 public:
 	Application();
 	~Application();
 
-	static void error_callback(int error, const char* description) { fputs(description, stderr); }
+	static void error_callback(int error, const char* description);
+	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
+	static void cursor_callback(GLFWwindow* window, double x, double y);
+	static void button_callback(GLFWwindow* window, int button, int action, int mode);
+
+	static void window_focus_callback(GLFWwindow* window, int focused);
+	static void window_iconify_callback(GLFWwindow* window, int iconified);
+	static void window_size_callback(GLFWwindow* window, int width, int height);
+	
 
 	void Run();
 };
