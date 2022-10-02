@@ -31,7 +31,7 @@ void Callbacks::button_callback(GLFWwindow* window, int button, int action, int 
 			glfwGetCursorPos(window, &clickX, &clickY);
 		}
 	}
-	
+
 }
 
 void Callbacks::window_focus_callback(GLFWwindow* window, int focused)

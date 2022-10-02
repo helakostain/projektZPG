@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-class Callbacks 
+class Callbacks
 {
 private:
 	static double clickX;

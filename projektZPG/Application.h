@@ -10,10 +10,7 @@
 
 class Application
 {
-private:	
-	const char* vertex_shader;
-	const char* fragment_shader;
-
+private:
 	GLFWwindow* window;
 
 	static Application* instance;

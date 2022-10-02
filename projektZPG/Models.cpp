@@ -24,13 +24,13 @@ Models::Models()
 void Models::Init()
 {
 	//vertex buffer object (VBO)
-	
+
 	glGenBuffers(1, &VBO); // generate the VBO
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
 
 	//Vertex Array Object (VAO)
-	
+
 	glGenVertexArrays(1, &VAO); //generate the VAO
 	glBindVertexArray(VAO); //bind the VAO
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
