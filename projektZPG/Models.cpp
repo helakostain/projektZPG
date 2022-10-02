@@ -30,10 +30,8 @@ void Models::GenerateVBO()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
 }
 
-void Models::Init()
+void Models::GenerateVAO()
 {
-	GenerateVBO();
-
 	//Vertex Array Object (VAO)
 
 	glGenVertexArrays(1, &VAO); //generate the VAO
@@ -43,6 +41,12 @@ void Models::Init()
 	glEnableVertexAttribArray(0); //enable vertex attributes
 	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (GLvoid*)(4 * sizeof(float)));
 	glEnableVertexAttribArray(1); //enable vertex attributes
+}
+
+void Models::Init()
+{
+	GenerateVBO();
+	GenerateVAO();
 }
 
 void Models::Bind()

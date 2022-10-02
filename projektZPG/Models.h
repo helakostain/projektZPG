@@ -26,6 +26,7 @@ private:
 	static float points[];
 
 	static void GenerateVBO();
+	static void GenerateVAO();
 public:
 	Models();
 
