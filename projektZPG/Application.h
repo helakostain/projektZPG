@@ -15,6 +15,7 @@ private:
 
 	static Application* instance;
 	void StartGLEW();
+	void VersionInfo();
 public:
 	Application();
 	~Application();
