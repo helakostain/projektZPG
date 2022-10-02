@@ -1,5 +1,8 @@
 #include "Callbacks.h"
 
+double Callbacks::clickX = 0;
+double Callbacks::clickY = 0;
+
 void Callbacks::error_callback(int error, const char* description)
 {
 	printf("This error callback\n");
@@ -15,12 +18,20 @@ void Callbacks::key_callback(GLFWwindow* window, int key, int scancode, int acti
 
 void Callbacks::cursor_callback(GLFWwindow* window, double x, double y)
 {
-	printf("cursor_callback \n");
+	printf("cursor_callback %d, %d; %d, %d \n", (int)x, (int)y, (int)clickX, (int)clickY);
 }
 
 void Callbacks::button_callback(GLFWwindow* window, int button, int action, int mode)
 {
-	if (action == GLFW_PRESS) printf("button_callback [%d,%d,%d]\n", button, action, mode);
+	if (action == GLFW_PRESS)
+	{
+		printf("button_callback [%d,%d,%d]\n", button, action, mode);
+		if (button == GLFW_MOUSE_BUTTON_LEFT)
+		{
+			glfwGetCursorPos(window, &clickX, &clickY);
+		}
+	}
+	
 }
 
 void Callbacks::window_focus_callback(GLFWwindow* window, int focused)
