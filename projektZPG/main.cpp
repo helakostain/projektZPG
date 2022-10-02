@@ -5,9 +5,6 @@
 
 int main(void)
 {
-	
-	
-
 	/*//inicializace konkretni verze
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -16,12 +13,6 @@ int main(void)
 	GLFW_OPENGL_CORE_PROFILE);  //*/
 
 	Application::getInstance().Run();
-	
 
-	
-
-
-
-	
 	exit(EXIT_SUCCESS);
 }

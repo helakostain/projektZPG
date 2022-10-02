@@ -1,24 +1,11 @@
 #include "Application.h"
 #include "Callbacks.h"
-
-float Application::points[] = {
-	-.5f, -.5f, .5f, 1, 1, 1, 0, 1,
-   -.5f, .5f, .5f, 1, 1, 0, 0, 1,
-   .5f, .5f, .5f, 1 ,  0, 0, 0, 1 ,
-   .5f, -.5f, .5f, 1 ,  0, 1, 0, 1 ,
-};
+#include "Models.h"
 
 Application* Application::instance = nullptr;
 
 Application::Application()
 {
-	this->Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.01f, 100.0f);
-	this->View = glm::lookAt(
-		glm::vec3(10, 10, 10), // Camera is at (4,3,-3), in World Space
-		glm::vec3(0, 0, 0), // and looks at the origin
-		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
-	);
-	this->Model = glm::mat4(1.0f);
 	this->vertex_shader =
 		"#version 330\n"
 		"layout(location=0) in vec4 vp;"
@@ -88,22 +75,6 @@ void Application::Run()
 	float ratio = width / (float)height;
 	glViewport(0, 0, width, height);
 
-	//vertex buffer object (VBO)
-	GLuint VBO = 0;
-	glGenBuffers(1, &VBO); // generate the VBO
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(this->points), this->points, GL_STATIC_DRAW);
-
-	//Vertex Array Object (VAO)
-	GLuint VAO = 0;
-	glGenVertexArrays(1, &VAO); //generate the VAO
-	glBindVertexArray(VAO); //bind the VAO
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 8*sizeof(float), NULL);
-	glEnableVertexAttribArray(0); //enable vertex attributes
-	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (GLvoid*)(4 * sizeof(float)));
-	glEnableVertexAttribArray(1); //enable vertex attributes
-
 	//create and compile shaders
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, &vertex_shader, NULL);
@@ -128,11 +99,13 @@ void Application::Run()
 		delete[] strInfoLog;
 	}
 
+	Models::Init();
+
 	while (!glfwWindowShouldClose(this->window)) {
 		// clear color and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glUseProgram(shaderProgram);
-		glBindVertexArray(VAO);
+		Models::Bind();
 		// draw triangles
 		glDrawArrays(GL_TRIANGLE_FAN, 0, 4); //mode,first,count
 		// update other events like input handling
