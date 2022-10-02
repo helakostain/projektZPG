@@ -47,13 +47,8 @@ void Shader::ShaderProgram()
 	glLinkProgram(shaderProgram);
 }
 
-void Shader::ShaderRun()
+void Shader::LinkCheck()
 {
-	//create and compile shaders
-	VertexShader();
-	FragmentShader();
-	ShaderProgram();
-
 	GLint status;
 	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &status);
 	if (status == GL_FALSE)
@@ -65,6 +60,16 @@ void Shader::ShaderRun()
 		fprintf(stderr, "Linker failure: %s\n", strInfoLog);
 		delete[] strInfoLog;
 	}
+}
+
+void Shader::ShaderRun()
+{
+	//create and compile shaders
+	VertexShader();
+	FragmentShader();
+	ShaderProgram();
+
+	LinkCheck();
 }
 
 void Shader::Init()

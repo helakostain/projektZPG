@@ -18,6 +18,8 @@ private:
 	static void FragmentShader();
 	static void ShaderProgram();
 
+	static void LinkCheck();
+
 	static void ShaderRun();
 public:
 	Shader();
