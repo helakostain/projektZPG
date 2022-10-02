@@ -1,11 +1,14 @@
 #include "Application.h"
+#include "Callbacks.h"
 
 float Application::points[] = {
-	-0.5f,  0.5f, 0.0f,   // top left
-	-0.5f, -0.5f, 0.0f,   // bottom left
-	0.5f, -0.5f, 0.0f,   // bottom right
-	0.5f,  0.5f, 0.0f
+	-.5f, -.5f, .5f, 1, 1, 1, 0, 1,
+   -.5f, .5f, .5f, 1, 1, 0, 0, 1,
+   .5f, .5f, .5f, 1 ,  0, 0, 0, 1 ,
+   .5f, -.5f, .5f, 1 ,  0, 1, 0, 1 ,
 };
+
+Application* Application::instance = nullptr;
 
 Application::Application()
 {
@@ -18,17 +21,21 @@ Application::Application()
 	this->Model = glm::mat4(1.0f);
 	this->vertex_shader =
 		"#version 330\n"
-		"layout(location=0) in vec3 vp;"
+		"layout(location=0) in vec4 vp;"
+		"layout(location=1) in vec4 vp2;"
+		"out vec4 colour;"
 		"void main () {"
-		"     gl_Position = vec4 (vp, 1.0);"
+		"     gl_Position = vp;"
+		"     colour = vp2;"
 		"}";
 	this->fragment_shader =
 		"#version 330\n"
+		"in vec4 colour;"
 		"out vec4 frag_colour;"
 		"void main () {"
-		"     frag_colour = vec4 (0.0, 0.5, 1.0, 1.0);"
+		"     frag_colour = colour;"
 		"}";
-	glfwSetErrorCallback(error_callback);
+	
 	if (!glfwInit()) {
 		fprintf(stderr, "ERROR: could not start GLFW3\n");
 		exit(EXIT_FAILURE);
@@ -39,6 +46,7 @@ Application::Application()
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
+	Callbacks::Init(window);
 }
 
 Application::~Application()
@@ -47,48 +55,17 @@ Application::~Application()
 	glfwTerminate();
 }
 
-void Application::error_callback(int error, const char* description) 
+Application& Application::getInstance()
 {
-	fputs(description, stderr);
-}
-
-void Application::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
-{
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, GL_TRUE);
-	printf("key_callback [%d,%d,%d,%d] \n", key, scancode, action, mods);
-}
-
-void Application::cursor_callback(GLFWwindow* window, double x, double y)
-{ 
-	printf("cursor_callback \n"); 
-}
-
-void Application::button_callback(GLFWwindow* window, int button, int action, int mode)
-{
-	if (action == GLFW_PRESS) printf("button_callback [%d,%d,%d]\n", button, action, mode);
-}
-
-void Application::window_focus_callback(GLFWwindow* window, int focused)
-{ 
-	printf("window_focus_callback \n"); 
-}
-
-void Application::window_iconify_callback(GLFWwindow* window, int iconified)
-{ 
-	printf("window_iconify_callback \n"); 
-}
-
-void Application::window_size_callback(GLFWwindow* window, int width, int height) 
-{
-	printf("resize %d, %d \n", width, height);
-	glViewport(0, 0, width, height);
+	if (not instance)
+	{
+		instance = new Application();
+	}
+	return *instance;
 }
 
 void Application::Run()
 {
-	
-
 	glfwMakeContextCurrent(this->window);
 	glfwSwapInterval(1);
 
@@ -121,9 +98,11 @@ void Application::Run()
 	GLuint VAO = 0;
 	glGenVertexArrays(1, &VAO); //generate the VAO
 	glBindVertexArray(VAO); //bind the VAO
-	glEnableVertexAttribArray(0); //enable vertex attributes
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 8*sizeof(float), NULL);
+	glEnableVertexAttribArray(0); //enable vertex attributes
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (GLvoid*)(4 * sizeof(float)));
+	glEnableVertexAttribArray(1); //enable vertex attributes
 
 	//create and compile shaders
 	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);

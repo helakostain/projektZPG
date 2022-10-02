@@ -15,8 +15,7 @@ int main(void)
 	glfwWindowHint(GLFW_OPENGL_PROFILE,
 	GLFW_OPENGL_CORE_PROFILE);  //*/
 
-	Application app;
-	app.Run();
+	Application::getInstance().Run();
 	
 
 	
