@@ -14,6 +14,7 @@ private:
 	GLFWwindow* window;
 
 	static Application* instance;
+	void StartGLEW();
 public:
 	Application();
 	~Application();

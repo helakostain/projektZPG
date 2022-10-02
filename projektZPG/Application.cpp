@@ -5,6 +5,13 @@
 
 Application* Application::instance = nullptr;
 
+void Application::StartGLEW()
+{
+	// start GLEW extension handler
+	glewExperimental = GL_TRUE;
+	glewInit();
+}
+
 Application::Application()
 {
 	if (!glfwInit()) {
@@ -12,8 +19,8 @@ Application::Application()
 		exit(EXIT_FAILURE);
 	}
 
-	this->window = glfwCreateWindow(800, 600, "ZPG", NULL, NULL);
-	if (!this->window) {
+	window = glfwCreateWindow(800, 600, "ZPG", NULL, NULL);
+	if (!window) {
 		glfwTerminate();
 		exit(EXIT_FAILURE);
 	}
@@ -22,7 +29,7 @@ Application::Application()
 
 Application::~Application()
 {
-	glfwDestroyWindow(this->window);
+	glfwDestroyWindow(window);
 	glfwTerminate();
 }
 
@@ -37,12 +44,10 @@ Application& Application::getInstance()
 
 void Application::Run()
 {
-	glfwMakeContextCurrent(this->window);
+	glfwMakeContextCurrent(window);
 	glfwSwapInterval(1);
 
-	// start GLEW extension handler
-	glewExperimental = GL_TRUE;
-	glewInit();
+	StartGLEW();
 
 	// get version info
 	printf("OpenGL Version: %s\n", glGetString(GL_VERSION));
@@ -55,7 +60,7 @@ void Application::Run()
 	printf("Using GLFW %i.%i.%i\n", major, minor, revision);
 
 	int width, height;
-	glfwGetFramebufferSize(this->window, &width, &height);
+	glfwGetFramebufferSize(window, &width, &height);
 	float ratio = width / (float)height;
 	glViewport(0, 0, width, height);
 
@@ -63,7 +68,7 @@ void Application::Run()
 
 	Models::Init();
 
-	while (!glfwWindowShouldClose(this->window)) {
+	while (!glfwWindowShouldClose(window)) {
 		// clear color and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		Shader::Init();
@@ -73,7 +78,7 @@ void Application::Run()
 		// update other events like input handling
 		glfwPollEvents();
 		// put the stuff we�ve been drawing onto the display
-		glfwSwapBuffers(this->window);
+		glfwSwapBuffers(window);
 	}
 
 }

@@ -1,8 +1,6 @@
 ﻿#include <stdio.h>
 #include "Application.h"
 
-// tridu shader(pro vertex a fragment shader), shaderprogram(dava dokupy shadery), shader manager, vertexobject, 
-
 int main(void)
 {
 	/*//inicializace konkretni verze
