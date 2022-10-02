@@ -20,16 +20,16 @@ private:
 	// Model matrix : an identity matrix (model will be at the origin)
 	glm::mat4 Model;
 
-	static GLuint VBO;
-	static GLuint VAO;
+	static GLuint VBO; //vertex buffer object (VBO)
+	static GLuint VAO; //Vertex Array Object (VAO)
 
-	static float points[];
+	static float points[]; //quad for display with colours
 
 	static void GenerateVBO();
 	static void GenerateVAO();
 public:
 	Models();
 
-	static void Init();
-	static void Bind();
+	static void Init(); //for generating VBO and VAO
+	static void Bind(); //binding vertex array
 };

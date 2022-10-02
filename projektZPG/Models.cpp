@@ -1,5 +1,6 @@
 #include "Models.h"
 
+// quad with colours
 float Models::points[] = {
 	-.5f, -.5f, .5f, 1, 1, 1, 0, 1,
    -.5f, .5f, .5f, 1, 1, 0, 0, 1,
@@ -24,7 +25,6 @@ Models::Models()
 void Models::GenerateVBO()
 {
 	//vertex buffer object (VBO)
-
 	glGenBuffers(1, &VBO); // generate the VBO
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
@@ -33,13 +33,12 @@ void Models::GenerateVBO()
 void Models::GenerateVAO()
 {
 	//Vertex Array Object (VAO)
-
 	glGenVertexArrays(1, &VAO); //generate the VAO
 	glBindVertexArray(VAO); //bind the VAO
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(float), NULL);
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(float), NULL); //quad points
 	glEnableVertexAttribArray(0); //enable vertex attributes
-	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (GLvoid*)(4 * sizeof(float)));
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (GLvoid*)(4 * sizeof(float))); //quad colours
 	glEnableVertexAttribArray(1); //enable vertex attributes
 }
 

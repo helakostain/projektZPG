@@ -36,7 +36,7 @@ void Application::Loop()
 		glDrawArrays(GL_TRIANGLE_FAN, 0, 4); //mode,first,count
 		// update other events like input handling
 		glfwPollEvents();
-		// put the stuff we�ve been drawing onto the display
+		// put the stuff weve been drawing onto the display
 		glfwSwapBuffers(window);
 	}
 }

@@ -13,15 +13,15 @@ class Application
 private:
 	GLFWwindow* window;
 
-	static Application* instance;
-	void StartGLEW();
-	void VersionInfo();
-	void Loop();
+	static Application* instance; //singleton variable
+	void StartGLEW(); //initialize GLEW
+	void VersionInfo(); //Writes all Versions to console
+	void Loop(); //main while loop for window
 public:
 	Application();
 	~Application();
 
-	static Application& getInstance();
+	static Application& getInstance(); //allows only one instance at time
 
 	void Run();
 };
