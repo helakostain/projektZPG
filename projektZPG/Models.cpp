@@ -21,13 +21,18 @@ Models::Models()
 	this->Model = glm::mat4(1.0f);
 }
 
-void Models::Init()
+void Models::GenerateVBO()
 {
 	//vertex buffer object (VBO)
 
 	glGenBuffers(1, &VBO); // generate the VBO
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
+}
+
+void Models::Init()
+{
+	GenerateVBO();
 
 	//Vertex Array Object (VAO)
 

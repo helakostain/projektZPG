@@ -24,6 +24,8 @@ private:
 	static GLuint VAO;
 
 	static float points[];
+
+	static void GenerateVBO();
 public:
 	Models();
 
