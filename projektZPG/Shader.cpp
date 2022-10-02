@@ -17,25 +17,42 @@ const char* Shader::fragment_shader =
 "     frag_colour = colour;"
 "}";
 
+GLuint Shader::vertexShader = 0;
+GLuint Shader::fragmentShader = 0;
 GLuint Shader::shaderProgram = 0;
 
 Shader::Shader()
 {
 }
 
-void Shader::ShaderRun()
+void Shader::VertexShader()
 {
-	//create and compile shaders
-	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
+	vertexShader = glCreateShader(GL_VERTEX_SHADER);
 	glShaderSource(vertexShader, 1, &vertex_shader, NULL);
 	glCompileShader(vertexShader);
-	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+}
+
+void Shader::FragmentShader()
+{
+	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
 	glShaderSource(fragmentShader, 1, &fragment_shader, NULL);
 	glCompileShader(fragmentShader);
+}
+
+void Shader::ShaderProgram()
+{
 	shaderProgram = glCreateProgram();
 	glAttachShader(shaderProgram, fragmentShader);
 	glAttachShader(shaderProgram, vertexShader);
 	glLinkProgram(shaderProgram);
+}
+
+void Shader::ShaderRun()
+{
+	//create and compile shaders
+	VertexShader();
+	FragmentShader();
+	ShaderProgram();
 
 	GLint status;
 	glGetProgramiv(shaderProgram, GL_LINK_STATUS, &status);
