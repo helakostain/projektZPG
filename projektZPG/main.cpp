@@ -13,6 +13,6 @@ int main(void)
 	GLFW_OPENGL_CORE_PROFILE);  //*/
 
 	Application::getInstance().Run();
-
+	int x = 0;
 	exit(EXIT_SUCCESS);
 }
