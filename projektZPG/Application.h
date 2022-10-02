@@ -10,11 +10,8 @@
 
 class Application
 {
-private:
-	
-
+private:	
 	const char* vertex_shader;
-
 	const char* fragment_shader;
 
 	GLFWwindow* window;
