@@ -24,6 +24,7 @@ private:
 	static GLuint VAO; //Vertex Array Object (VAO)
 
 	static float points[]; //quad for display with colours
+	static float point2[];
 
 	static void GenerateVBO();
 	static void GenerateVAO();
