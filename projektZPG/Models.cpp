@@ -8,13 +8,6 @@ float Models::points[] = {
    .5f, -.5f, .5f, 1 ,  0, 1, 0, 1 ,
 };
 
-float Models::points2[] = {
-	-1.5f, -.5f, .5f, 1, 1, 1, 0, 1,
-   -1.5f, .5f, .5f, 1, 1, 0, 0, 1,
-   1.5f, .5f, .5f, 1 ,  0, 0, 0, 1 ,
-   1.5f, -.5f, .5f, 1 ,  0, 1, 0, 1 ,
-};
-
 GLuint Models::VAO = 0;
 GLuint Models::VBO = 0;
 
