@@ -9,6 +9,7 @@ class DrawableObject
 private:
 	Models* models;
 	Shader* shaders;
+
 public:
 	DrawableObject();
 

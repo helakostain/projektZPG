@@ -16,7 +16,7 @@ private:
 	static Application* instance; //singleton variable
 	void StartGLEW(); //initialize GLEW
 	void VersionInfo(); //Writes all Versions to console
-	void Loop(); //main while loop for window
+	
 public:
 	Application();
 	~Application();

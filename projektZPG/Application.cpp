@@ -25,22 +25,6 @@ void Application::VersionInfo()
 	printf("Using GLFW %i.%i.%i\n", major, minor, revision);
 }
 
-void Application::Loop()
-{
-	while (!glfwWindowShouldClose(window)) {
-		// clear color and depth buffer
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		Shader::Init();
-		Models::Bind();
-		// draw triangles
-		glDrawArrays(GL_TRIANGLE_FAN, 0, 4); //mode,first,count
-		// update other events like input handling
-		glfwPollEvents();
-		// put the stuff weve been drawing onto the display
-		glfwSwapBuffers(window);
-	}
-}
-
 Application::Application()
 {
 	if (!glfwInit()) {
@@ -87,5 +71,6 @@ void Application::Run()
 
 	Models::Init();
 
-	Loop();
+	Scene scene(window);
+	scene.Run();
 }
