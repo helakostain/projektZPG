@@ -3,7 +3,14 @@
 Scene::Scene(GLFWwindow* in_window)
 {
 	this->window = in_window;
-	this->drawable_object = DrawableObject();
+	this->drawable_object = DrawableObject(std::vector<float>{
+		-0.9f, -0.6f, 0.0f, 1, 1, 1, 0, 1,
+			0.0f, -0.6f, 0.0f, 1, 1, 0, 0, 1,
+			-0.45f, 0.6f, 0.0f, 1, 0, 0, 0, 1});
+	this->drawable_object2 = DrawableObject(std::vector<float>{
+		0.0f, -0.6f, 0.0f, 1, 1, 1, 0, 1,
+			0.9f, -0.6f, 0.0f, 1, 1, 0, 0, 1,
+			0.45f, 0.6f, 0.0f, 1, 0, 0, 0, 1});
 }
 
 

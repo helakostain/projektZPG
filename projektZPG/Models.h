@@ -9,6 +9,7 @@
 
 //Include GLEW
 #include <GL/glew.h>
+#include <vector>
 
 class Models
 {
@@ -20,16 +21,21 @@ private:
 	// Model matrix : an identity matrix (model will be at the origin)
 	glm::mat4 Model;
 
-	static GLuint VBO; //vertex buffer object (VBO)
-	static GLuint VAO; //Vertex Array Object (VAO)
+	GLuint VBO; //vertex buffer object (VBO)
+	GLuint VAO; //Vertex Array Object (VAO)
 
-	static float points[]; //quad for display with colours
+	std::vector<float> points; //quad for display with colours
 
-	static void GenerateVBO();
-	static void GenerateVAO();
+	int size_points;
+
+	static float points_old[];
+
+	void GenerateVBO();
+	void GenerateVAO();
 public:
 	Models();
+	Models(std::vector<float> in_points);
 
-	static void Init(); //for generating VBO and VAO
-	static void Bind(); //binding vertex array
+	void Init(); //for generating VBO and VAO
+	void Bind(); //binding vertex array
 };
