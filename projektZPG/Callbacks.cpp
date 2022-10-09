@@ -3,7 +3,7 @@
 double Callbacks::clickX = 0;
 double Callbacks::clickY = 0;
 
-void Callbacks::errorCallback(int error, const char* description)
+void Callbacks::error_callback(int error, const char* description)
 {
 	printf("This error callback\n");
 	fputs(description, stderr);
@@ -62,7 +62,7 @@ Callbacks::~Callbacks()
 
 void Callbacks::Init(GLFWwindow* window)
 {
-	glfwSetErrorCallback(Callbacks::errorCallback);
+	glfwSetErrorCallback(Callbacks::error_callback);
 	glfwSetKeyCallback(window, Callbacks::key_callback);
 	glfwSetCursorPosCallback(window, Callbacks::cursor_callback);
 	glfwSetMouseButtonCallback(window, Callbacks::button_callback);
