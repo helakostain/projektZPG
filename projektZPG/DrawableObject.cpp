@@ -2,9 +2,12 @@
 
 DrawableObject::DrawableObject()
 {
+    Models::Init();
 }
 
 bool DrawableObject::SetUp()
 {
-    return false;
+    Shader::Init();
+    Models::Bind();
+    return true;
 }
