@@ -1,7 +1,4 @@
 ﻿#include "Application.h"
-#include "Callbacks.h"
-#include "Models.h"
-#include "Shader.h"
 
 Application* Application::instance = nullptr;
 
@@ -68,8 +65,6 @@ void Application::Run()
 	glfwGetFramebufferSize(window, &width, &height);
 	float ratio = width / (float)height;
 	glViewport(0, 0, width, height);
-
-	Models::Init();
 
 	Scene scene(window);
 	scene.Run();

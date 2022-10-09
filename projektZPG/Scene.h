@@ -2,6 +2,7 @@
 #include "DrawableObject.h"
 //Include GLFW
 #include <GLFW/glfw3.h>
+#include "Models.h"
 
 class Scene
 {

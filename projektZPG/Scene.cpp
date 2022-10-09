@@ -23,5 +23,6 @@ void Scene::Loop()
 
 void Scene::Run()
 {
+	Models::Init();
 	Loop();
 }
