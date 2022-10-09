@@ -3,3 +3,8 @@
 DrawableObject::DrawableObject()
 {
 }
+
+bool DrawableObject::SetUp()
+{
+    return false;
+}
