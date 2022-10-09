@@ -2,11 +2,28 @@
 
 Application* Application::instance = nullptr;
 
+void Application::StartGLFW()
+{
+	if (!glfwInit()) {
+		fprintf(stderr, "ERROR: could not start GLFW3\n");
+		exit(EXIT_FAILURE);
+	}
+}
+
 void Application::StartGLEW()
 {
 	// start GLEW extension handler
 	glewExperimental = GL_TRUE;
 	glewInit();
+}
+
+void Application::CreateWindow()
+{
+	window = glfwCreateWindow(800, 600, "ZPG - HAV0262", NULL, NULL);
+	if (!window) {
+		glfwTerminate();
+		exit(EXIT_FAILURE);
+	}
 }
 
 void Application::VersionInfo()
@@ -24,16 +41,8 @@ void Application::VersionInfo()
 
 Application::Application()
 {
-	if (!glfwInit()) {
-		fprintf(stderr, "ERROR: could not start GLFW3\n");
-		exit(EXIT_FAILURE);
-	}
-
-	window = glfwCreateWindow(800, 600, "ZPG - HAV0262", NULL, NULL);
-	if (!window) {
-		glfwTerminate();
-		exit(EXIT_FAILURE);
-	}
+	StartGLFW();
+	CreateWindow();	
 	Callbacks::Init(window);
 }
 
