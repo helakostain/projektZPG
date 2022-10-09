@@ -6,6 +6,7 @@ Scene::Scene(GLFWwindow* in_window)
 	this->drawable_object = DrawableObject();
 }
 
+
 void Scene::Loop()
 {
 	while (!glfwWindowShouldClose(window)) {
