@@ -6,8 +6,8 @@
 class Scene
 {
 private:
-	DrawableObject drawable_object;
-	DrawableObject drawable_object2;
+
+	std::vector<DrawableObject> drawable_object;
 	GLFWwindow* window;
 
 	void Loop(); //main while loop for window

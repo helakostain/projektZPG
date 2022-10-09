@@ -7,22 +7,22 @@
 class Shader
 {
 private:
-	static const char* vertex_shader;
-	static const char* fragment_shader;
+	const char* vertex_shader;
+	const char* fragment_shader;
 
-	static GLuint vertexShader; //vertex shader ID
-	static GLuint fragmentShader; //fragment shader ID
-	static GLuint shaderProgram; //shader program ID
+	GLuint vertexShader; //vertex shader ID
+	GLuint fragmentShader; //fragment shader ID
+	GLuint shaderProgram; //shader program ID
 
-	static void VertexShader(); //create and compile Vertex Shader
-	static void FragmentShader(); //create and compile Fragment Shader
-	static void ShaderProgram(); //create and compile Shader program
+	void VertexShader(); //create and compile Vertex Shader
+	void FragmentShader(); //create and compile Fragment Shader
+	void ShaderProgram(); //create and compile Shader program
 	
-	static void LinkCheck(); //check if all shaders were linked correctly
+	void LinkCheck(); //check if all shaders were linked correctly
 
-	static void ShaderRun(); //create and compiles all shaders
+	void ShaderRun(); //create and compiles all shaders
 public:
-	Shader();
+	Shader(const char* in_vertex_shader, const char* in_fragment_shader);
 
-	static void Init();
+	void Init();
 };

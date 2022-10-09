@@ -13,7 +13,7 @@ Models::Models()
 
 }
 
-Models::Models(std::vector<float> in_points)
+Models::Models(float in_points[], int size_points)
 {
 	this->VAO = 0;
 	this->VBO = 0;
@@ -25,7 +25,7 @@ Models::Models(std::vector<float> in_points)
 	);
 	this->Model = glm::mat4(1.0f);
 	this->points = in_points;
-	this->size_points = in_points.size();
+	this->size_points = size_points;
 }
 
 void Models::GenerateVBO()
@@ -33,7 +33,7 @@ void Models::GenerateVBO()
 	//vertex buffer object (VBO)
 	glGenBuffers(1, &VBO); // generate the VBO
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER,size_points * sizeof(float), points.data(), GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER,size_points * sizeof(float), points, GL_STATIC_DRAW);
 }
 
 void Models::GenerateVAO()
@@ -42,9 +42,9 @@ void Models::GenerateVAO()
 	glGenVertexArrays(1, &VAO); //generate the VAO
 	glBindVertexArray(VAO); //bind the VAO
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(decltype(points)::value_type), NULL); //quad points
+	glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(points), NULL); //quad points
 	glEnableVertexAttribArray(0); //enable vertex attributes
-	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(decltype(points)::value_type), (void*)(4 * sizeof(decltype(points)::value_type))); //quad colours
+	glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 8 * sizeof(points), (void*)(4 * sizeof(points))); //quad colours
 	glEnableVertexAttribArray(1); //enable vertex attributes
 }
 

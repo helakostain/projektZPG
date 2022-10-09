@@ -1,28 +1,13 @@
 #include "Shader.h"
 
-const char* Shader::vertex_shader =
-"#version 330\n"
-"layout(location=0) in vec4 vp;"
-"layout(location=1) in vec4 vp2;"
-"out vec4 colour;"
-"void main () {"
-"     gl_Position = vp;"
-"     colour = vp2;"
-"}";
-const char* Shader::fragment_shader =
-"#version 330\n"
-"in vec4 colour;"
-"out vec4 frag_colour;"
-"void main () {"
-"     frag_colour = colour;"
-"}";
-
-GLuint Shader::vertexShader = 0;
-GLuint Shader::fragmentShader = 0;
-GLuint Shader::shaderProgram = 0;
-
-Shader::Shader()
+Shader::Shader(const char* in_vertex_shader, const char* in_fragment_shader)
 {
+	this->vertexShader = 0;
+	this->fragmentShader = 0;
+	this->shaderProgram = 0;
+	this->vertex_shader = in_vertex_shader;
+	this->fragment_shader = in_fragment_shader;
+	this->Init();
 }
 
 void Shader::VertexShader()

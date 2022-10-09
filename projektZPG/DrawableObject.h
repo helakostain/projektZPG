@@ -11,9 +11,11 @@ private:
 	Shader* shaders;
 	Transformation* transformations;
 
+	static const char* vertex_shader;
+	static const char* fragment_shader;
 public:
 	DrawableObject();
-	DrawableObject(std::vector<float> points);
+	DrawableObject(float points[], int size_points);
 
 	bool SetUp();
 };
