@@ -7,7 +7,7 @@
 class DrawableObject
 {
 private:
-	Models models[2];
+	Models* models;
 	Shader* shaders;
 	Transformation* transformations;
 

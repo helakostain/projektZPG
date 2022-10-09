@@ -6,8 +6,9 @@ DrawableObject::DrawableObject()
 }
 DrawableObject::DrawableObject(std::vector<float> points)
 {
-    models[0] = Models(points);
-    models[0].Init();
+    this->models = new Models(points);
+    this->models->Init();
+
     //Models::Init();
 }
 
