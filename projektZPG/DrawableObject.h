@@ -11,8 +11,8 @@ private:
 	Shader* shaders;
 	Transformation* transformations;
 
-	static const char* vertex_shader;
-	static const char* fragment_shader;
+	const char* vertex_shader;
+	const char* fragment_shader;
 public:
 	DrawableObject();
 	DrawableObject(float points[], int size_points);

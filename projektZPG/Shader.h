@@ -4,9 +4,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+class Camera; // dopredna deklarace (z duvodu krizoveho odkazu)
+
 class Shader
 {
 private:
+	Camera* m_camera;
+
 	const char* vertex_shader;
 	const char* fragment_shader;
 

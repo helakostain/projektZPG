@@ -11,6 +11,8 @@
 #include <GL/glew.h>
 #include <vector>
 
+#include "Camera.h"
+
 class Models
 {
 private:
