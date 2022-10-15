@@ -1,4 +1,5 @@
 #include "Shader.h"
+#include <glm/ext/matrix_float4x4.hpp>
 
 Shader::Shader(const char* in_vertex_shader, const char* in_fragment_shader)
 {
@@ -8,6 +9,16 @@ Shader::Shader(const char* in_vertex_shader, const char* in_fragment_shader)
 	this->vertex_shader = in_vertex_shader;
 	this->fragment_shader = in_fragment_shader;
 	this->Init();
+}
+
+void Shader::UpdateMatrix()
+{
+}
+
+void Shader::setMatrix(glm::mat4 modelMatrix)
+{
+	GLuint MatrixID = glGetUniformLocation(this->shaderProgram, "modelMatrix");
+	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &modelMatrix[0][0]);
 }
 
 void Shader::VertexShader()
@@ -55,6 +66,11 @@ void Shader::ShaderRun()
 	ShaderProgram();
 
 	LinkCheck();
+}
+
+GLint Shader::getUniformLocation(const char* var) const
+{
+	return glGetUniformLocation(this->shaderProgram, var);
 }
 
 void Shader::Init()

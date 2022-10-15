@@ -3,6 +3,7 @@
 #include <GL/glew.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <glm/mat4x4.hpp>
 
 class Camera; // dopredna deklarace (z duvodu krizoveho odkazu)
 
@@ -25,8 +26,12 @@ private:
 	void LinkCheck(); //check if all shaders were linked correctly
 
 	void ShaderRun(); //create and compiles all shaders
+
+	GLint getUniformLocation(const char* var) const;
 public:
 	Shader(const char* in_vertex_shader, const char* in_fragment_shader);
 
+	void UpdateMatrix();
+	void setMatrix(glm::mat4 mvp);
 	void Init();
 };

@@ -13,9 +13,13 @@ private:
 
 	const char* vertex_shader;
 	const char* fragment_shader;
+
+	
 public:
 	DrawableObject();
 	DrawableObject(float points[], int size_points);
 
+	void DoTransformations(const double delta);
+	void sendShaderMatrix();
 	bool SetUp();
 };

@@ -1,5 +1,15 @@
 #include "DrawableObject.h"
 
+void DrawableObject::DoTransformations(const double delta)
+{
+    this->transformations->Update(delta);
+}
+
+void DrawableObject::sendShaderMatrix()
+{
+    this->shaders->setMatrix(this->transformations->matrix());
+}
+
 DrawableObject::DrawableObject()
 {
 
@@ -12,8 +22,9 @@ DrawableObject::DrawableObject(float points[], int size_points)
         "layout(location=0) in vec3 vp;"
         "layout(location=1) in vec3 vp2;"
         "out vec3 colour;"
+        "uniform mat4 modelMatrix;"
         "void main () {"
-        "     gl_Position = vec4(vp, 1.0);"
+        "     gl_Position = modelMatrix * vec4(vp, 1.0);"
         "     colour = vp2;"
         "}";
     this->fragment_shader = 
@@ -25,6 +36,7 @@ DrawableObject::DrawableObject(float points[], int size_points)
         "}";
     this->models = new Models(points, size_points);
     this->models->Init();
+    this->transformations = new Transformation();
     //Models::Init();
 }
 
