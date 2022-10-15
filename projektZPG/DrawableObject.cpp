@@ -9,19 +9,19 @@ DrawableObject::DrawableObject(float points[], int size_points)
 {
     this->vertex_shader = 
         "#version 330\n"
-        "layout(location=0) in vec4 vp;"
-        "layout(location=1) in vec4 vp2;"
-        "out vec4 colour;"
+        "layout(location=0) in vec3 vp;"
+        "layout(location=1) in vec3 vp2;"
+        "out vec3 colour;"
         "void main () {"
-        "     gl_Position = vp;"
+        "     gl_Position = vec4(vp, 1.0);"
         "     colour = vp2;"
         "}";
     this->fragment_shader = 
         "#version 330\n"
-        "in vec4 colour;"
+        "in vec3 colour;"
         "out vec4 frag_colour;"
         "void main () {"
-        "    frag_colour = colour;"
+        "    frag_colour = vec4(colour, 1.0);"
         "}";
     this->models = new Models(points, size_points);
     this->models->Init();

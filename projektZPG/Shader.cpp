@@ -59,6 +59,7 @@ void Shader::ShaderRun()
 
 void Shader::Init()
 {
-	Shader::ShaderRun();
+	//Shader::ShaderRun();
+	this->ShaderRun();
 	glUseProgram(shaderProgram);
 }
