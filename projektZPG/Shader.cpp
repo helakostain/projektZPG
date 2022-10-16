@@ -79,3 +79,11 @@ void Shader::Init()
 	this->ShaderRun();
 	glUseProgram(shaderProgram);
 }
+
+void Shader::updateView(const glm::mat4& view) {
+	//passUniformLocation("viewMatrix", view);
+}
+
+void Shader::updateProjection(const glm::mat4& projection) {
+	//passUniformLocation("projectionMatrix", projection);
+}

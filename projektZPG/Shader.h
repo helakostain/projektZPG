@@ -5,12 +5,13 @@
 #include <stdio.h>
 #include <glm/mat4x4.hpp>
 
-class Camera; // dopredna deklarace (z duvodu krizoveho odkazu)
+#include "CameraObserver.h"
+//class Camera; // dopredna deklarace (z duvodu krizoveho odkazu)
 
-class Shader
+class Shader : public CameraObserver
 {
 private:
-	Camera* m_camera;
+	//Camera* m_camera;
 
 	const char* vertex_shader;
 	const char* fragment_shader;
@@ -34,4 +35,7 @@ public:
 	void UpdateMatrix();
 	void setMatrix(glm::mat4 mvp);
 	void Init();
+
+	void updateView(const glm::mat4& view) override;
+	void updateProjection(const glm::mat4& projection) override;
 };
