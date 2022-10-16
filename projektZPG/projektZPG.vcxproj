@@ -136,6 +136,7 @@
     <ClCompile Include="DrawableObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Models.cpp" />
+    <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Transformation.cpp" />
@@ -144,8 +145,10 @@
     <ClInclude Include="Application.h" />
     <ClInclude Include="Callbacks.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CameraObserver.h" />
     <ClInclude Include="DrawableObject.h" />
     <ClInclude Include="Models.h" />
+    <ClInclude Include="Mouse.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Transformation.h" />
