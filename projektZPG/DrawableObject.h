@@ -22,4 +22,9 @@ public:
 	void DoTransformations(const double delta);
 	void sendShaderMatrix();
 	bool SetUp();
+
+	void setFy(Direction dir);
+	void setFx(Direction dir);
+	void setRot(Rotation r);
+	void setGrow(Growth g);
 };

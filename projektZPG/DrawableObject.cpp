@@ -47,3 +47,17 @@ bool DrawableObject::SetUp()
     //Models::Bind();
     return true;
 }
+
+
+void DrawableObject::setFy(Direction dir) {
+    this->transformations->applyFy(dir);
+}
+void DrawableObject::setFx(Direction dir) {
+    this->transformations->applyFx(dir);
+}
+void DrawableObject::setRot(Rotation r) {
+    this->transformations->setRotation(r);
+}
+void DrawableObject::setGrow(Growth g) {
+    this->transformations->setGrowth(g);
+}

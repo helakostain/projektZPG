@@ -34,16 +34,16 @@ private:
 	glm::vec2 movementDir{ 0.f, 0.f };
 
 	float rotationV = 0;
-	float growthV = 1.0;
+	static constexpr float growthV = 1.0;
 	glm::vec2 forces{ 0.f, 0.f };
 
-	float rotationDec = 1.0;
-	float rotationAcc = 10.5;
-	float rotationMax = 10.0;
+	static constexpr float rotationDec = 1.0;
+	static constexpr float rotationAcc = 10.5;
+	static constexpr float rotationMax = 10.0;
 
-	float acceleration = 1.0;
-	float deceleration = 0.5;
-	float maxV = 10.0;
+	static constexpr float acceleration = 1.0;
+	static constexpr float deceleration = 0.5;
+	static constexpr float maxV = 10.0;
 
 	static float capV(float current, float max);
 	static float calcNewV(float current, float acc, float dec);
@@ -52,15 +52,22 @@ private:
 	void translate(glm::vec3 delta);
 	void scale(glm::vec3 scales);
 
+	static float getAcc(Direction dir);
 
+	void updateForces(const float dt);
 	void updateRotation(const float dt);
 	void updateGrowth(const float dt);
-	void updateScale(const float dt);
-	void updateForces(float dt);
 public:
 	Transformation();
 
 	const glm::mat4& matrix() const;
 
 	void Update(const float deltaT);
+
+	void applyForce(Direction dx, Direction dy);
+	void applyFx(Direction dir);
+	void applyFy(Direction dir);
+
+	void setGrowth(Growth growth);
+	void setRotation(Rotation rotation);
 };

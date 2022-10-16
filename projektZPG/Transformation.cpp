@@ -55,7 +55,7 @@ void Transformation::updateRotation(const float dt) {
 	rotate(rotationV * dt, glm::vec3(0.f, 0.f, 1.f));
 }
 
-void Transformation::updateScale(const float dt) {
+void Transformation::updateForces(const float dt) {
 
 	const float dec = deceleration * dt;
 	const float acc = acceleration * dt;
@@ -72,5 +72,30 @@ void Transformation::Update(const float deltaT)
 {
 	updateGrowth(deltaT);
 	updateRotation(deltaT);
-	updateScale(deltaT);
+	updateForces(deltaT);
+}
+
+float Transformation::getAcc(Direction dir) {
+	return acceleration * (int)dir;
+}
+
+void Transformation::applyFy(Direction dir) {
+	this->movementDir.y = getAcc(dir);
+}
+
+void Transformation::applyFx(Direction dir) {
+	this->movementDir.x = getAcc(dir);
+}
+
+void Transformation::applyForce(Direction dx, Direction dy) {
+	applyFx(dx);
+	applyFy(dy);
+}
+
+void Transformation::setGrowth(Growth direction) {
+	this->growthDir = direction;
+}
+
+void Transformation::setRotation(Rotation direction) {
+	this->rotationDir = direction;
 }
