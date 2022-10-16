@@ -11,15 +11,17 @@ float points2[]{
 Scene::Scene(GLFWwindow* in_window)
 {
 	this->window = in_window;
-	
+	this->drawable_object.emplace_back(DrawableObject(points, sizeof(points)));
+	this->drawable_object.emplace_back(DrawableObject(points2, sizeof(points2)));
+	this->camera.emplace();
+	Callbacks::Init(window,drawable_object, camera);
+
 	
 }
 
 
 void Scene::Loop()
 {
-	this->drawable_object.push_back(DrawableObject(points, sizeof(points)));
-	this->drawable_object.push_back(DrawableObject(points2, sizeof(points2)));
 	TimePoint lastTime = std::chrono::high_resolution_clock::now();
 	while (!glfwWindowShouldClose(window)) {
 		// clear color and depth buffer

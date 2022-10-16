@@ -43,7 +43,7 @@ Application::Application()
 {
 	StartGLFW();
 	CreateWindow();	
-	Callbacks::Init(window);
+	//Callbacks::Init(window);
 }
 
 Application::~Application()

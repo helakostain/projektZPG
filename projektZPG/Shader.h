@@ -1,9 +1,11 @@
 #pragma once
 //Include GLEW
 #include <GL/glew.h>
-#include <stdlib.h>
-#include <stdio.h>
+
 #include <glm/mat4x4.hpp>
+
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "CameraObserver.h"
 //class Camera; // dopredna deklarace (z duvodu krizoveho odkazu)

@@ -1,6 +1,6 @@
 #pragma once
-#include <glm/mat4x4.hpp> // glm::mat4
 #include <GL/glew.h>
+#include <glm/mat4x4.hpp> // glm::mat4
 #include <utility>
 #include <exception>
 

@@ -17,16 +17,6 @@ Models::Models(float in_points[], int size_points)
 {
 	this->VAO = 0;
 	this->VBO = 0;
-	//this->Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.01f, 100.0f);
-	this->Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
-	/*this->View = glm::lookAt(
-		glm::vec3(10, 10, 10), // Camera is at (4,3,-3), in World Space
-		glm::vec3(0, 0, 0), // and looks at the origin
-		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
-	);*/
-	Camera camera = Camera();
-	this->View = camera.getCamera();
-	this->Model = glm::mat4(1.0f);
 	this->points = in_points;
 	this->size_points = size_points;
 }

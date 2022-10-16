@@ -11,18 +11,11 @@
 #include <GL/glew.h>
 #include <vector>
 
-#include "Camera.h"
+#include "Camera.hpp"
 
 class Models
 {
 private:
-	// Projection matrix : 45 Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
-	glm::mat4 Projection;
-	// Camera matrix
-	glm::mat4 View;
-	// Model matrix : an identity matrix (model will be at the origin)
-	glm::mat4 Model;
-
 	GLuint VBO; //vertex buffer object (VBO)
 	GLuint VAO; //Vertex Array Object (VAO)
 

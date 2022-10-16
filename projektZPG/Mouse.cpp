@@ -72,7 +72,9 @@ void Mouse::notifyObservers(const Mouse::Action action, const MouseData& md) {
 	}
 }
 
-Mouse::Mouse() = default;
+Mouse::Mouse() {
+
+}
 
 MouseObserver::MouseObserver() {
 	Mouse::instance().registerObserver(*this);

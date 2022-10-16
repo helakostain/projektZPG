@@ -1,13 +1,23 @@
 #pragma once
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <vector>
+#include <optional>
+#include "DrawableObject.h"
+#include "Camera.hpp"
+#include "Mouse.h"
+#include "Scene.h"
 
 class Callbacks
 {
 private:
 	static double clickX;
 	static double clickY;
+
+	static std::vector<DrawableObject> drawableObj;
+	static std::optional<Camera> camera;
 
 	static void error_callback(int error, const char* description);
 	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -21,5 +31,5 @@ public:
 	Callbacks();
 	~Callbacks();
 
-	static void Init(GLFWwindow* window);
+	static void Init(GLFWwindow* window, std::vector<DrawableObject>& dO, std::optional<Camera>& camera);
 };
