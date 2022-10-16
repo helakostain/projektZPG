@@ -18,10 +18,10 @@
 class Camera : MouseObserver
 {
 private:
-	glm::mat4 projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
+	glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
 
 	glm::vec3 eye{ 0.f, 1.f, 3.f }; // Camera is at (4,3,-3), in World Space
-	glm::vec3 target{ 0.f }; // and looks at the origin
+	glm::vec3 target{ 0.f, 0.f, 0.f }; // and looks at the origin
 	glm::vec3 up{ 0.f, 1.f, 0.f };  // Head is up (set to 0,-1,0 to look upside-down)
 
 	std::vector<std::reference_wrapper<CameraObserver>> observers;

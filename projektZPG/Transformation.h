@@ -49,7 +49,7 @@ private:
 	static float calcNewV(float current, float acc, float dec);
 
 	void rotate(float degree, glm::vec3 axis);
-	void translate(glm::vec3 delta);
+	//void translate(glm::vec3 delta);
 	void scale(glm::vec3 scales);
 
 	static float getAcc(Direction dir);
@@ -59,7 +59,7 @@ private:
 	void updateGrowth(const float dt);
 public:
 	Transformation();
-
+	void translate(glm::vec3 delta);
 	const glm::mat4& matrix() const;
 
 	void Update(const float deltaT);

@@ -31,5 +31,5 @@ public:
 	Callbacks();
 	~Callbacks();
 
-	static void Init(GLFWwindow* window, std::vector<DrawableObject>& dO, std::optional<Camera>& camera);
+	static void Init(GLFWwindow* window, std::vector<DrawableObject>& dO, Camera &camera);
 };

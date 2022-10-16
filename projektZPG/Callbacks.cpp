@@ -76,7 +76,8 @@ void Callbacks::key_callback(GLFWwindow* window, int key, int scancode, int acti
 
 void Callbacks::cursor_callback(GLFWwindow* window, double x, double y)
 {
-	printf("cursor_callback %d, %d; %d, %d \n", (int)x, (int)y, (int)clickX, (int)clickY);
+	//printf("cursor_callback %d, %d; %d, %d \n", (int)x, (int)y, (int)clickX, (int)clickY);
+    Mouse::instance().mouseMove((int)x, (int)y);
 }
 
 void Callbacks::button_callback(GLFWwindow* window, int button, int action, int mode)
@@ -117,7 +118,7 @@ Callbacks::~Callbacks()
 
 }
 
-void Callbacks::Init(GLFWwindow* window, std::vector<DrawableObject> &dO, std::optional<Camera> &cam)
+void Callbacks::Init(GLFWwindow* window, std::vector<DrawableObject> &dO, Camera &cam)
 {
     Callbacks::camera = cam;
     Callbacks::drawableObj = dO;
@@ -144,7 +145,7 @@ void Callbacks::Init(GLFWwindow* window, std::vector<DrawableObject> &dO, std::o
 	glfwSetErrorCallback(Callbacks::error_callback);
 	glfwSetKeyCallback(window, Callbacks::key_callback);
 	glfwSetCursorPosCallback(window, Callbacks::cursor_callback);
-	glfwSetMouseButtonCallback(window, Callbacks::button_callback);
+	glfwSetMouseButtonCallback(window, mouseButton);
 	glfwSetWindowFocusCallback(window, Callbacks::window_focus_callback);
 	glfwSetWindowIconifyCallback(window, Callbacks::window_iconify_callback);
 	glfwSetWindowSizeCallback(window, Callbacks::window_size_callback);

@@ -14,6 +14,7 @@ void Camera::apply() {
 	for (auto ref : observers) {
 		ref.get().updateView(camera);
 		ref.get().updateProjection(projection);
+		ref.get().updatePosition(eye);
 	}
 }
 
@@ -43,7 +44,7 @@ void Camera::updateAngle(const float dt) {
 
 	capAngles();
 
-	changeMade = changeMade or dFi or dPsi;
+	changeMade = changeMade || dFi || dPsi;
 
 }
 
@@ -60,7 +61,7 @@ void Camera::updateForwardMovement(const float dt) {
 	eye.y += dy;
 	eye.z += dz;
 
-	changeMade = changeMade or dx or dy or dz;
+	changeMade = changeMade || dx || dy || dz;
 
 }
 
@@ -109,7 +110,7 @@ void Camera::onMouseMove(const MouseData& md) {
 
 	capAngles();
 
-	changeMade = dFi or dPsi;
+	changeMade = dFi || dPsi;
 
 }
 

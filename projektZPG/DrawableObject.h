@@ -27,4 +27,7 @@ public:
 	void setFx(Direction dir);
 	void setRot(Rotation r);
 	void setGrow(Growth g);
+
+	Shader& getShader();
+	void Pos_mov(glm::vec3 a);
 };

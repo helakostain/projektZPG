@@ -1,5 +1,6 @@
 #include "Shader.h"
 #include <glm/ext/matrix_float4x4.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 Shader::Shader(const char* in_vertex_shader, const char* in_fragment_shader)
 {
@@ -17,6 +18,9 @@ void Shader::UpdateMatrix()
 
 void Shader::setMatrix(glm::mat4 modelMatrix)
 {
+	//GLuint MatrixID = glGetUniformLocation(this->shaderProgram, "modelMatrix");
+	//glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &modelMatrix[0][0]);
+	//passUniformLocation("modelMatrix", modelMatrix);
 	GLuint MatrixID = glGetUniformLocation(this->shaderProgram, "modelMatrix");
 	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &modelMatrix[0][0]);
 }
@@ -68,9 +72,40 @@ void Shader::ShaderRun()
 	LinkCheck();
 }
 
-GLint Shader::getUniformLocation(const char* var) const
+GLint Shader::getUniformLocation(const std::string& var) const 
 {
-	return glGetUniformLocation(this->shaderProgram, var);
+	return getUniformLocation(var.c_str());
+}
+
+GLint Shader::getUniformLocation(const char* var) const {
+	return glGetUniformLocation(shaderProgram, var);
+}
+
+void Shader::passUniformLocation(const std::string& var, const glm::mat4& matrix) const {
+	passUniformLocation(var.c_str(), matrix);
+}
+
+void Shader::passUniformLocation(const char* var, const glm::mat4& matrix) const {
+	const auto model = getUniformLocation(var);
+	glUniformMatrix4fv(model, 1, GL_FALSE, glm::value_ptr(matrix));
+}
+
+void Shader::passUniformLocation(const std::string& var, const glm::vec3& vector) const {
+	passUniformLocation(var.c_str(), vector);
+}
+
+void Shader::passUniformLocation(const char* var, const glm::vec3& vector) const {
+	const auto location = getUniformLocation(var);
+	glProgramUniform3f(shaderProgram, location, vector.x, vector.y, vector.z);
+}
+
+void Shader::passUniformLocation(const std::string& var, const glm::mat3& matrix) const {
+	passUniformLocation(var.c_str(), matrix);
+}
+
+void Shader::passUniformLocation(const char* var, const glm::mat3& matrix) const {
+	const auto location = getUniformLocation(var);
+	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
 void Shader::Init()
@@ -81,9 +116,18 @@ void Shader::Init()
 }
 
 void Shader::updateView(const glm::mat4& view) {
-	//passUniformLocation("viewMatrix", view);
+	passUniformLocation("viewMatrix", view);
 }
 
 void Shader::updateProjection(const glm::mat4& projection) {
-	//passUniformLocation("projectionMatrix", projection);
+	passUniformLocation("projectionMatrix", projection);
+}
+
+void Shader::updatePosition(const glm::vec3& position) {
+	passUniformLocation("cameraPosition", position);
+}
+
+void Shader::shaderUseProgram()
+{
+	glUseProgram(shaderProgram);
 }

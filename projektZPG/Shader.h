@@ -8,6 +8,7 @@
 #include <stdlib.h>
 
 #include "CameraObserver.h"
+#include <string>
 //class Camera; // dopredna deklarace (z duvodu krizoveho odkazu)
 
 class Shader : public CameraObserver
@@ -30,6 +31,16 @@ private:
 
 	void ShaderRun(); //create and compiles all shaders
 
+	//GLint getUniformLocation(const char* var) const;
+
+	void passUniformLocation(const std::string& var, const glm::mat4& matrix) const;
+	void passUniformLocation(const char* var, const glm::mat4& matrix) const;
+	void passUniformLocation(const std::string& var, const glm::mat3& matrix) const;
+	void passUniformLocation(const char* var, const glm::mat3& matrix) const;
+	void passUniformLocation(const std::string& var, const glm::vec3& vector) const;
+	void passUniformLocation(const char* var, const glm::vec3& vector) const;
+
+	GLint getUniformLocation(const std::string& var) const;
 	GLint getUniformLocation(const char* var) const;
 public:
 	Shader(const char* in_vertex_shader, const char* in_fragment_shader);
@@ -40,4 +51,7 @@ public:
 
 	void updateView(const glm::mat4& view) override;
 	void updateProjection(const glm::mat4& projection) override;
+	void updatePosition(const glm::vec3& position) override;
+
+	void shaderUseProgram();
 };
