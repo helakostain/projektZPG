@@ -20,7 +20,7 @@ Scene::Scene(GLFWwindow* in_window)
 		camera.addObserver(this->drawable_object[i].getShader());
 	}
 	
-	Callbacks::Init(window, drawable_object, std::ref(camera));
+	Callbacks::Init(window, std::ref(drawable_object), std::ref(camera));
 }
 
 
