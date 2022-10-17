@@ -26,7 +26,7 @@ DrawableObject::DrawableObject(float points[], int size_points)
         "uniform mat4 viewMatrix;"
         "uniform mat4 projectionMatrix;"
         "void main () {"
-        "     gl_Position = (projectionMatrix * modelMatrix * viewMatrix) * vec4(vp, 1.0);"
+        "     gl_Position = (projectionMatrix * viewMatrix * modelMatrix) * vec4(vp, 1.0);"
         "     colour = vp2;"
         "}";
     this->fragment_shader = 
