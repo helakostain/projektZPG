@@ -19,7 +19,7 @@ private:
 	GLuint VBO; //vertex buffer object (VBO)
 	GLuint VAO; //Vertex Array Object (VAO)
 
-	float* points; //quad for display with colours
+	const float* points; //quad for display with colours
 
 	int size_points;
 
@@ -29,7 +29,7 @@ private:
 	void GenerateVAO();
 public:
 	Models();
-	Models(float in_points[], int size_points);
+	Models(const float in_points[], int size_points);
 
 	void Init(); //for generating VBO and VAO
 	void Bind(); //binding vertex array

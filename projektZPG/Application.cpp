@@ -19,7 +19,8 @@ void Application::StartGLEW()
 
 void Application::CreateWindow()
 {
-	window = glfwCreateWindow(800, 600, "ZPG - HAV0262", NULL, NULL);
+	//window = glfwCreateWindow(800, 600, "ZPG - HAV0262", NULL, NULL);
+	window = glfwCreateWindow(1024, 768, "ZPG - HAV0262", NULL, NULL); 
 	if (!window) {
 		glfwTerminate();
 		exit(EXIT_FAILURE);
@@ -74,7 +75,7 @@ void Application::Run()
 	glfwGetFramebufferSize(window, &width, &height);
 	float ratio = width / (float)height;
 	glViewport(0, 0, width, height);
-
+	glEnable(GL_DEPTH_TEST);
 	Scene scene(window);
 	scene.Run();
 }

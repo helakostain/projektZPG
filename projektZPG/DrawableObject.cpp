@@ -15,7 +15,7 @@ DrawableObject::DrawableObject()
 
 }
 
-DrawableObject::DrawableObject(float points[], int size_points)
+DrawableObject::DrawableObject(const float points[], int size_points)
 {
     this->vertex_shader = 
         "#version 330\n"

@@ -13,7 +13,7 @@ Models::Models()
 
 }
 
-Models::Models(float in_points[], int size_points)
+Models::Models(const float in_points[], int size_points)
 {
 	this->VAO = 0;
 	this->VBO = 0;

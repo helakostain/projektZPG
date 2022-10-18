@@ -17,7 +17,7 @@ private:
 	
 public:
 	DrawableObject();
-	DrawableObject(float points[], int size_points);
+	DrawableObject(const float points[], int size_points);
 
 	void DoTransformations(const double delta);
 	void sendShaderMatrix();
