@@ -12,8 +12,9 @@
 
 #include "Observer.h"
 #include "Camera.hpp"
+#include "ShaderLoader.h"
 
-class Shader : public Observer
+class Shader : public Observer, public ShaderLoader
 {
 private:
 	const char* vertex_shader;
@@ -39,7 +40,7 @@ private:
 	GLint getUniformLocation(const std::string& var) const;
 	GLint getUniformLocation(const char* var) const;
 public:
-	Shader(const char* in_vertex_shader, const char* in_fragment_shader);
+	Shader(const char* vertex_path, const char* fragment_path);
 
 	void UpdateMatrix();
 	void setMatrix(glm::mat4 mvp);

@@ -162,6 +162,9 @@
     <ClInclude Include="Transformation.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Blinn.txt" />
+    <Text Include="defaultfragment.txt" />
+    <Text Include="defaultvertex.txt" />
     <Text Include="LightShader.txt" />
     <Text Include="Phong.txt" />
   </ItemGroup>

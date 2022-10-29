@@ -89,14 +89,14 @@ GLint Shader::getUniformLocation(const char* var) const
 	return glGetUniformLocation(shaderProgram, var);
 }
 
-Shader::Shader(const char* in_vertex_shader, const char* in_fragment_shader)
+Shader::Shader(const char* vertex_path, const char* fragment_path) : ShaderLoader(vertex_path, fragment_path, &this->shaderProgram)
 {
-	this->vertexShader = 0;
-	this->fragmentShader = 0;
-	this->shaderProgram = 0;
-	this->vertex_shader = in_vertex_shader;
-	this->fragment_shader = in_fragment_shader;
-	this->Init();
+	//this->vertexShader = 0;
+	//this->fragmentShader = 0;
+	//this->shaderProgram = 0;
+	this->vertex_shader = vertex_path;
+	this->fragment_shader = fragment_path;
+	//this->Init();
 }
 
 void Shader::UpdateMatrix()
@@ -111,7 +111,7 @@ void Shader::setMatrix(glm::mat4 modelMatrix)
 
 void Shader::Init()
 {
-	this->ShaderRun();
+	//this->ShaderRun();
 	glUseProgram(shaderProgram);
 }
 

@@ -16,7 +16,7 @@ private:
 	const char* fragment_shader;
 public:
 	DrawableObject();
-	DrawableObject(const float points[], int size_points);
+	DrawableObject(const float points[], int size_points, const char* vertex_path, const char* fragment_path);
 
 	void DoTransformations(const double delta);
 	void sendShaderMatrix();

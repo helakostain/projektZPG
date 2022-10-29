@@ -112,5 +112,14 @@
     <Text Include="LightShader.txt">
       <Filter>Soubory zdrojů\Vertexes</Filter>
     </Text>
+    <Text Include="Blinn.txt">
+      <Filter>Soubory zdrojů\Fragments</Filter>
+    </Text>
+    <Text Include="defaultfragment.txt">
+      <Filter>Soubory zdrojů\Fragments</Filter>
+    </Text>
+    <Text Include="defaultvertex.txt">
+      <Filter>Soubory zdrojů\Vertexes</Filter>
+    </Text>
   </ItemGroup>
 </Project>

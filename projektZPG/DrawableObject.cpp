@@ -4,9 +4,9 @@ DrawableObject::DrawableObject()
 {
 }
 
-DrawableObject::DrawableObject(const float points[], int size_points)
+DrawableObject::DrawableObject(const float points[], int size_points, const char* vertex_path, const char* fragment_path)
 {
-    this->vertex_shader =
+    /*this->vertex_shader =
         "#version 330\n"
         "layout(location=0) in vec3 vp;"
         "layout(location=1) in vec3 vp2;"
@@ -25,10 +25,10 @@ DrawableObject::DrawableObject(const float points[], int size_points)
         "void main () {"
         "    frag_colour = vec4(colour, 1.0);"
         "}";
-
+    */
     this->models = new Models(points, size_points);
     this->models->Init();
-    this->shaders = new Shader(vertex_shader, fragment_shader);
+    this->shaders = new Shader(vertex_path, fragment_path);
     this->transformations = new Transformation();
 }
 
@@ -44,6 +44,7 @@ void DrawableObject::sendShaderMatrix()
 
 bool DrawableObject::SetUp()
 {
+    this->shaders->Init();
     this->models->Bind();
     return true;
 }
