@@ -1,16 +1,19 @@
 #pragma once
-#include "DrawableObject.h"
-#include "Camera.hpp"
-#include "Shader.h"
-#include "Callbacks.h"
-#include "Observer.h"
-//Include GLFW
-#include <GLFW/glfw3.h>
+
 #include <chrono>
 #include <optional>
 #include <iostream>
 #include <functional>
 #include <vector>
+
+#include "DrawableObject.h"
+#include "Camera.hpp"
+#include "Shader.h"
+#include "Callbacks.h"
+#include "Observer.h"
+
+//Include GLFW
+#include <GLFW/glfw3.h> // DO NOT MOVE UP!!!!!!
 
 class Scene
 {

@@ -13,13 +13,12 @@ class Application
 {
 private:
 	GLFWwindow* window;
-
 	static Application* instance; //singleton variable
+
 	void StartGLFW(); //initialize GLFW
 	void StartGLEW(); //initialize GLEW
 	void CreateWindow();
 	void VersionInfo(); //Writes all Versions to console
-	
 public:
 	Application();
 	~Application();

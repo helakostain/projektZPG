@@ -14,6 +14,7 @@ struct Observer {
 };
 
 class Observable {
+private:
 	mutable std::vector<Observer*> observers;
 public:
 	void registerObserver(Observer& obs);

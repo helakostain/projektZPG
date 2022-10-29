@@ -13,9 +13,6 @@ void Callbacks::error_callback(int error, const char* description)
 
 void Callbacks::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
 {
-	/*if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, GL_TRUE);
-	printf("key_callback [%d,%d,%d,%d] \n", key, scancode, action, mods);*/
     if (key == GLFW_KEY_ESCAPE and action == GLFW_PRESS) {
         glfwSetWindowShouldClose(window, GL_TRUE);
     }
@@ -76,7 +73,6 @@ void Callbacks::key_callback(GLFWwindow* window, int key, int scancode, int acti
 
 void Callbacks::cursor_callback(GLFWwindow* window, double x, double y)
 {
-	//printf("cursor_callback %d, %d; %d, %d \n", (int)x, (int)y, (int)clickX, (int)clickY);
     Mouse::instance().mouseMove((int)x, (int)y);
 }
 
@@ -110,12 +106,10 @@ void Callbacks::window_size_callback(GLFWwindow* window, int width, int height)
 
 Callbacks::Callbacks()
 {
-
 }
 
 Callbacks::~Callbacks()
 {
-
 }
 
 void Callbacks::Init(GLFWwindow* window, std::vector<DrawableObject> &dO, Camera *cam)

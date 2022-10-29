@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <vector>
 #include <optional>
+
 #include "DrawableObject.h"
 #include "Camera.hpp"
 #include "Mouse.h"
@@ -15,7 +16,6 @@ class Callbacks
 private:
 	static double clickX;
 	static double clickY;
-
 	static std::vector<DrawableObject> drawableObj;
 	static Camera* camera;
 

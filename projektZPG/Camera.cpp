@@ -1,36 +1,33 @@
 #include "Camera.hpp"
 
-Camera::Camera()
+void Camera::updateCameraMatrix() 
 {
-	updateCameraMatrix();
-}
-
-void Camera::updateCameraMatrix() {
 	camera = glm::lookAt(eye, eye + target, up);
 }
 
-void Camera::apply() {
-	notifyObservers(EventType::CameraMoved, this);
+void Camera::calcTarget() 
+{
+	target = glm::vec3{ 
+		std::cos(fi),
+		std::sin(psi),
+		std::sin(fi) 
+	};
 }
 
-void Camera::moveSideways(Direction dir) {
-	sidewaysMovement = (int)dir;
+void Camera::capAngles() 
+{
+	if (fi < 0) 
+	{
+		fi += 360.f;
+	}
+	fi = std::fmod(fi, 360.f);
+
+	psi = std::max(psi, -85.f);
+	psi = std::min(psi, 85.f);
 }
 
-void Camera::moveForward(Direction dir) {
-	forwardMovement = (int)dir;
-}
-
-void Camera::rotateHor(Direction dir) {
-	hRotate = (int)dir;
-}
-
-void Camera::rotateVer(Direction dir) {
-	vRotate = (int)dir;
-}
-
-void Camera::updateAngle(const float dt) {
-
+void Camera::updateAngle(const float dt) 
+{
 	const float dFi = hRotate * dt * rotationSpeed;
 	const float dPsi = vRotate * dt * rotationSpeed;
 
@@ -40,11 +37,10 @@ void Camera::updateAngle(const float dt) {
 	capAngles();
 
 	changeMade = changeMade || dFi || dPsi;
-
 }
 
-void Camera::updateForwardMovement(const float dt) {
-
+void Camera::updateForwardMovement(const float dt) 
+{
 	const float sideways = sidewaysMovement * dt * moveSpeed;
 	const float forward = forwardMovement * dt * moveSpeed;
 
@@ -57,40 +53,64 @@ void Camera::updateForwardMovement(const float dt) {
 	eye.z += dz;
 
 	changeMade = changeMade || dx || dy || dz;
-
 }
 
-void Camera::update(const float dt) {
+Camera::Camera()
+{
+	updateCameraMatrix();
+}
 
+void Camera::setPosition(glm::vec3 pos)
+{
+	eye = pos;
+	calcTarget();
+	updateCameraMatrix();
+	apply();
+}
+
+void Camera::moveSideways(Direction dir) 
+{
+	sidewaysMovement = (int)dir;
+}
+
+void Camera::moveForward(Direction dir) 
+{
+	forwardMovement = (int)dir;
+}
+
+void Camera::rotateHor(Direction dir) 
+{
+	hRotate = (int)dir;
+}
+
+void Camera::rotateVer(Direction dir) 
+{
+	vRotate = (int)dir;
+}
+
+void Camera::update(const float dt) 
+{
 	updateAngle(dt);
 	updateForwardMovement(dt);
 	calcTarget();
 	updateCameraMatrix();
 
-	if (changeMade) {
+	if (changeMade) 
+	{
 		apply();
 		changeMade = false;
 	}
 }
 
-void Camera::capAngles() {
-
-	if (fi < 0) {
-		fi += 360.f;
-	}
-	fi = std::fmod(fi, 360.f);
-
-	psi = std::max(psi, -85.f);
-	psi = std::min(psi, 85.f);
+void Camera::apply() 
+{
+	notifyObservers(EventType::CameraMoved, this);
 }
 
-void Camera::calcTarget() {
-	target = glm::vec3{ std::cos(fi), std::sin(psi), std::sin(fi) };
-}
-
-void Camera::onMouseMove(const MouseData& md) {
-
-	if (not md.lbPressed()) {
+void Camera::onMouseMove(const MouseData& md) 
+{
+	if (not md.lbPressed()) 
+	{
 		return;
 	}
 
@@ -112,28 +132,25 @@ void Camera::onMouseMove(const MouseData& md) {
 	}
 }
 
-void Camera::setPosition(glm::vec3 pos)
+void Camera::notify(EventType eventType, void* object) 
 {
-	eye = pos;
-	calcTarget();
-	updateCameraMatrix();
-	apply();
-}
-
-glm::mat4 Camera::view() const {
-	return camera;
-}
-
-glm::mat4 Camera::project() const {
-	return projection;
-}
-
-void Camera::notify(EventType eventType, void* object) {
-	if (eventType == EventType::MouseMoved) {
+	if (eventType == EventType::MouseMoved) 
+	{
 		onMouseMove(((Mouse*)object)->data());
 	}
 }
 
-glm::vec3 Camera::position() const {
+glm::mat4 Camera::view() const 
+{
+	return camera;
+}
+
+glm::mat4 Camera::project() const 
+{
+	return projection;
+}
+
+glm::vec3 Camera::position() const 
+{
 	return eye;
 }

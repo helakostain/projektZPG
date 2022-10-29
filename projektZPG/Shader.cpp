@@ -1,28 +1,5 @@
 #include "Shader.h"
 
-Shader::Shader(const char* in_vertex_shader, const char* in_fragment_shader)
-{
-	this->vertexShader = 0;
-	this->fragmentShader = 0;
-	this->shaderProgram = 0;
-	this->vertex_shader = in_vertex_shader;
-	this->fragment_shader = in_fragment_shader;
-	this->Init();
-}
-
-void Shader::UpdateMatrix()
-{
-}
-
-void Shader::setMatrix(glm::mat4 modelMatrix)
-{
-	//GLuint MatrixID = glGetUniformLocation(this->shaderProgram, "modelMatrix");
-	//glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &modelMatrix[0][0]);
-	//passUniformLocation("modelMatrix", modelMatrix);
-	GLuint MatrixID = glGetUniformLocation(this->shaderProgram, "modelMatrix");
-	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &modelMatrix[0][0]);
-}
-
 void Shader::VertexShader()
 {
 	vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -60,9 +37,8 @@ void Shader::LinkCheck()
 	}
 }
 
-void Shader::ShaderRun()
+void Shader::ShaderRun() //create and compile shaders
 {
-	//create and compile shaders
 	VertexShader();
 	FragmentShader();
 	ShaderProgram();
@@ -70,58 +46,92 @@ void Shader::ShaderRun()
 	LinkCheck();
 }
 
-GLint Shader::getUniformLocation(const std::string& var) const 
+void Shader::passUniformLocation(const std::string& var, const glm::mat4& matrix) const 
 {
-	return getUniformLocation(var.c_str());
-}
-
-GLint Shader::getUniformLocation(const char* var) const {
-	return glGetUniformLocation(shaderProgram, var);
-}
-
-void Shader::passUniformLocation(const std::string& var, const glm::mat4& matrix) const {
 	passUniformLocation(var.c_str(), matrix);
 }
 
-void Shader::passUniformLocation(const char* var, const glm::mat4& matrix) const {
+void Shader::passUniformLocation(const char* var, const glm::mat4& matrix) const 
+{
 	const auto model = getUniformLocation(var);
 	glUniformMatrix4fv(model, 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
-void Shader::passUniformLocation(const std::string& var, const glm::vec3& vector) const {
+void Shader::passUniformLocation(const std::string& var, const glm::vec3& vector) const 
+{
 	passUniformLocation(var.c_str(), vector);
 }
 
-void Shader::passUniformLocation(const char* var, const glm::vec3& vector) const {
+void Shader::passUniformLocation(const char* var, const glm::vec3& vector) const 
+{
 	const auto location = getUniformLocation(var);
 	glProgramUniform3f(shaderProgram, location, vector.x, vector.y, vector.z);
 }
 
-void Shader::passUniformLocation(const std::string& var, const glm::mat3& matrix) const {
+void Shader::passUniformLocation(const std::string& var, const glm::mat3& matrix) const 
+{
 	passUniformLocation(var.c_str(), matrix);
 }
 
-void Shader::passUniformLocation(const char* var, const glm::mat3& matrix) const {
+void Shader::passUniformLocation(const char* var, const glm::mat3& matrix) const 
+{
 	const auto location = getUniformLocation(var);
 	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
+GLint Shader::getUniformLocation(const std::string& var) const
+{
+	return getUniformLocation(var.c_str());
+}
+
+GLint Shader::getUniformLocation(const char* var) const 
+{
+	return glGetUniformLocation(shaderProgram, var);
+}
+
+Shader::Shader(const char* in_vertex_shader, const char* in_fragment_shader)
+{
+	this->vertexShader = 0;
+	this->fragmentShader = 0;
+	this->shaderProgram = 0;
+	this->vertex_shader = in_vertex_shader;
+	this->fragment_shader = in_fragment_shader;
+	this->Init();
+}
+
+void Shader::UpdateMatrix()
+{
+}
+
+void Shader::setMatrix(glm::mat4 modelMatrix)
+{
+	GLuint MatrixID = glGetUniformLocation(this->shaderProgram, "modelMatrix");
+	glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &modelMatrix[0][0]);
+}
+
 void Shader::Init()
 {
-	//Shader::ShaderRun();
 	this->ShaderRun();
 	glUseProgram(shaderProgram);
 }
 
-void Shader::updateView(const glm::mat4& view) {
+void Shader::shaderUseProgram()
+{
+	glUseProgram(shaderProgram);
+}
+
+void Shader::updateView(const glm::mat4& view) 
+{
 	passUniformLocation("viewMatrix", view);
 }
 
-void Shader::updateProjection(const glm::mat4& projection) {
+void Shader::updateProjection(const glm::mat4& projection) 
+{
 	passUniformLocation("projectionMatrix", projection);
 }
 
-void Shader::updatePosition(const glm::vec3& position) {
+void Shader::updatePosition(const glm::vec3& position) 
+{
 	passUniformLocation("cameraPosition", position);
 }
 
@@ -134,9 +144,4 @@ void Shader::notify(EventType eventType, void* object)
 		updatePosition(camera.position());
 		updateProjection(camera.project());
 	}
-}
-
-void Shader::shaderUseProgram()
-{
-	glUseProgram(shaderProgram);
 }

@@ -24,12 +24,12 @@ struct MouseData {
 
 class Mouse : public Observable
 {
+private:
 	static Mouse* mouse;
 
 	int x = 0;
 	int y = 0;
 	uint8_t pressed = 0;
-
 	MouseData current;
 
 	Mouse();
@@ -43,7 +43,6 @@ public:
 
 	void buttonPress(Button button);
 	void buttonRelease(Button button);
-
 	void mouseMove(const int nx,const int ny);
 
 	const MouseData& data() const;

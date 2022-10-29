@@ -1,14 +1,17 @@
 #include "Observer.h"
 
-
-void Observable::registerObserver(Observer& obs) {
+void Observable::registerObserver(Observer& obs) 
+{
 	observers.emplace_back(&obs);
 }
 
-void Observable::removeObserver(Observer& obs) {
+void Observable::removeObserver(Observer& obs) 
+{
 	auto iter = observers.begin();
-	while (iter != observers.end()) {
-		if (*iter == &obs) {
+	while (iter != observers.end()) 
+	{
+		if (*iter == &obs) 
+		{
 			observers.erase(iter);
 			return;
 		}
@@ -16,8 +19,10 @@ void Observable::removeObserver(Observer& obs) {
 	}
 }
 
-void Observable::notifyObservers(EventType type, void* obj) const {
-	for (Observer* obs : observers) {
+void Observable::notifyObservers(EventType type, void* obj) const 
+{
+	for (Observer* obs : observers) 
+	{
 		obs->notify(type, obj);
 	}
 }
