@@ -17,7 +17,7 @@ private:
 	typedef decltype(std::chrono::high_resolution_clock::now()) TimePoint;
 	typedef std::chrono::duration<double, std::ratio<1>> Second;
 
-	Camera camera;
+	Camera *camera;
 	GLFWwindow* window;
 
 	void Loop(); //main while loop for window

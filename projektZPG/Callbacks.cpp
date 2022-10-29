@@ -2,8 +2,8 @@
 
 double Callbacks::clickX = 0;
 double Callbacks::clickY = 0;
-std::vector<DrawableObject> Callbacks::drawableObj;
-std::optional<Camera> Callbacks::camera;
+std::vector<DrawableObject> Callbacks::drawableObj = std::vector<DrawableObject>{};
+Camera* Callbacks::camera = nullptr;
 
 void Callbacks::error_callback(int error, const char* description)
 {
@@ -118,7 +118,7 @@ Callbacks::~Callbacks()
 
 }
 
-void Callbacks::Init(GLFWwindow* window, std::vector<DrawableObject> &dO, Camera &cam)
+void Callbacks::Init(GLFWwindow* window, std::vector<DrawableObject> &dO, Camera *cam)
 {
     Callbacks::camera = cam;
     Callbacks::drawableObj = dO;

@@ -17,7 +17,7 @@ private:
 	static double clickY;
 
 	static std::vector<DrawableObject> drawableObj;
-	static std::optional<Camera> camera;
+	static Camera* camera;
 
 	static void error_callback(int error, const char* description);
 	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -31,5 +31,5 @@ public:
 	Callbacks();
 	~Callbacks();
 
-	static void Init(GLFWwindow* window, std::vector<DrawableObject>& dO, Camera &camera);
+	static void Init(GLFWwindow* window, std::vector<DrawableObject>& dO, Camera *camera);
 };

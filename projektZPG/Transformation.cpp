@@ -8,7 +8,7 @@ Transformation::Transformation()
 
 const glm::mat4& Transformation::matrix() const
 {
-    return transform;
+    return this->transform;
 }
 
 void Transformation::rotate(float degree, const glm::vec3 axis) {

@@ -111,7 +111,10 @@ void Camera::onMouseMove(const MouseData& md) {
 	capAngles();
 
 	changeMade = dFi || dPsi;
-
+	if (changeMade)
+	{
+		apply();
+	}
 }
 
 void Camera::addObserver(CameraObserver& obs) {

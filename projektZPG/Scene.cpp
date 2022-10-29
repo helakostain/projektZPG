@@ -16,14 +16,14 @@ Scene::Scene(GLFWwindow* in_window)
 	this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere)));
 	this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere)));
 	this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere)));
-	camera = Camera();
+	camera = new Camera();
 	//this->drawable_object.back().Pos_mov(glm::vec3(5.f, 0.f, 0.f));
 
 	for (int i = 0; i < drawable_object.size(); i++) {
-		camera.addObserver(this->drawable_object[i].getShader()); //adding all draw objects to camera as observer
+		camera->addObserver(this->drawable_object[i].getShader()); //adding all draw objects to camera as observer
 	}
 	
-	Callbacks::Init(window, std::ref(drawable_object), std::ref(camera)); //Initialize Callbacks with drawable object and camera as observers
+	Callbacks::Init(window, std::ref(drawable_object), camera); //Initialize Callbacks with drawable object and camera as observers
 }
 
 
@@ -32,6 +32,7 @@ void Scene::Loop()
 	TimePoint lastTime = std::chrono::high_resolution_clock::now(); //current time
 	//init
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear window content
+	glEnable(GL_DEPTH_TEST);
 	this->drawable_object[0].Pos_mov(glm::vec3(-1.5f,  2.0f, -4.5f)); //top left sphere
 	this->drawable_object[1].Pos_mov(glm::vec3(-1.5f, -2.0f, -4.5f)); //bottom left sphere
 	this->drawable_object[2].Pos_mov(glm::vec3(1.5f, 2.0f, -4.5f)); //top right sphere
@@ -41,7 +42,7 @@ void Scene::Loop()
 		this->drawable_object[i].SetUp();
 		this->drawable_object[i].DoTransformations(0.f);
 		this->drawable_object[i].sendShaderMatrix();
-		camera.update(1.f);
+		camera->update(1.f);
 		//glDrawArrays(GL_TRIANGLE_FAN, 0, 4); //mode,first,count
 		
 		glDrawArrays(GL_TRIANGLES, 0, sizeof(sphere)/6);
@@ -55,7 +56,7 @@ void Scene::Loop()
 	glfwSwapBuffers(window);
 	//end init
 
-	camera.apply(); //applying camera
+	camera->apply(); //applying camera
 
 	while (!glfwWindowShouldClose(window)) {  //main while loop for constant rendering of scene
 		// clear color and depth buffer
@@ -71,7 +72,7 @@ void Scene::Loop()
 			this->drawable_object[i].DoTransformations(delta);
 			this->drawable_object[i].sendShaderMatrix();
 			//glDrawArrays(GL_TRIANGLE_FAN, 0, 4); //mode,first,count
-			camera.update(delta);
+			camera->update(delta);
 			//glDrawArrays(GL_TRIANGLES, 0, 3);
 			glDrawArrays(GL_TRIANGLES, 0, 2880);
 			lastTime = now;
