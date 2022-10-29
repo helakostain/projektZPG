@@ -1,6 +1,4 @@
 #include "Shader.h"
-#include <glm/ext/matrix_float4x4.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
 Shader::Shader(const char* in_vertex_shader, const char* in_fragment_shader)
 {
@@ -125,6 +123,17 @@ void Shader::updateProjection(const glm::mat4& projection) {
 
 void Shader::updatePosition(const glm::vec3& position) {
 	passUniformLocation("cameraPosition", position);
+}
+
+void Shader::notify(EventType eventType, void* object)
+{
+	if (eventType == EventType::CameraMoved)
+	{
+		Camera& camera = *((Camera*)object);
+		updateView(camera.view());
+		updatePosition(camera.position());
+		updateProjection(camera.project());
+	}
 }
 
 void Shader::shaderUseProgram()

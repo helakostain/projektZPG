@@ -3,6 +3,7 @@
 #include "Camera.hpp"
 #include "Shader.h"
 #include "Callbacks.h"
+#include "Observer.h"
 //Include GLFW
 #include <GLFW/glfw3.h>
 #include <chrono>
@@ -19,6 +20,7 @@ private:
 
 	Camera *camera;
 	GLFWwindow* window;
+	Mouse& mouse = Mouse::instance();
 
 	void Loop(); //main while loop for window
 public:

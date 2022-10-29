@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Soubory zdrojů\Fragments">
+      <UniqueIdentifier>{2877dff7-513f-42b1-bf54-bc86fd65a775}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Soubory zdrojů\Vertexes">
+      <UniqueIdentifier>{c0da3d75-3992-4e51-a500-912d06040881}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -48,6 +54,9 @@
     <ClCompile Include="ShaderLoader.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
+    <ClCompile Include="Observer.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -77,9 +86,6 @@
     <ClInclude Include="Mouse.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
-    <ClInclude Include="CameraObserver.h">
-      <Filter>Hlavičkové soubory</Filter>
-    </ClInclude>
     <ClInclude Include="Models\plain.h">
       <Filter>Soubory zdrojů</Filter>
     </ClInclude>
@@ -95,5 +101,16 @@
     <ClInclude Include="ShaderLoader.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Phong.txt">
+      <Filter>Soubory zdrojů\Fragments</Filter>
+    </Text>
+    <Text Include="LightShader.txt">
+      <Filter>Soubory zdrojů\Vertexes</Filter>
+    </Text>
   </ItemGroup>
 </Project>

@@ -14,24 +14,25 @@ bool MouseData::rbPressed() const {
 	return buttons & (uint8_t)Mouse::Button::RB;
 }
 
+MouseData::MouseData(): x(0), y(0), dx(0), dy(0), buttons(0) {}
+
 MouseData::MouseData(const int x, const int y, const int dx, const int dy, const uint8_t buttons) :
 	x(x), y(y), dx(dx), dy(dy), buttons(buttons) { }
-
 
 void Mouse::buttonPress(const Button button) {
 	pressed |= (uint8_t)button;
 
-	const auto md = MouseData(x, y, 0, 0, pressed);
+	current = MouseData(x, y, 0, 0, pressed);
 
-	notifyObservers(Action::Press, md);
+	notifyObservers(EventType::MouseButtonPressed, this);
 }
 
 void Mouse::buttonRelease(const Button button) {
 	pressed &= ~(uint8_t)button;
 
-	const auto md = MouseData(x, y, 0, 0, pressed);
+	current = MouseData(x, y, 0, 0, pressed);
 
-	notifyObservers(Action::Release, md);
+	notifyObservers(EventType::MouseButtonReleased, this);
 }
 
 Mouse& Mouse::instance() {
@@ -49,45 +50,14 @@ void Mouse::mouseMove(const int nx, const int ny) {
 	x = nx;
 	y = ny;
 
-	const auto md = MouseData(x, y, dx, dy, pressed);
+	current = MouseData(x, y, dx, dy, pressed);
 
-	notifyObservers(Action::Move, md);
+	notifyObservers(EventType::MouseMoved, this);
 }
 
-void Mouse::registerObserver(MouseObserver& observer) {
-	observers.emplace_back(observer);
+const MouseData& Mouse::data() const
+{
+	return current;
 }
 
-void Mouse::notifyObservers(const Mouse::Action action, const MouseData& md) {
-	for (auto& obs : observers) {
-		if (action == Action::Move) {
-			obs.get().onMouseMove(md);
-		}
-		else if (action == Action::Press) {
-			obs.get().onButtonPress(md);
-		}
-		else if (action == Action::Release) {
-			obs.get().onButtonRelease(md);
-		}
-	}
-}
-
-Mouse::Mouse() {
-
-}
-
-MouseObserver::MouseObserver() {
-	Mouse::instance().registerObserver(*this);
-}
-
-void MouseObserver::onButtonPress(const MouseData& mouseData) {
-	// By default do nothing
-}
-
-void MouseObserver::onButtonRelease(const MouseData& mouseData) {
-	// By default do nothing
-}
-
-void MouseObserver::onMouseMove(const MouseData& mouseData) {
-	// By default do nothing
-}
+Mouse::Mouse() = default;

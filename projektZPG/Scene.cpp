@@ -20,8 +20,9 @@ Scene::Scene(GLFWwindow* in_window)
 	//this->drawable_object.back().Pos_mov(glm::vec3(5.f, 0.f, 0.f));
 
 	for (int i = 0; i < drawable_object.size(); i++) {
-		camera->addObserver(this->drawable_object[i].getShader()); //adding all draw objects to camera as observer
+		camera->registerObserver(this->drawable_object[i].getShader()); //adding all draw objects to camera as observer
 	}
+	mouse.instance().registerObserver(*camera);
 	
 	Callbacks::Init(window, std::ref(drawable_object), camera); //Initialize Callbacks with drawable object and camera as observers
 }

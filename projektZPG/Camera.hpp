@@ -12,19 +12,17 @@
 
 #include "Mouse.h"
 #include "Transformation.h"
-#include "CameraObserver.h"
+#include "Observer.h"
 
 
-class Camera : MouseObserver
+class Camera : public Observer, public Observable
 {
 private:
-	glm::mat4 projection = glm::perspective(glm::radians(45.0f), 800.0f / 600.0f, 0.1f, 100.0f);
+	glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)4.f / 3.f, 0.1f, 100.0f);
 
 	glm::vec3 eye{ 0.f, 1.f, 3.f }; // Camera is at (4,3,-3), in World Space
 	glm::vec3 target{ 0.f, 0.f, 0.f }; // and looks at the origin
 	glm::vec3 up{ 0.f, 1.f, 0.f };  // Head is up (set to 0,-1,0 to look upside-down)
-
-	std::vector<std::reference_wrapper<CameraObserver>> observers;
 
 	float fi = 1.5f * M_PI;
 	float psi = 0.f;
@@ -52,7 +50,7 @@ private:
 public: 
 	Camera();
 
-	void addObserver(CameraObserver& obs);
+	void setPosition(glm::vec3 pos);
 
 	void moveSideways(Direction dir);
 	void moveForward(Direction dir);
@@ -63,5 +61,11 @@ public:
 
 	void apply();
 
-	void onMouseMove(const MouseData& md) override;
+	void onMouseMove(const MouseData& md);
+	
+	void notify(EventType eventType, void* object) override;
+
+	glm::mat4 view() const;
+	glm::mat4 project() const;
+	glm::vec3 position() const;
 };

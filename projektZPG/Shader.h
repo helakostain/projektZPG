@@ -3,15 +3,17 @@
 #include <GL/glew.h>
 
 #include <glm/mat4x4.hpp>
+#include <glm/ext/matrix_float4x4.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 #include <stdio.h>
 #include <stdlib.h>
-
-#include "CameraObserver.h"
 #include <string>
-//class Camera; // dopredna deklarace (z duvodu krizoveho odkazu)
 
-class Shader : public CameraObserver
+#include "Observer.h"
+#include "Camera.hpp"
+
+class Shader : public Observer
 {
 private:
 	//Camera* m_camera;
@@ -49,9 +51,11 @@ public:
 	void setMatrix(glm::mat4 mvp);
 	void Init();
 
-	void updateView(const glm::mat4& view) override;
-	void updateProjection(const glm::mat4& projection) override;
-	void updatePosition(const glm::vec3& position) override;
+	void updateView(const glm::mat4& view);
+	void updateProjection(const glm::mat4& projection);
+	void updatePosition(const glm::vec3& position);
+
+	void notify(EventType eventType, void* object) override;
 
 	void shaderUseProgram();
 };
