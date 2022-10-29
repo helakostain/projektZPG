@@ -11,6 +11,7 @@
 #include "Shader.h"
 #include "Callbacks.h"
 #include "Observer.h"
+#include "Light.h"
 
 //Include GLFW
 #include <GLFW/glfw3.h> // DO NOT MOVE UP!!!!!!
@@ -24,6 +25,8 @@ private:
 	Camera *camera;
 	GLFWwindow* window;
 	Mouse& mouse = Mouse::instance();
+	AmbientLight ambientLight{ glm::vec3 { 0.1f} };
+	PositionedLight light{ glm::vec3 { 1.f }, glm::vec3 { 0.f } };
 
 	void Loop(); //main while loop for window
 public:

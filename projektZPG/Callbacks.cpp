@@ -18,6 +18,8 @@ void Callbacks::key_callback(GLFWwindow* window, int key, int scancode, int acti
     }
 
     switch (key) {
+    case GLFW_KEY_SPACE:
+
     case GLFW_KEY_I:
         drawableObj.front().setFy((action == GLFW_RELEASE) ? Direction::none : Direction::up);
         break;

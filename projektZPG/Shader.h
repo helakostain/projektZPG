@@ -13,6 +13,7 @@
 #include "Observer.h"
 #include "Camera.hpp"
 #include "ShaderLoader.h"
+#include "Light.h"
 
 class Shader : public Observer, public ShaderLoader
 {
@@ -50,6 +51,9 @@ public:
 	void updateView(const glm::mat4& view);
 	void updateProjection(const glm::mat4& projection);
 	void updatePosition(const glm::vec3& position);
+
+	void colorChanged(glm::vec3 color, LightType lightType);
+	void positionChanged(glm::vec3 position, LightType lightType);
 
 	void notify(EventType eventType, void* object) override;
 };

@@ -25,12 +25,17 @@ void Scene::Loop()
 	glfwPollEvents(); // update other events like input handling
 	glfwSwapBuffers(window); // put the stuff weve been drawing onto the display
 	camera->apply(); //applying camera
+	ambientLight.apply();
+	light.apply();
 
 	while (!glfwWindowShouldClose(window)) {  //main while loop for constant rendering of scene
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear color and depth buffer
 
 		const TimePoint now = std::chrono::high_resolution_clock::now(); //new current time
 		const float delta = std::chrono::duration_cast<Second>(now - lastTime).count(); //change of before and now time
+
+		ambientLight.apply();
+		light.apply();
 
 		for (int i = 0; i < this->drawable_object.size(); i++) //apply for all draw objects
 		{
@@ -63,6 +68,8 @@ Scene::Scene(GLFWwindow* in_window)
 	for (int i = 0; i < drawable_object.size(); i++) 
 	{
 		camera->registerObserver(this->drawable_object[i].getShader()); //adding all draw objects to camera as observer
+		ambientLight.registerObserver(this->drawable_object[i].getShader());
+		light.registerObserver(this->drawable_object[i].getShader());
 	}
 	mouse.instance().registerObserver(*camera); 
 	

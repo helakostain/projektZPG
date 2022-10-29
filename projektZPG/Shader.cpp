@@ -135,9 +135,35 @@ void Shader::updatePosition(const glm::vec3& position)
 	passUniformLocation("cameraPosition", position);
 }
 
+void Shader::colorChanged(glm::vec3 color, LightType lightType) {
+	if (lightType == LightType::Ambient) {
+		passUniformLocation("ambientColor", color);
+	}
+	else if (lightType == LightType::Default) {
+		passUniformLocation("lightColor", color);
+	}
+}
+
+void Shader::positionChanged(glm::vec3 position, LightType lightType) {
+	if (lightType == LightType::Ambient) {
+		/* noop -> ambient light has no coordinates */
+	}
+	else if (lightType == LightType::Default) {
+		passUniformLocation("lightPosition", position);
+	}
+}
+
 void Shader::notify(EventType eventType, void* object)
 {
-	if (eventType == EventType::CameraMoved)
+	if (eventType == EventType::LightChanged)
+	{
+		ColoredLight& light = *(ColoredLight*)object;
+		colorChanged(light.getColor(), light.type());
+
+		PositionedLight& l = *(PositionedLight*)object;
+		positionChanged(l.getPosition(), l.type());
+	}
+	else if (eventType == EventType::CameraMoved) 
 	{
 		Camera& camera = *((Camera*)object);
 		updateView(camera.view());

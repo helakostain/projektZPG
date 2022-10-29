@@ -21,7 +21,7 @@ private:
 	GLuint VBO = 0;
 public:
 	Sphere();
-	void Init();
-	void Bind();
-	void Draw();
+	void Init() override;
+	void Bind() override;
+	void Draw() override;
 };

@@ -20,7 +20,7 @@ private:
 	GLuint VBO = 0;
 public:
 	SuziFlat();
-	void Draw();
-	void Init();
-	void Bind();
+	void Draw() override;
+	void Init() override;
+	void Bind() override;
 };
