@@ -142,6 +142,8 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderLoader.cpp" />
+    <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="SuziFlat.cpp" />
     <ClCompile Include="Transformation.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +164,8 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderLoader.h" />
+    <ClInclude Include="Sphere.h" />
+    <ClInclude Include="SuziFlat.h" />
     <ClInclude Include="Transformation.h" />
   </ItemGroup>
   <ItemGroup>

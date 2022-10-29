@@ -57,6 +57,12 @@
     <ClCompile Include="Observer.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
+    <ClCompile Include="Sphere.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
+    <ClCompile Include="SuziFlat.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -112,6 +118,12 @@
     </ClInclude>
     <ClInclude Include="Models\tree.h">
       <Filter>Soubory zdrojů</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="SuziFlat.h">
+      <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

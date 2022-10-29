@@ -102,6 +102,11 @@ void Callbacks::window_size_callback(GLFWwindow* window, int width, int height)
 {
 	printf("resize %d, %d \n", width, height);
 	glViewport(0, 0, width, height);
+
+    Application::getInstance().height = height;
+    Application::getInstance().width = width;
+
+    Callbacks::camera->WindowChange(width, height);
 }
 
 Callbacks::Callbacks()

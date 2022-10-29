@@ -23,6 +23,9 @@ public:
 	Application();
 	~Application();
 
+	int height;
+	int width;
+
 	static Application& getInstance(); //allows only one instance at time
 
 	void Run();

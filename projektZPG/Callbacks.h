@@ -6,6 +6,7 @@
 #include <vector>
 #include <optional>
 
+#include "Application.h"
 #include "DrawableObject.h"
 #include "Camera.hpp"
 #include "Mouse.h"

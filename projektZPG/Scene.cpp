@@ -1,4 +1,5 @@
 #include "Scene.h"
+//#include "Sphere.h"
 #include "Models/sphere.h"
 
 void Scene::Loop()
@@ -36,6 +37,7 @@ void Scene::Loop()
 			this->drawable_object[i].SetUp();
 			this->drawable_object[i].DoTransformations(delta);
 			this->drawable_object[i].sendShaderMatrix();
+			this->drawable_object[i].Draw();
 			camera->update(delta);
 			glDrawArrays(GL_TRIANGLES, 0, 2880); //mode,first,count
 			lastTime = now;
@@ -48,7 +50,11 @@ void Scene::Loop()
 Scene::Scene(GLFWwindow* in_window)
 {
 	this->window = in_window;
-	this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere)/sizeof(float), "LightShader.txt", "Phong.txt")); //add 4 spheres to draw object
+	//this->drawable_object.emplace_back(DrawableObject(new Sphere(), "LightShader.txt", "Phong.txt")); //add 4 spheres to draw object
+	//this->drawable_object.emplace_back(DrawableObject(new Sphere(), "LightShader.txt", "Phong.txt"));
+	//this->drawable_object.emplace_back(DrawableObject(new Sphere(), "LightShader.txt", "Phong.txt"));
+	//this->drawable_object.emplace_back(DrawableObject(new Sphere(), "LightShader.txt", "Phong.txt"));
+	this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
 	this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
 	this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
 	this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));

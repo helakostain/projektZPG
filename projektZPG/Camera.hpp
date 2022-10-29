@@ -52,6 +52,7 @@ public:
 	void update(float dt);
 	void apply();
 	void onMouseMove(const MouseData& md);
+	void WindowChange(int width, int height);
 	
 	void notify(EventType eventType, void* object) override;
 

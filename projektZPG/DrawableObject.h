@@ -16,6 +16,7 @@ private:
 	const char* fragment_shader;
 public:
 	DrawableObject();
+	DrawableObject(Models* model, const char* vertex_path, const char* fragment_path);
 	DrawableObject(const float points[], int size_points, const char* vertex_path, const char* fragment_path);
 
 	void DoTransformations(const double delta);
@@ -26,6 +27,7 @@ public:
 	void setRot(Rotation r);
 	void setGrow(Growth g);
 	void Pos_mov(glm::vec3 a);
+	void Draw();
 
 	Shader& getShader();
 };

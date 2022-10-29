@@ -42,3 +42,8 @@ void Models::Bind()
 {
 	glBindVertexArray(VAO);
 }
+
+void Models::Draw()
+{
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+}

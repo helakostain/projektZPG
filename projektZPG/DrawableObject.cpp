@@ -4,28 +4,16 @@ DrawableObject::DrawableObject()
 {
 }
 
+DrawableObject::DrawableObject(Models* model, const char* vertex_path, const char* fragment_path)
+{
+    this->models = model;
+    this->models->Init();
+    this->shaders = new Shader(vertex_path, fragment_path);
+    this->transformations = new Transformation();
+}
+
 DrawableObject::DrawableObject(const float points[], int size_points, const char* vertex_path, const char* fragment_path)
 {
-    /*this->vertex_shader =
-        "#version 330\n"
-        "layout(location=0) in vec3 vp;"
-        "layout(location=1) in vec3 vp2;"
-        "out vec3 colour;"
-        "uniform mat4 modelMatrix;"
-        "uniform mat4 viewMatrix;"
-        "uniform mat4 projectionMatrix;"
-        "void main () {"
-        "     gl_Position = (projectionMatrix * viewMatrix * modelMatrix) * vec4(vp, 1.0);"
-        "     colour = vp2;"
-        "}";
-    this->fragment_shader =
-        "#version 330\n"
-        "in vec3 colour;"
-        "out vec4 frag_colour;"
-        "void main () {"
-        "    frag_colour = vec4(colour, 1.0);"
-        "}";
-    */
     this->models = new Models(points, size_points);
     this->models->Init();
     this->shaders = new Shader(vertex_path, fragment_path);
@@ -69,6 +57,11 @@ void DrawableObject::setGrow(Growth g)
 void DrawableObject::Pos_mov(glm::vec3 a) 
 {
     this->transformations->translate(a);
+}
+
+void DrawableObject::Draw()
+{
+    this->models->Draw();
 }
 
 Shader& DrawableObject::getShader() 

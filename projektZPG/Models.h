@@ -8,6 +8,7 @@
 #include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include <glm/gtc/type_ptr.hpp>
 
+#include <iostream>
 #include <vector>
 
 #include "Camera.hpp"
@@ -15,18 +16,19 @@
 class Models
 {
 private:
-	GLuint VBO; //vertex buffer object (VBO)
-	GLuint VAO; //Vertex Array Object (VAO)
-
+	void GenerateVBO();
+	void GenerateVAO();
+protected:
 	const float* points;
 	int size_points;
 
-	void GenerateVBO();
-	void GenerateVAO();
+	GLuint VBO; //vertex buffer object (VBO)
+	GLuint VAO; //Vertex Array Object (VAO)
 public:
 	Models();
 	Models(const float in_points[], int size_points);
 
-	void Init(); //for generating VBO and VAO
-	void Bind(); //binding vertex array
+	virtual void Init(); //for generating VBO and VAO
+	virtual void Bind(); //binding vertex array
+	virtual void Draw();
 };
