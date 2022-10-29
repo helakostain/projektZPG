@@ -9,10 +9,10 @@ void Scene::Loop()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear window content
 	glEnable(GL_DEPTH_TEST);
 
-	this->drawable_object[0].Pos_mov(glm::vec3(-1.5f, 2.0f, -4.5f)); //top left sphere
-	this->drawable_object[1].Pos_mov(glm::vec3(-1.5f, -2.0f, -4.5f)); //bottom left sphere
-	this->drawable_object[2].Pos_mov(glm::vec3(1.5f, 2.0f, -4.5f)); //top right sphere
-	this->drawable_object[3].Pos_mov(glm::vec3(1.5f, -2.0f, -4.5f)); //bottom right sphere
+	this->drawable_object[0].Pos_mov(glm::vec3(-2.0f, 0.0f, -4.5f)); //top left sphere
+	this->drawable_object[1].Pos_mov(glm::vec3(0.0f, -2.0f, -4.5f)); //bottom left sphere
+	this->drawable_object[2].Pos_mov(glm::vec3(0.0f, 2.0f, -4.5f)); //top right sphere
+	this->drawable_object[3].Pos_mov(glm::vec3(2.0f, 0.0f, -4.5f)); //bottom right sphere
 
 	for (int i = 0; i < this->drawable_object.size(); i++) //first draw of scene
 	{
@@ -27,7 +27,7 @@ void Scene::Loop()
 	camera->apply(); //applying camera
 	ambientLight.apply();
 	light.apply();
-
+	
 	while (!glfwWindowShouldClose(window)) {  //main while loop for constant rendering of scene
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear color and depth buffer
 
@@ -36,6 +36,8 @@ void Scene::Loop()
 
 		ambientLight.apply();
 		light.apply();
+		light.setPosition((glm::vec3(0.0f, 0.0f, -4.5f)));
+		//light.setPosition(glm::vec3(1.0f + sin(glfwGetTime()) * 2.0f, sin(glfwGetTime() / 2.0f) * 1.0f, 0.0f));
 
 		for (int i = 0; i < this->drawable_object.size(); i++) //apply for all draw objects
 		{
