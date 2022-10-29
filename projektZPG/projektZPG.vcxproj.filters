@@ -104,6 +104,15 @@
     <ClInclude Include="Observer.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
+    <ClInclude Include="Models\bushes.h.h">
+      <Filter>Soubory zdrojů</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\gift.h">
+      <Filter>Soubory zdrojů</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\tree.h">
+      <Filter>Soubory zdrojů</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Phong.txt">
@@ -121,5 +130,14 @@
     <Text Include="defaultvertex.txt">
       <Filter>Soubory zdrojů\Vertexes</Filter>
     </Text>
+    <Text Include="PhongBroken.txt">
+      <Filter>Soubory zdrojů\Fragments</Filter>
+    </Text>
+    <Text Include="Lambert.txt">
+      <Filter>Soubory zdrojů\Fragments</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

@@ -150,10 +150,13 @@
     <ClInclude Include="Camera.hpp" />
     <ClInclude Include="DrawableObject.h" />
     <ClInclude Include="Models.h" />
+    <ClInclude Include="Models\bushes.h.h" />
+    <ClInclude Include="Models\gift.h" />
     <ClInclude Include="Models\plain.h" />
     <ClInclude Include="Models\sphere.h" />
     <ClInclude Include="Models\suzi_flat.h" />
     <ClInclude Include="Models\suzi_smooth.h" />
+    <ClInclude Include="Models\tree.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="Scene.h" />
@@ -165,8 +168,13 @@
     <Text Include="Blinn.txt" />
     <Text Include="defaultfragment.txt" />
     <Text Include="defaultvertex.txt" />
+    <Text Include="Lambert.txt" />
     <Text Include="LightShader.txt" />
     <Text Include="Phong.txt" />
+    <Text Include="PhongBroken.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

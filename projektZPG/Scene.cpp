@@ -48,10 +48,10 @@ void Scene::Loop()
 Scene::Scene(GLFWwindow* in_window)
 {
 	this->window = in_window;
-	this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere)/sizeof(float), "defaultvertex.txt", "defaultfragment.txt")); //add 4 spheres to draw object
-	this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "defaultvertex.txt", "defaultfragment.txt"));
-	this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "defaultvertex.txt", "defaultfragment.txt"));
-	this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "defaultvertex.txt", "defaultfragment.txt"));
+	this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere)/sizeof(float), "LightShader.txt", "Phong.txt")); //add 4 spheres to draw object
+	this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
+	this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
+	this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
 	camera = new Camera();
 
 	for (int i = 0; i < drawable_object.size(); i++) 
