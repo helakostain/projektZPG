@@ -64,7 +64,7 @@ Application& Application::getInstance()
 	return *instance;
 }
 
-void Application::Run()
+void Application::Run(int test)
 {
 	glfwMakeContextCurrent(window);
 	glfwSwapInterval(1);
@@ -77,6 +77,6 @@ void Application::Run()
 	glfwGetFramebufferSize(window, &width, &height);
 	float ratio = width / (float)height;
 	glViewport(0, 0, width, height);
-	Scene scene(window);
+	Scene scene(window, test);
 	scene.Run();
 }

@@ -1,6 +1,15 @@
 #include "Scene.h"
 //#include "Sphere.h"
 #include "Models/sphere.h"
+#include "Models/gift.h"
+#include "Models/plain.h"
+#include "Models/suzi_flat.h"
+#include "Models/suzi_smooth.h"
+#include "Models/tree.h"
+
+#define n_objects 8
+#define n_shaders 5
+#define draw_objects 200
 
 void Scene::Loop()
 {
@@ -8,11 +17,27 @@ void Scene::Loop()
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear window content
 	glEnable(GL_DEPTH_TEST);
-
-	this->drawable_object[0].Pos_mov(glm::vec3(-2.0f, 0.0f, -4.5f)); //top left sphere
-	this->drawable_object[1].Pos_mov(glm::vec3(0.0f, -2.0f, -4.5f)); //bottom left sphere
-	this->drawable_object[2].Pos_mov(glm::vec3(0.0f, 2.0f, -4.5f)); //top right sphere
-	this->drawable_object[3].Pos_mov(glm::vec3(2.0f, 0.0f, -4.5f)); //bottom right sphere
+	if (test == 1)
+	{
+		this->drawable_object[0].Pos_mov(glm::vec3(-2.0f, 0.0f, -4.5f)); //top left sphere
+		this->drawable_object[1].Pos_mov(glm::vec3(0.0f, -2.0f, -4.5f)); //bottom left sphere
+		this->drawable_object[2].Pos_mov(glm::vec3(0.0f, 2.0f, -4.5f)); //top right sphere
+		this->drawable_object[3].Pos_mov(glm::vec3(2.0f, 0.0f, -4.5f)); //bottom right sphere
+	}
+	else if (test == 2)
+	{
+		this->drawable_object[0].Pos_mov(glm::vec3(0.0f, 1.0f, -2.0f)); //top left sphere 4,3,-3
+	}
+	else if (test == 3)
+	{
+		this->drawable_object[0].Pos_mov(glm::vec3(0.0f, 1.0f, -2.0f)); //top left sphere 4,3,-3
+	}
+	else if (test == 4)
+	{
+	}
+	else
+	{
+	}
 
 	for (int i = 0; i < this->drawable_object.size(); i++) //first draw of scene
 	{
@@ -20,7 +45,21 @@ void Scene::Loop()
 		this->drawable_object[i].DoTransformations(0.f);
 		this->drawable_object[i].sendShaderMatrix();
 		camera->update(1.f);
-		glDrawArrays(GL_TRIANGLES, 0, sizeof(sphere) / 6); //mode,first,count
+		if (test == 4)
+		{
+			for (int i = 0; i < draw_objects - 10; i++) {
+				if (i % 2 == 0) {
+					glDrawArrays(GL_TRIANGLES, 0, 92814);
+				}
+				else {
+					glDrawArrays(GL_TRIANGLES, 0, sizeof(sphere) / 6); //mode,first,count
+				}
+			}
+		}
+		else
+		{
+			glDrawArrays(GL_TRIANGLES, 0, sizeof(sphere) / 6); //mode,first,count
+		}
 	}
 	glfwPollEvents(); // update other events like input handling
 	glfwSwapBuffers(window); // put the stuff weve been drawing onto the display
@@ -46,7 +85,41 @@ void Scene::Loop()
 			this->drawable_object[i].sendShaderMatrix();
 			this->drawable_object[i].Draw();
 			camera->update(delta);
-			glDrawArrays(GL_TRIANGLES, 0, 2880); //mode,first,count
+			//glDrawArrays(GL_TRIANGLES, 0, 2880); //mode,first,count
+			if (test == 4)
+			{
+				for (int j = 0; j < 10; j++) {
+					if (j < 4) {
+						glDrawArrays(GL_TRIANGLES, 0, 2904);
+					}
+					else if( j == 4) {
+						glDrawArrays(GL_TRIANGLES, 0, 66624);
+					}
+					else if (j > 4 && j < 9)
+					{
+						glDrawArrays(GL_TRIANGLES, 0, 6);
+					}
+					else if (j == 9)
+					{
+						glDrawArrays(GL_TRIANGLES, 0, sizeof(sphere) / 6); //mode,first,count
+					}
+					else if (j > 9)
+					{
+						for (int i = 10; i < draw_objects; i++) {
+							if (i % 2 == 0) {
+								glDrawArrays(GL_TRIANGLES, 0, 92814);
+							}
+							else {
+								glDrawArrays(GL_TRIANGLES, 0, sizeof(sphere) / 6); //mode,first,count
+							}
+						}
+					}
+				}
+			}
+			else
+			{
+				glDrawArrays(GL_TRIANGLES, 0, sizeof(sphere) / 6); //mode,first,count
+			}
 			lastTime = now;
 		}
 		glfwPollEvents(); // update other events like input handling
@@ -54,17 +127,73 @@ void Scene::Loop()
 	}
 }
 
-Scene::Scene(GLFWwindow* in_window)
+Scene::Scene(GLFWwindow* in_window, int test)
 {
+	this->test = test;
 	this->window = in_window;
-	//this->drawable_object.emplace_back(DrawableObject(new Sphere(), "LightShader.txt", "Phong.txt")); //add 4 spheres to draw object
-	//this->drawable_object.emplace_back(DrawableObject(new Sphere(), "LightShader.txt", "Phong.txt"));
-	//this->drawable_object.emplace_back(DrawableObject(new Sphere(), "LightShader.txt", "Phong.txt"));
-	//this->drawable_object.emplace_back(DrawableObject(new Sphere(), "LightShader.txt", "Phong.txt"));
-	this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
-	this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
-	this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
-	this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
+	if (test == 1)
+	{
+		//this->drawable_object.emplace_back(DrawableObject(new Sphere(), "LightShader.txt", "Phong.txt")); //add 4 spheres to draw object
+		//this->drawable_object.emplace_back(DrawableObject(new Sphere(), "LightShader.txt", "Phong.txt"));
+		//this->drawable_object.emplace_back(DrawableObject(new Sphere(), "LightShader.txt", "Phong.txt"));
+		//this->drawable_object.emplace_back(DrawableObject(new Sphere(), "LightShader.txt", "Phong.txt"));
+		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
+		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
+		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
+		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
+	}
+	else if (test == 2)
+	{
+		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "PhongBroken.txt"));
+	}
+	else if (test == 3)
+	{
+		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
+	}
+	else if (test == 4)
+	{
+		srand(time(NULL));
+		this->drawable_object.emplace_back(DrawableObject(suziFlat, sizeof(suziFlat)/4, "LightShader.txt", "Phong.txt"));
+		this->drawable_object.back().Pos_mov(glm::vec3(5, 0.f, -5));
+		this->drawable_object.emplace_back(DrawableObject(suziFlat, sizeof(suziFlat)/4, "LightShader.txt", "Phong.txt"));
+		this->drawable_object.back().Pos_mov(glm::vec3(2, 0.f, 8));
+		this->drawable_object.emplace_back(DrawableObject(suziSmooth, sizeof(suziSmooth) / 4, "LightShader.txt", "Phong.txt"));
+		this->drawable_object.back().Pos_mov(glm::vec3(16, 0.f, -10));
+		this->drawable_object.emplace_back(DrawableObject(suziSmooth, sizeof(suziSmooth) / 4, "LightShader.txt", "Phong.txt"));
+		this->drawable_object.back().Pos_mov(glm::vec3(4, 2.f, 2));
+		this->drawable_object.emplace_back(DrawableObject(gift, sizeof(gift)/4, "LightShader.txt", "Phong.txt"));
+		this->drawable_object.back().Pos_mov(glm::vec3(4, 0.f, 2));
+		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, "LightShader.txt", "Phong.txt"));
+		this->drawable_object.back().Pos_mov(glm::vec3(0.f, -2.f, 0.f));
+		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, "LightShader.txt", "Phong.txt"));
+		this->drawable_object.back().Pos_mov(glm::vec3(0.f, 20.f, 0.f));
+		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, "LightShader.txt", "Phong.txt"));
+		this->drawable_object.back().Pos_mov(glm::vec3(8, 0.f, 9));
+		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, "LightShader.txt", "Phong.txt"));
+		this->drawable_object.back().Pos_mov(glm::vec3(2, 0.f, 15));
+		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
+		this->drawable_object.back().Pos_mov(glm::vec3(-5, 0.f, 10));
+
+		for (int i = 10; i < draw_objects; i++) {
+			if (i % 2 == 0) {
+				this->drawable_object.emplace_back(DrawableObject(tree, sizeof(tree)/4, "LightShader.txt", "Phong.txt"));
+				float x = ((float)rand() / (float)(RAND_MAX)) * 50;
+				float z = ((float)rand() / (float)(RAND_MAX)) * 50;
+				this->drawable_object.back().Pos_mov(glm::vec3(x, 0.f, z));
+			}
+			else {
+				this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
+				float x = ((float)rand() / (float)(RAND_MAX)) * 50;
+				float z = ((float)rand() / (float)(RAND_MAX)) * 50;
+				this->drawable_object.back().Pos_mov(glm::vec3(x, 0.f, z));
+			}
+		}
+	}
+	else
+	{
+		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
+	}
+
 	camera = new Camera();
 
 	for (int i = 0; i < drawable_object.size(); i++) 

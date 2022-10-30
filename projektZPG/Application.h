@@ -28,5 +28,5 @@ public:
 
 	static Application& getInstance(); //allows only one instance at time
 
-	void Run();
+	void Run(int test);
 };

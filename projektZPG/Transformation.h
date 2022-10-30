@@ -32,7 +32,7 @@ private:
 	glm::vec2 forces{ 0.f, 0.f };
 
 	Growth growthDir = Growth::none;
-	Rotation rotationDir = Rotation::left;
+	Rotation rotationDir = Rotation::none;
 	
 	float rotationV = 0;
 
