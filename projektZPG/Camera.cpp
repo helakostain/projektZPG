@@ -97,11 +97,11 @@ void Camera::update(const float dt)
 
 	apply();
 
-	/*if (changeMade)
+	if (changeMade)
 	{
 		apply();
 		changeMade = false;
-	}*/
+	}
 }
 
 void Camera::apply() 

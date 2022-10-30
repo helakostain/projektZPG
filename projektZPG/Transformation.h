@@ -60,6 +60,7 @@ public:
 
 	void translate(glm::vec3 delta);
 	void Update(const float deltaT);
+	void scale(float g);
 	void applyForce(Direction dx, Direction dy);
 	void applyFx(Direction dir);
 	void applyFy(Direction dir);

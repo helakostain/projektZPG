@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Application" Collapsed="true">
-    <Position X="6.5" Y="7.5" Width="1.5" />
+    <Position X="34.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AACIAAAAABAAAAAAAAAAAAAAAABCAAwIAAAAAAABAAI=</HashCode>
+      <HashCode>AACIAAAAABAAAAQAQAAAAAAAAABCAAwIAAAAAAABAAI=</HashCode>
       <FileName>Application.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -11,27 +11,27 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Callbacks" Collapsed="true">
-    <Position X="8" Y="4" Width="1.5" />
+    <Position X="46.5" Y="7" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAwARAAAAAAgAAAAAAABAAAABAAAmAAAAQBA=</HashCode>
       <FileName>Callbacks.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="camera" />
       <Field Name="drawableObj" />
+      <Field Name="camera" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Camera" Collapsed="true">
-    <Position X="8" Y="1.75" Width="1.5" />
+    <Position X="46" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABACEABAEoAAAEACIAAQMQIDQBgAAEAgAQBIUgAGASA=</HashCode>
+      <HashCode>ABACEABAEoAAAEACIAAQMQIDQBgAAEAgAQBIUgAGgSA=</HashCode>
       <FileName>Camera.hpp</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DrawableObject" Collapsed="true">
-    <Position X="13" Y="4" Width="1.5" />
+    <Position X="40" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAQgAAACgAAAAgAAAEgAAAEgAAQAAAAAQAABCAIQAA=</HashCode>
+      <HashCode>AAAQgAAACgAAAggAAAEgAAAEgAAQAAAAAQAABCAYQAA=</HashCode>
       <FileName>DrawableObject.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -41,21 +41,14 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Models" Collapsed="true">
-    <Position X="16" Y="4" Width="1.5" />
+    <Position X="36.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAggCAAAAAAAAAAAAAAAAAAAAAAAAAAAgCAAAE4AA=</HashCode>
+      <HashCode>AAAAggCAAAAAAgAAAAAAAAAAAAAAAAAAAAgCAAAE4AA=</HashCode>
       <FileName>Models.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Mouse" Collapsed="true">
-    <Position X="10.25" Y="1.75" Width="1.5" />
-    <NestedTypes>
-      <Enum Name="Mouse::Button" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Mouse.h</NewMemberFileName>
-        </TypeIdentifier>
-      </Enum>
-    </NestedTypes>
+    <Position X="52.25" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AIQAAQAAAAAAAAAAQAAAAEAAgABAAAAAAABwAEAAAAA=</HashCode>
       <FileName>Mouse.h</FileName>
@@ -66,116 +59,141 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="Observable" Collapsed="true">
-    <Position X="7.5" Y="0.5" Width="2.5" />
+    <Position X="48.5" Y="2" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAIAAAACAAAIAAAAAAAAAAAAAAAAAAAAAAACAAAAAA=</HashCode>
       <FileName>Observer.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Scene" Collapsed="true">
-    <Position X="11.25" Y="5.75" Width="1.5" />
-    <NestedTypes>
-      <Typedef Name="Scene::TimePoint" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Scene.h</NewMemberFileName>
-        </TypeIdentifier>
-      </Typedef>
-      <Typedef Name="Scene::Second" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>Scene.h</NewMemberFileName>
-        </TypeIdentifier>
-      </Typedef>
-    </NestedTypes>
+    <Position X="49.25" Y="6.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAIAgAAAAAAgAAAAEAEAAAAAAAIAAAAAAAAAAI=</HashCode>
+      <HashCode>AAAAAAAIAgAAAAAAgAAAAEAMAAIAAAAIAAAAAAAAAAI=</HashCode>
       <FileName>Scene.h</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="camera" />
-      <Field Name="drawable_object" />
       <Field Name="mouse" />
+      <Field Name="drawable_object" />
     </ShowAsAssociation>
   </Class>
   <Class Name="Shader" Collapsed="true">
-    <Position X="13" Y="1.75" Width="1.5" />
+    <Position X="46" Y="5.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QAEQAAABAAAAAAAAAIEAAQABAggAASAAMAADQCAQASA=</HashCode>
+      <HashCode>QAEQAAABAAAAAAAAAIEAAQEBAggAASAAMEADQCAQASA=</HashCode>
       <FileName>Shader.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ShaderLoader" Collapsed="true">
-    <Position X="14" Y="0.5" Width="1.5" />
+    <Position X="43" Y="4" Width="1.5" />
     <TypeIdentifier>
       <HashCode>CAAMEACAAAAAAAAAAAAAAAAAAAAAAAEAAAAIAAAQAAA=</HashCode>
       <FileName>ShaderLoader.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Transformation" Collapsed="true">
-    <Position X="14" Y="6" Width="1.5" />
+    <Position X="40" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAwAAFAABAAACAIQoECQASgCCBAEggQAAQAAAAAAHEQ=</HashCode>
       <FileName>Transformation.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="std::vector&lt;_Ty, _Alloc&gt;" Collapsed="true">
-    <Position X="8" Y="6" Width="1.5" />
-    <NestedTypes>
-      <Class Name="std::vector&lt;_Ty, _Alloc&gt;::_Asan_extend_guard" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-      <Class Name="std::vector&lt;_Ty, _Alloc&gt;::_Asan_create_guard" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-    </NestedTypes>
+    <Position X="49.25" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>A2AAEYEiAbJsCEBAAOMIIAASEEUATBIggQkwghAFUko=</HashCode>
       <FileName>C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.33.31629\include\vector</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="Bushes" Collapsed="true">
+    <Position X="54.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAABIAA=</HashCode>
+      <FileName>Bushes.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ColoredLight" Collapsed="true">
+    <Position X="49" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAEAAAAAAAAAAAAAAAAAABAACAAAAAgAAMAAA=</HashCode>
+      <FileName>Light.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PositionedLight" Collapsed="true">
+    <Position X="49" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAMAAAAAAAAACAAAAAIAACAAABIACAAAAQAAAIAAA=</HashCode>
+      <FileName>Light.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sphere" Collapsed="true">
+    <Position X="37.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAgAAAAQAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Sphere.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SuziFlat" Collapsed="true">
+    <Position X="35" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAggCAAAAAAwAAAAAAAAAAAAEAACAAAAASAAAEAAA=</HashCode>
+      <FileName>SuziFlat.h</FileName>
+    </TypeIdentifier>
+  </Class>
   <Struct Name="MouseData" Collapsed="true">
-    <Position X="10.25" Y="3.75" Width="1.5" />
+    <Position X="52.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAYAAAAAAAAIAAIAAAAAAAAAAACAABgAAAABAA=</HashCode>
       <FileName>Mouse.h</FileName>
     </TypeIdentifier>
   </Struct>
   <Struct Name="Observer" Collapsed="true">
-    <Position X="11" Y="0.5" Width="1.5" />
+    <Position X="46" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
       <FileName>Observer.h</FileName>
     </TypeIdentifier>
   </Struct>
+  <Typedef Name="AmbientLight" Collapsed="true">
+    <Position X="49" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Light.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
   <Enum Name="EventType" Collapsed="true">
-    <Position X="20.25" Y="0.5" Width="1.5" />
+    <Position X="56.5" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAFAAAAAAAAgAAAAAIAAAgAAA=</HashCode>
       <FileName>Observer.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="Growth" Collapsed="true">
-    <Position X="18.5" Y="1.25" Width="1.5" />
+    <Position X="58.25" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAEAAAAAAA=</HashCode>
       <FileName>Transformation.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="Rotation" Collapsed="true">
-    <Position X="20.25" Y="1.25" Width="1.5" />
+    <Position X="56.5" Y="2.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAgAA=</HashCode>
       <FileName>Transformation.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Enum Name="Direction" Collapsed="true">
-    <Position X="18.5" Y="0.5" Width="1.5" />
+    <Position X="54.75" Y="1.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAAAAAAAACAAAAAAAAAAAAAAAIAAAAAAAAAgAAgAA=</HashCode>
       <FileName>Transformation.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="LightType" Collapsed="true">
+    <Position X="54.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Light.h</FileName>
     </TypeIdentifier>
   </Enum>
   <Font Name="Segoe UI" Size="9" />

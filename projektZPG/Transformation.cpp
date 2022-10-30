@@ -82,6 +82,11 @@ void Transformation::Update(const float deltaT)
 	updateForces(deltaT);
 }
 
+void Transformation::scale(float g)
+{
+	transform = glm::scale(transform, glm::vec3(g));
+}
+
 void Transformation::applyForce(Direction dx, Direction dy) 
 {
 	applyFx(dx);

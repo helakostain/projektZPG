@@ -37,6 +37,11 @@ bool DrawableObject::SetUp()
     return true;
 }
 
+void DrawableObject::Pos_scale(float a)
+{
+    this->transformations->scale(a);
+}
+
 void DrawableObject::setFy(Direction dir) 
 {
     this->transformations->applyFy(dir);

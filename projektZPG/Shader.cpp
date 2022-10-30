@@ -54,7 +54,10 @@ void Shader::passUniformLocation(const std::string& var, const glm::mat4& matrix
 void Shader::passUniformLocation(const char* var, const glm::mat4& matrix) const 
 {
 	const auto model = getUniformLocation(var);
-	glUniformMatrix4fv(model, 1, GL_FALSE, glm::value_ptr(matrix));
+	//glUniformMatrix4fv(model, 1, GL_FALSE, glm::value_ptr(matrix));
+	if (model >= 0) {
+		glProgramUniformMatrix4fv(shaderProgram, model, 1, GL_FALSE, glm::value_ptr(matrix));
+	}
 }
 
 void Shader::passUniformLocation(const std::string& var, const glm::vec3& vector) const 
@@ -65,7 +68,10 @@ void Shader::passUniformLocation(const std::string& var, const glm::vec3& vector
 void Shader::passUniformLocation(const char* var, const glm::vec3& vector) const 
 {
 	const auto location = getUniformLocation(var);
-	glProgramUniform3f(shaderProgram, location, vector.x, vector.y, vector.z);
+	//glProgramUniform3f(shaderProgram, location, vector.x, vector.y, vector.z);
+	if (location >= 0) {
+		glProgramUniform3f(shaderProgram, location, vector.x, vector.y, vector.z);
+	}
 }
 
 void Shader::passUniformLocation(const std::string& var, const glm::mat3& matrix) const 
@@ -76,7 +82,10 @@ void Shader::passUniformLocation(const std::string& var, const glm::mat3& matrix
 void Shader::passUniformLocation(const char* var, const glm::mat3& matrix) const 
 {
 	const auto location = getUniformLocation(var);
-	glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+	//glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
+	if (location >= 0) {
+		glProgramUniformMatrix3fv(shaderProgram, location, 1, GL_FALSE, glm::value_ptr(matrix));
+	}
 }
 
 GLint Shader::getUniformLocation(const std::string& var) const
@@ -86,7 +95,12 @@ GLint Shader::getUniformLocation(const std::string& var) const
 
 GLint Shader::getUniformLocation(const char* var) const 
 {
-	return glGetUniformLocation(shaderProgram, var);
+	//return glGetUniformLocation(shaderProgram, var);
+	auto location = glGetUniformLocation(shaderProgram, var);
+	if (location < 0) {
+		// std::cout << "Uniform variable '" << var << "' not found." << std::endl;
+	}
+	return location;
 }
 
 Shader::Shader(const char* vertex_path, const char* fragment_path) : ShaderLoader(vertex_path, fragment_path, &this->shaderProgram)

@@ -6,10 +6,9 @@
 #include "Models/suzi_flat.h"
 #include "Models/suzi_smooth.h"
 #include "Models/tree.h"
+#include "Bushes.h"
 
-#define n_objects 8
-#define n_shaders 5
-#define draw_objects 200
+#define draw_objects 300
 
 void Scene::Loop()
 {
@@ -47,12 +46,31 @@ void Scene::Loop()
 		camera->update(1.f);
 		if (test == 4)
 		{
-			for (int i = 0; i < draw_objects - 10; i++) {
-				if (i % 2 == 0) {
-					glDrawArrays(GL_TRIANGLES, 0, 92814);
+			for (int j = 0; j < 10; j++) {
+				if (j < 4) {
+					glDrawArrays(GL_TRIANGLES, 0, 2904);
 				}
-				else {
+				else if (j == 4) {
+					glDrawArrays(GL_TRIANGLES, 0, 66624);
+				}
+				else if (j > 4 && j < 9)
+				{
+					glDrawArrays(GL_TRIANGLES, 0, 6);
+				}
+				else if (j == 9)
+				{
 					glDrawArrays(GL_TRIANGLES, 0, sizeof(sphere) / 6); //mode,first,count
+				}
+				else if (j > 9)
+				{
+					for (int i = 10; i < draw_objects; i++) {
+						if (i % 2 == 0) {
+							glDrawArrays(GL_TRIANGLES, 0, 92814);
+						}
+						else {
+							glDrawArrays(GL_TRIANGLES, 0, 8730);
+						}
+					}
 				}
 			}
 		}
@@ -75,7 +93,14 @@ void Scene::Loop()
 
 		ambientLight.apply();
 		light.apply();
-		light.setPosition((glm::vec3(0.0f, 0.0f, -4.5f)));
+		if (test == 4)
+		{
+			light.setPosition((glm::vec3(0.0f, 4.0f, -4.5f)));
+		}
+		else
+		{
+			light.setPosition((glm::vec3(0.0f, 0.0f, -4.5f)));
+		}
 		//light.setPosition(glm::vec3(1.0f + sin(glfwGetTime()) * 2.0f, sin(glfwGetTime() / 2.0f) * 1.0f, 0.0f));
 
 		for (int i = 0; i < this->drawable_object.size(); i++) //apply for all draw objects
@@ -110,7 +135,7 @@ void Scene::Loop()
 								glDrawArrays(GL_TRIANGLES, 0, 92814);
 							}
 							else {
-								glDrawArrays(GL_TRIANGLES, 0, sizeof(sphere) / 6); //mode,first,count
+								glDrawArrays(GL_TRIANGLES, 0, 8730);
 							}
 						}
 					}
@@ -154,38 +179,41 @@ Scene::Scene(GLFWwindow* in_window, int test)
 	{
 		srand(time(NULL));
 		this->drawable_object.emplace_back(DrawableObject(suziFlat, sizeof(suziFlat)/4, "LightShader.txt", "Phong.txt"));
-		this->drawable_object.back().Pos_mov(glm::vec3(5, 0.f, -5));
+		this->drawable_object.back().Pos_mov(glm::vec3(50, 2.f, -5));
 		this->drawable_object.emplace_back(DrawableObject(suziFlat, sizeof(suziFlat)/4, "LightShader.txt", "Phong.txt"));
-		this->drawable_object.back().Pos_mov(glm::vec3(2, 0.f, 8));
+		this->drawable_object.back().Pos_mov(glm::vec3(2, 2.f, 8));
 		this->drawable_object.emplace_back(DrawableObject(suziSmooth, sizeof(suziSmooth) / 4, "LightShader.txt", "Phong.txt"));
-		this->drawable_object.back().Pos_mov(glm::vec3(16, 0.f, -10));
+		this->drawable_object.back().Pos_mov(glm::vec3(16, 2.f, -10));
 		this->drawable_object.emplace_back(DrawableObject(suziSmooth, sizeof(suziSmooth) / 4, "LightShader.txt", "Phong.txt"));
 		this->drawable_object.back().Pos_mov(glm::vec3(4, 2.f, 2));
 		this->drawable_object.emplace_back(DrawableObject(gift, sizeof(gift)/4, "LightShader.txt", "Phong.txt"));
 		this->drawable_object.back().Pos_mov(glm::vec3(4, 0.f, 2));
-		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, "LightShader.txt", "Phong.txt"));
-		this->drawable_object.back().Pos_mov(glm::vec3(0.f, -2.f, 0.f));
+		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, "LightShader.txt", "defaultfragment.txt"));
+		this->drawable_object.back().Pos_mov(glm::vec3(0.f, 0.f, 0.f));
+		this->drawable_object.back().Pos_scale(60);
 		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, "LightShader.txt", "Phong.txt"));
 		this->drawable_object.back().Pos_mov(glm::vec3(0.f, 20.f, 0.f));
 		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, "LightShader.txt", "Phong.txt"));
-		this->drawable_object.back().Pos_mov(glm::vec3(8, 0.f, 9));
+		this->drawable_object.back().Pos_mov(glm::vec3(8, 15.f, 9));
 		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, "LightShader.txt", "Phong.txt"));
-		this->drawable_object.back().Pos_mov(glm::vec3(2, 0.f, 15));
+		this->drawable_object.back().Pos_mov(glm::vec3(2, 10.f, 15));
 		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
-		this->drawable_object.back().Pos_mov(glm::vec3(-5, 0.f, 10));
+		this->drawable_object.back().Pos_mov(glm::vec3(-5, 2.f, 10));
 
 		for (int i = 10; i < draw_objects; i++) {
 			if (i % 2 == 0) {
-				this->drawable_object.emplace_back(DrawableObject(tree, sizeof(tree)/4, "LightShader.txt", "Phong.txt"));
+				this->drawable_object.emplace_back(DrawableObject(tree, sizeof(tree)/4, "LightShader.txt", "Lambert.txt"));
 				float x = ((float)rand() / (float)(RAND_MAX)) * 50;
 				float z = ((float)rand() / (float)(RAND_MAX)) * 50;
 				this->drawable_object.back().Pos_mov(glm::vec3(x, 0.f, z));
 			}
 			else {
-				this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
+				Bushes bush = Bushes();
+				this->drawable_object.emplace_back(DrawableObject(bush.points_plain, bush.size_points, "LightShader.txt", "Blinn.txt"));
 				float x = ((float)rand() / (float)(RAND_MAX)) * 50;
 				float z = ((float)rand() / (float)(RAND_MAX)) * 50;
 				this->drawable_object.back().Pos_mov(glm::vec3(x, 0.f, z));
+				this->drawable_object.back().Pos_scale(3);
 			}
 		}
 	}

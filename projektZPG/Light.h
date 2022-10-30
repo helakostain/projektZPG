@@ -16,7 +16,7 @@ class ColoredLight : public Observable {
 
 protected:
 
-    glm::vec3 color{ 1.f };
+    glm::vec3 color{ 0.f, 0.f, 1.f };
 
 public:
     ColoredLight();
@@ -32,7 +32,7 @@ public:
 
 class PositionedLight : public ColoredLight {
 
-    glm::vec3 color{ 1.f };
+    glm::vec3 color{ 0.f, 0.f, 1.f };
     glm::vec3 position{ 0.f };
 
     void onPositionChanged(LightType lightType);
