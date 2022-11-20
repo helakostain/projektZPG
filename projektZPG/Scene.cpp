@@ -109,7 +109,6 @@ void Scene::Loop()
 			this->drawable_object[i].DoTransformations(delta);
 			this->drawable_object[i].sendShaderMatrix();
 			this->drawable_object[i].Draw();
-			camera->update(delta);
 			//glDrawArrays(GL_TRIANGLES, 0, 2880); //mode,first,count
 			if (test == 4)
 			{
@@ -147,6 +146,7 @@ void Scene::Loop()
 			}
 			lastTime = now;
 		}
+		camera->update(delta);
 		glfwPollEvents(); // update other events like input handling
 		glfwSwapBuffers(window); // put the stuff weve been drawing onto the display
 	}

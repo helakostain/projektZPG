@@ -96,12 +96,6 @@ void Camera::update(const float dt)
 	updateCameraMatrix();
 
 	apply();
-
-	if (changeMade)
-	{
-		apply();
-		changeMade = false;
-	}
 }
 
 void Camera::apply() 
