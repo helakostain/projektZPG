@@ -8,7 +8,7 @@
 #include "Models/tree.h"
 #include "Bushes.h"
 
-#define draw_objects 300
+#define draw_objects 150
 
 void Scene::Loop()
 {
