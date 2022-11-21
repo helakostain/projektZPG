@@ -20,6 +20,14 @@ DrawableObject::DrawableObject(const float points[], int size_points, const char
     this->transformations = new Transformation();
 }
 
+DrawableObject::DrawableObject(const float points[], int size_points, Shader& shader)
+{
+    this->models = new Models(points, size_points);
+    this->models->Init();
+    this->shaders = &shader;
+    this->transformations = new Transformation();
+}
+
 void DrawableObject::DoTransformations(const double delta)
 {
     this->transformations->Update(delta);

@@ -143,6 +143,7 @@
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="ShaderInstances.cpp" />
     <ClCompile Include="ShaderLoader.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="SuziFlat.cpp" />
@@ -154,7 +155,7 @@
     <ClInclude Include="Callbacks.h" />
     <ClInclude Include="Camera.hpp" />
     <ClInclude Include="DrawableObject.h" />
-    <ClInclude Include="Light.h" />
+    <ClInclude Include="Light.hpp" />
     <ClInclude Include="Models.h" />
     <ClInclude Include="Models\bushes.h.h" />
     <ClInclude Include="Models\gift.h" />
@@ -167,6 +168,7 @@
     <ClInclude Include="Observer.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShaderInstances.h" />
     <ClInclude Include="ShaderLoader.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="SuziFlat.h" />

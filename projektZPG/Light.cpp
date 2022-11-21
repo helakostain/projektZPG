@@ -1,4 +1,4 @@
-#include "Light.h"
+#include "Light.hpp"
 
 
 static float boundColor(const float color) {
@@ -13,25 +13,27 @@ ColoredLight::ColoredLight() = default;
 
 ColoredLight::ColoredLight(const glm::vec3 color) : color(boundColor(color)) { }
 
-void ColoredLight::addColor(glm::vec3 delta) {
+void ColoredLight::addColor(glm::vec3 delta) const {
 	setColor(color + delta);
 }
 
-void ColoredLight::setColor(const glm::vec3 newColor) {
+void ColoredLight::setColor(const glm::vec3 newColor) const {
 	color = boundColor(newColor);
 	apply();
 }
 
-glm::vec3 ColoredLight::getColor()
+glm::vec3 ColoredLight::getColor() const
 {
 	return color;
 }
 
-LightType ColoredLight::type() {
-	return LightType::Ambient;
+gl::Light ColoredLight::type() const
+{
+	return gl::Light::Ambient;
 }
 
-void ColoredLight::apply() {
+void ColoredLight::apply() const
+{
 	notifyObservers(EventType::LightChanged, (void*)this);
 }
 
@@ -39,29 +41,78 @@ PositionedLight::PositionedLight() : ColoredLight() { }
 
 PositionedLight::PositionedLight(const glm::vec3 color, const glm::vec3 position) : ColoredLight(color), position(position) { }
 
-void PositionedLight::move(const glm::vec3 delta) {
-	setPosition(position + delta);
-}
-
-void PositionedLight::setPosition(const glm::vec3 newPos) {
+void PositionedLight::setPosition(glm::vec3 newPos) const
+{
 	position = newPos;
 	apply();
 }
 
-void PositionedLight::setColor(const glm::vec3 newColor) {
-	color = boundColor(newColor);
-	apply();
+void PositionedLight::move(glm::vec3 delta) const
+{
+	setPosition(position + delta);
 }
 
-glm::vec3 PositionedLight::getPosition() {
+glm::vec3 PositionedLight::getPosition() const
+{
 	return position;
 }
 
-LightType PositionedLight::type() {
-	return LightType::Default;
+gl::Light PositionedLight::type() const
+{
+	return gl::Light::Point;
 }
 
-void PositionedLight::apply()
+DirectionalLight::DirectionalLight() : ColoredLight() { }
+
+DirectionalLight::DirectionalLight(glm::vec3 color, glm::vec3 direction) : ColoredLight(color), direction(direction)
 {
-	notifyObservers(EventType::LightChanged, (void*)this);
+}
+
+gl::Light DirectionalLight::type() const
+{
+	return gl::Light::Directional;
+}
+
+glm::vec3 DirectionalLight::getDirection() const
+{
+	return direction;
+}
+
+void DirectionalLight::setDirection(glm::vec3 newDirection) const
+{
+	direction = newDirection;
+	apply();
+}
+
+Spotlight::Spotlight() : PositionedLight() {}
+
+Spotlight::Spotlight(glm::vec3 color, glm::vec3 position, glm::vec3 direction, float cutoff) : PositionedLight(color, position), direction(direction), cutoff(cutoff)
+{
+}
+
+gl::Light Spotlight::type() const
+{
+	return gl::Light::Spotlight;
+}
+
+glm::vec3 Spotlight::getDirection() const
+{
+	return direction;
+}
+
+float Spotlight::getCutoff() const
+{
+	return cutoff;
+}
+
+void Spotlight::setDirection(glm::vec3 newDirection) const
+{
+	direction = newDirection;
+	apply();
+}
+
+void Spotlight::setCutoff(float newCutoff) const
+{
+	cutoff = newCutoff;
+	apply();
 }

@@ -18,6 +18,7 @@ public:
 	DrawableObject();
 	DrawableObject(Models* model, const char* vertex_path, const char* fragment_path);
 	DrawableObject(const float points[], int size_points, const char* vertex_path, const char* fragment_path);
+	DrawableObject(const float points[], int size_points, Shader& shader);
 
 	void DoTransformations(const double delta);
 	void sendShaderMatrix();

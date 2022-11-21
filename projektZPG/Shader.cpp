@@ -74,6 +74,11 @@ void Shader::passUniformLocation(const char* var, const glm::vec3& vector) const
 	}
 }
 
+void Shader::passUniformLocation(const std::string& var, int32_t value) const
+{
+	passUniformLocation(var.c_str(), value);
+}
+
 void Shader::passUniformLocation(const std::string& var, const glm::mat3& matrix) const 
 {
 	passUniformLocation(var.c_str(), matrix);
@@ -101,6 +106,34 @@ GLint Shader::getUniformLocation(const char* var) const
 		// std::cout << "Uniform variable '" << var << "' not found." << std::endl;
 	}
 	return location;
+}
+
+void Shader::applyLight(ColoredLight& light)
+{
+	colorChanged(light.getColor(), light.lightIndex, light.type());
+	typeChanged(light.type(), light.lightIndex);
+}
+
+void Shader::applyLight(PositionedLight& light)
+{
+	passUniformLocation("lights[" + std::to_string(light.lightIndex) + "].position", light.getPosition());
+}
+
+void Shader::applyLight(DirectionalLight& light)
+{
+	passUniformLocation("lights[" + std::to_string(light.lightIndex) + "].direction", light.getDirection());
+}
+
+void Shader::applyLight(Spotlight& light)
+{
+	passUniformLocation("lights[" + std::to_string(light.lightIndex) + "].position", light.getPosition());
+	passUniformLocation("lights[" + std::to_string(light.lightIndex) + "].direction", light.getDirection());
+	passUniformLocation("lights[" + std::to_string(light.lightIndex) + "].cutoff", glm::cos(glm::radians(light.getCutoff())));
+}
+
+void Shader::typeChanged(gl::Light type, size_t lightIndex)
+{
+	passUniformLocation("lights[" + std::to_string(lightIndex) + "].lightType", int32_t(type));
 }
 
 Shader::Shader(const char* vertex_path, const char* fragment_path) : ShaderLoader(vertex_path, fragment_path, &this->shaderProgram)
@@ -149,21 +182,31 @@ void Shader::updatePosition(const glm::vec3& position)
 	passUniformLocation("cameraPosition", position);
 }
 
-void Shader::colorChanged(glm::vec3 color, LightType lightType) {
-	if (lightType == LightType::Ambient) {
+void Shader::colorChanged(glm::vec3 color, size_t lightIndex, gl::Light lightType)
+{
+	if (lightType == gl::Light::Ambient) {
 		passUniformLocation("ambientColor", color);
 	}
-	else if (lightType == LightType::Default) {
-		passUniformLocation("lightColor", color);
+	else if (lightType == gl::Light::Point or lightType == gl::Light::Directional) {
+		passUniformLocation("lights[" + std::to_string(lightIndex) + "].lightColor", color);
 	}
 }
 
-void Shader::positionChanged(glm::vec3 position, LightType lightType) {
-	if (lightType == LightType::Ambient) {
-		/* noop -> ambient light has no coordinates */
+void Shader::positionChanged(glm::vec3 position, size_t lightIndex, gl::Light lightType)
+{
+	if (lightType == gl::Light::Ambient) {
+		/* NOTHING ambient light has no coordinates */
 	}
-	else if (lightType == LightType::Default) {
-		passUniformLocation("lightPosition", position);
+	else if (lightType == gl::Light::Point) {
+		passUniformLocation("lights[" + std::to_string(lightIndex) + "].position", position);
+	}
+	else if (lightType == gl::Light::Directional) {
+		passUniformLocation("lights[" + std::to_string(lightIndex) + "].direction", position);
+	}
+	else if (lightType == gl::Light::Spotlight) {
+
+		passUniformLocation("lights[" + std::to_string(lightIndex) + "].direction", position);
+		passUniformLocation("lights[" + std::to_string(lightIndex) + "].position", position);
 	}
 }
 
@@ -172,10 +215,22 @@ void Shader::notify(EventType eventType, void* object)
 	if (eventType == EventType::LightChanged)
 	{
 		ColoredLight& light = *(ColoredLight*)object;
-		colorChanged(light.getColor(), light.type());
-
-		PositionedLight& l = *(PositionedLight*)object;
-		positionChanged(l.getPosition(), l.type());
+		applyLight(light);
+		if (light.type() == gl::Light::Point)
+		{
+			PositionedLight& pol = *(PositionedLight*)object;
+			applyLight(pol);
+		}
+		else if (light.type() == gl::Light::Directional)
+		{
+			DirectionalLight& dil = *(DirectionalLight*)object;
+			applyLight(dil);
+		}
+		else if (light.type() == gl::Light::Spotlight)
+		{
+			Spotlight& spl = *(Spotlight*)object;
+			applyLight(spl);
+		}
 	}
 	else if (eventType == EventType::CameraMoved) 
 	{
@@ -183,5 +238,13 @@ void Shader::notify(EventType eventType, void* object)
 		updateView(camera.view());
 		updatePosition(camera.position());
 		updateProjection(camera.project());
+	}
+}
+
+void Shader::passUniformLocation(const char* var, int32_t value) const
+{
+	const auto location = getUniformLocation(var);
+	if (location >= 0) {
+		glProgramUniform1i(shaderProgram, location, value);
 	}
 }

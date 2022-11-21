@@ -7,6 +7,7 @@
 #include "Models/suzi_smooth.h"
 #include "Models/tree.h"
 #include "Bushes.h"
+#include "ShaderInstances.h"
 
 #define draw_objects 150
 
@@ -82,8 +83,11 @@ void Scene::Loop()
 	glfwPollEvents(); // update other events like input handling
 	glfwSwapBuffers(window); // put the stuff weve been drawing onto the display
 	camera->apply(); //applying camera
+	/*for (int j = 0; j < lights.size(); j++) {
+		lights[j].apply();
+	}*/
 	ambientLight.apply();
-	light.apply();
+	applyLights();
 	
 	while (!glfwWindowShouldClose(window)) {  //main while loop for constant rendering of scene
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear color and depth buffer
@@ -91,15 +95,20 @@ void Scene::Loop()
 		const TimePoint now = std::chrono::high_resolution_clock::now(); //new current time
 		const float delta = std::chrono::duration_cast<Second>(now - lastTime).count(); //change of before and now time
 
+		/*for (int j = 0; j < lights.size(); j++) {
+			lights[j].apply();
+		}*/
 		ambientLight.apply();
-		light.apply();
+		applyLights();
 		if (test == 4)
 		{
-			light.setPosition((glm::vec3(0.0f, 4.0f, -4.5f)));
+			//this->lights[1].move(glm::vec3(0.0f, 4.0f, -4.5f));
+			//light.setPosition((glm::vec3(0.0f, 4.0f, -4.5f)));
 		}
 		else
 		{
-			light.setPosition((glm::vec3(0.0f, 0.0f, -4.5f)));
+			//this->lights[1].move(glm::vec3(0.0f, 0.0f, -4.5f));
+			//light.setPosition((glm::vec3(0.0f, 0.0f, -4.5f)));
 		}
 		//light.setPosition(glm::vec3(1.0f + sin(glfwGetTime()) * 2.0f, sin(glfwGetTime() / 2.0f) * 1.0f, 0.0f));
 
@@ -152,20 +161,82 @@ void Scene::Loop()
 	}
 }
 
+size_t Scene::lightCount() const
+{
+	return lights.size();
+}
+
+void Scene::emplaceAmbientLight(glm::vec3 color)
+{
+	ambientLight = AmbientLight{ color };
+	ambientLight.registerObserver(ShaderInstances::constant());
+	ambientLight.registerObserver(ShaderInstances::lambert());
+	ambientLight.registerObserver(ShaderInstances::phong());
+	ambientLight.registerObserver(ShaderInstances::blinn());
+}
+
+void Scene::initAndEmplace(std::shared_ptr<ColoredLight>& light)
+{
+	light->registerObserver(ShaderInstances::constant());
+	light->registerObserver(ShaderInstances::lambert());
+	light->registerObserver(ShaderInstances::phong());
+	light->registerObserver(ShaderInstances::blinn());
+	light->lightIndex = this->lights.size();
+	this->lights.emplace_back(light);
+}
+
+void Scene::emplaceLight(const glm::vec3 color, const glm::vec3 pos, const gl::Light type)
+{
+	std::shared_ptr<ColoredLight> light = createLight(color, pos, type);
+	initAndEmplace(light);
+	applyLights();
+}
+
+void Scene::emplaceLight(glm::vec3 color, glm::vec3 pos, glm::vec3 dir, float cutoff)
+{
+	std::shared_ptr<ColoredLight> light = std::make_shared<Spotlight>(color, pos, dir, cutoff);
+	initAndEmplace(light);
+	applyLights();
+}
+
+std::shared_ptr<ColoredLight> Scene::createLight(glm::vec3 color, glm::vec3 data, gl::Light type)
+{
+	if (type == gl::Light::Point)
+	{
+		return std::make_shared<PositionedLight>(color, data);
+	}
+	else if (type == gl::Light::Directional) {
+		return std::make_shared<DirectionalLight>(color, data);
+	}
+	throw std::runtime_error("Unsupported light type");
+}
+
+void Scene::applyLights() const
+{
+	setShaderCount();
+	for (const auto& light : lights)
+	{
+		light->apply();
+	}
+}
+
+void Scene::setShaderCount() const
+{
+	ShaderInstances::blinn().passUniformLocation("lightCount", lights.size());
+	ShaderInstances::lambert().passUniformLocation("lightCount", lights.size());
+	ShaderInstances::phong().passUniformLocation("lightCount", lights.size());
+}
+
 Scene::Scene(GLFWwindow* in_window, int test)
 {
 	this->test = test;
 	this->window = in_window;
 	if (test == 1)
 	{
-		//this->drawable_object.emplace_back(DrawableObject(new Sphere(), "LightShader.txt", "Phong.txt")); //add 4 spheres to draw object
-		//this->drawable_object.emplace_back(DrawableObject(new Sphere(), "LightShader.txt", "Phong.txt"));
-		//this->drawable_object.emplace_back(DrawableObject(new Sphere(), "LightShader.txt", "Phong.txt"));
-		//this->drawable_object.emplace_back(DrawableObject(new Sphere(), "LightShader.txt", "Phong.txt"));
-		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
-		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
-		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
-		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
+		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong()));
+		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong()));
+		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong()));
+		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong()));
 	}
 	else if (test == 2)
 	{
@@ -173,43 +244,43 @@ Scene::Scene(GLFWwindow* in_window, int test)
 	}
 	else if (test == 3)
 	{
-		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
+		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong()));
 	}
 	else if (test == 4)
 	{
 		srand(time(NULL));
-		this->drawable_object.emplace_back(DrawableObject(suziFlat, sizeof(suziFlat)/4, "LightShader.txt", "Phong.txt"));
+		this->drawable_object.emplace_back(DrawableObject(suziFlat, sizeof(suziFlat)/4, ShaderInstances::phong()));
 		this->drawable_object.back().Pos_mov(glm::vec3(50, 2.f, -5));
-		this->drawable_object.emplace_back(DrawableObject(suziFlat, sizeof(suziFlat)/4, "LightShader.txt", "Phong.txt"));
+		this->drawable_object.emplace_back(DrawableObject(suziFlat, sizeof(suziFlat)/4, ShaderInstances::phong()));
 		this->drawable_object.back().Pos_mov(glm::vec3(2, 2.f, 8));
-		this->drawable_object.emplace_back(DrawableObject(suziSmooth, sizeof(suziSmooth) / 4, "LightShader.txt", "Phong.txt"));
+		this->drawable_object.emplace_back(DrawableObject(suziSmooth, sizeof(suziSmooth) / 4, ShaderInstances::phong()));
 		this->drawable_object.back().Pos_mov(glm::vec3(16, 2.f, -10));
-		this->drawable_object.emplace_back(DrawableObject(suziSmooth, sizeof(suziSmooth) / 4, "LightShader.txt", "Phong.txt"));
+		this->drawable_object.emplace_back(DrawableObject(suziSmooth, sizeof(suziSmooth) / 4, ShaderInstances::phong()));
 		this->drawable_object.back().Pos_mov(glm::vec3(4, 2.f, 2));
-		this->drawable_object.emplace_back(DrawableObject(gift, sizeof(gift)/4, "LightShader.txt", "Phong.txt"));
+		this->drawable_object.emplace_back(DrawableObject(gift, sizeof(gift)/4, ShaderInstances::phong()));
 		this->drawable_object.back().Pos_mov(glm::vec3(4, 0.f, 2));
-		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, "LightShader.txt", "defaultfragment.txt"));
+		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, ShaderInstances::constant()));
 		this->drawable_object.back().Pos_mov(glm::vec3(0.f, 0.f, 0.f));
 		this->drawable_object.back().Pos_scale(60);
-		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, "LightShader.txt", "Phong.txt"));
+		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, ShaderInstances::phong()));
 		this->drawable_object.back().Pos_mov(glm::vec3(0.f, 20.f, 0.f));
-		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, "LightShader.txt", "Phong.txt"));
+		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, ShaderInstances::phong()));
 		this->drawable_object.back().Pos_mov(glm::vec3(8, 15.f, 9));
-		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, "LightShader.txt", "Phong.txt"));
+		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, ShaderInstances::phong()));
 		this->drawable_object.back().Pos_mov(glm::vec3(2, 10.f, 15));
-		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
+		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong()));
 		this->drawable_object.back().Pos_mov(glm::vec3(-5, 2.f, 10));
 
 		for (int i = 10; i < draw_objects; i++) {
 			if (i % 2 == 0) {
-				this->drawable_object.emplace_back(DrawableObject(tree, sizeof(tree)/4, "LightShader.txt", "Lambert.txt"));
+				this->drawable_object.emplace_back(DrawableObject(tree, sizeof(tree)/4, ShaderInstances::lambert()));
 				float x = ((float)rand() / (float)(RAND_MAX)) * 50;
 				float z = ((float)rand() / (float)(RAND_MAX)) * 50;
 				this->drawable_object.back().Pos_mov(glm::vec3(x, 0.f, z));
 			}
 			else {
 				Bushes bush = Bushes();
-				this->drawable_object.emplace_back(DrawableObject(bush.points_plain, bush.size_points, "LightShader.txt", "Blinn.txt"));
+				this->drawable_object.emplace_back(DrawableObject(bush.points_plain, bush.size_points, ShaderInstances::blinn()));
 				float x = ((float)rand() / (float)(RAND_MAX)) * 50;
 				float z = ((float)rand() / (float)(RAND_MAX)) * 50;
 				this->drawable_object.back().Pos_mov(glm::vec3(x, 0.f, z));
@@ -219,17 +290,28 @@ Scene::Scene(GLFWwindow* in_window, int test)
 	}
 	else
 	{
-		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "Phong.txt"));
+		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong()));
 	}
 
 	camera = new Camera();
+	camera->registerObserver(ShaderInstances::blinn());
+	camera->registerObserver(ShaderInstances::constant());
+	camera->registerObserver(ShaderInstances::lambert());
+	camera->registerObserver(ShaderInstances::phong());
 
-	for (int i = 0; i < drawable_object.size(); i++) 
+	emplaceLight(glm::vec3{ 1.f }, glm::vec3{ 0.0f, 4.0f, -4.5f }, gl::Light::Point);
+	emplaceLight(glm::vec3{ 1.f }, glm::vec3{ 0.f, 4.f, 8.0f }, gl::Light::Point);
+	emplaceAmbientLight(glm::vec3{ .1f });
+	/*for (int i = 0; i < drawable_object.size(); i++)
 	{
 		camera->registerObserver(this->drawable_object[i].getShader()); //adding all draw objects to camera as observer
-		ambientLight.registerObserver(this->drawable_object[i].getShader());
-		light.registerObserver(this->drawable_object[i].getShader());
-	}
+		for (int j = 0; j < lights.size(); j++)
+		{
+			lights[j].registerObserver(drawable_object[i].getShader());
+		}
+		//ambientLight.registerObserver(this->drawable_object[i].getShader());
+		//light.registerObserver(this->drawable_object[i].getShader());
+	}*/
 	mouse.instance().registerObserver(*camera); 
 	
 	Callbacks::Init(window, std::ref(drawable_object), camera); //Initialize Callbacks with drawable object and camera

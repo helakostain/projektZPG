@@ -13,7 +13,7 @@
 #include "Observer.h"
 #include "Camera.hpp"
 #include "ShaderLoader.h"
-#include "Light.h"
+#include "Light.hpp"
 
 class Shader : public Observer, public ShaderLoader
 {
@@ -37,9 +37,16 @@ private:
 	void passUniformLocation(const char* var, const glm::mat3& matrix) const;
 	void passUniformLocation(const std::string& var, const glm::vec3& vector) const;
 	void passUniformLocation(const char* var, const glm::vec3& vector) const;
+	void passUniformLocation(const std::string& var, int32_t value) const;
 
 	GLint getUniformLocation(const std::string& var) const;
 	GLint getUniformLocation(const char* var) const;
+
+	void applyLight(ColoredLight& light);
+	void applyLight(PositionedLight& light);
+	void applyLight(DirectionalLight& light);
+	void applyLight(Spotlight& light);
+	void typeChanged(gl::Light type, size_t lightIndex);
 public:
 	Shader(const char* vertex_path, const char* fragment_path);
 
@@ -52,8 +59,10 @@ public:
 	void updateProjection(const glm::mat4& projection);
 	void updatePosition(const glm::vec3& position);
 
-	void colorChanged(glm::vec3 color, LightType lightType);
-	void positionChanged(glm::vec3 position, LightType lightType);
+	void colorChanged(glm::vec3 color, size_t lightIndex, gl::Light lightType);
+	void positionChanged(glm::vec3 position, size_t lightIndex, gl::Light lightType);
 
 	void notify(EventType eventType, void* object) override;
+
+	void passUniformLocation(const char* var, int32_t value) const;
 };
