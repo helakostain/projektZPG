@@ -121,7 +121,7 @@ void Scene::Loop()
 			//glDrawArrays(GL_TRIANGLES, 0, 2880); //mode,first,count
 			if (test == 4)
 			{
-				for (int j = 0; j < 10; j++) {
+				for (int j = 0; j < 12; j++) {
 					if (j < 4) {
 						glDrawArrays(GL_TRIANGLES, 0, 2904);
 					}
@@ -132,13 +132,13 @@ void Scene::Loop()
 					{
 						glDrawArrays(GL_TRIANGLES, 0, 6);
 					}
-					else if (j == 9)
+					else if (j >= 9 && j < 12)
 					{
 						glDrawArrays(GL_TRIANGLES, 0, sizeof(sphere) / 6); //mode,first,count
 					}
-					else if (j > 9)
+					else if (j >= 12)
 					{
-						for (int i = 10; i < draw_objects; i++) {
+						for (int i = 12; i < draw_objects; i++) {
 							if (i % 2 == 0) {
 								glDrawArrays(GL_TRIANGLES, 0, 92814);
 							}
@@ -188,6 +188,10 @@ void Scene::initAndEmplace(std::shared_ptr<ColoredLight>& light)
 void Scene::emplaceLight(const glm::vec3 color, const glm::vec3 pos, const gl::Light type)
 {
 	std::shared_ptr<ColoredLight> light = createLight(color, pos, type);
+	this->drawable_object.emplace_back(sphere, sizeof(sphere), ShaderInstances::constant());
+	this->drawable_object.back().Pos_mov(pos);
+	this->drawable_object.back().Pos_mov(glm::vec3(0.f, 0.f, 0.1f));
+	this->drawable_object.back().Pos_scale(0.25);
 	initAndEmplace(light);
 	applyLights();
 }
@@ -195,6 +199,10 @@ void Scene::emplaceLight(const glm::vec3 color, const glm::vec3 pos, const gl::L
 void Scene::emplaceLight(glm::vec3 color, glm::vec3 pos, glm::vec3 dir, float cutoff)
 {
 	std::shared_ptr<ColoredLight> light = std::make_shared<Spotlight>(color, pos, dir, cutoff);
+	this->drawable_object.emplace_back(sphere, sizeof(sphere), ShaderInstances::constant());
+	this->drawable_object.back().Pos_mov(pos);
+	this->drawable_object.back().Pos_mov(glm::vec3(0.f, 0.f, 0.1f));
+	this->drawable_object.back().Pos_scale(0.25);
 	initAndEmplace(light);
 	applyLights();
 }
