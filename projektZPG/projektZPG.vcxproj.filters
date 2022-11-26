@@ -19,6 +19,18 @@
     <Filter Include="Soubory zdrojů\Vertexes">
       <UniqueIdentifier>{c0da3d75-3992-4e51-a500-912d06040881}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Soubory zdrojů\Textures">
+      <UniqueIdentifier>{f7db011c-7ce0-42a9-9962-398f8fc99da3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hlavičkové soubory\Models">
+      <UniqueIdentifier>{9d9b07af-563e-469b-81f1-14f0c7b1f809}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Soubory zdrojů\Model">
+      <UniqueIdentifier>{f1f51a14-7bcc-4734-8b3d-ddd9565d9311}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Zdrojové soubory\Models">
+      <UniqueIdentifier>{9b967319-5a8d-4657-a369-2ddb73ae3bf8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -57,19 +69,25 @@
     <ClCompile Include="Observer.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
-    <ClCompile Include="Sphere.cpp">
-      <Filter>Zdrojové soubory</Filter>
-    </ClCompile>
-    <ClCompile Include="SuziFlat.cpp">
-      <Filter>Zdrojové soubory</Filter>
-    </ClCompile>
     <ClCompile Include="Light.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
-    <ClCompile Include="Bushes.cpp">
+    <ClCompile Include="ShaderInstances.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderInstances.cpp">
+    <ClCompile Include="Bushes.cpp">
+      <Filter>Zdrojové soubory\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Sphere.cpp">
+      <Filter>Zdrojové soubory\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="SuziFlat.cpp">
+      <Filter>Zdrojové soubory\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Skybox.cpp">
+      <Filter>Zdrojové soubory\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
   </ItemGroup>
@@ -101,46 +119,55 @@
     <ClInclude Include="Mouse.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
-    <ClInclude Include="Models\plain.h">
-      <Filter>Soubory zdrojů</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\sphere.h">
-      <Filter>Soubory zdrojů</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\suzi_flat.h">
-      <Filter>Soubory zdrojů</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\suzi_smooth.h">
-      <Filter>Soubory zdrojů</Filter>
-    </ClInclude>
     <ClInclude Include="ShaderLoader.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
     <ClInclude Include="Observer.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
-    <ClInclude Include="Models\bushes.h.h">
-      <Filter>Soubory zdrojů</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\gift.h">
-      <Filter>Soubory zdrojů</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\tree.h">
-      <Filter>Soubory zdrojů</Filter>
-    </ClInclude>
-    <ClInclude Include="Sphere.h">
-      <Filter>Hlavičkové soubory</Filter>
-    </ClInclude>
-    <ClInclude Include="SuziFlat.h">
-      <Filter>Hlavičkové soubory</Filter>
-    </ClInclude>
     <ClInclude Include="Light.hpp">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
-    <ClInclude Include="Bushes.h">
+    <ClInclude Include="ShaderInstances.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderInstances.h">
+    <ClInclude Include="Bushes.h">
+      <Filter>Hlavičkové soubory\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>Hlavičkové soubory\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="SuziFlat.h">
+      <Filter>Hlavičkové soubory\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\bushes.h.h">
+      <Filter>Soubory zdrojů\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\gift.h">
+      <Filter>Soubory zdrojů\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\plain.h">
+      <Filter>Soubory zdrojů\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\sphere.h">
+      <Filter>Soubory zdrojů\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\suzi_flat.h">
+      <Filter>Soubory zdrojů\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\suzi_smooth.h">
+      <Filter>Soubory zdrojů\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\tree.h">
+      <Filter>Soubory zdrojů\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\skycube.h">
+      <Filter>Soubory zdrojů\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Skybox.h">
+      <Filter>Hlavičkové soubory\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
   </ItemGroup>
@@ -169,5 +196,37 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Textures\fulldome3.jpg">
+      <Filter>Soubory zdrojů\Textures</Filter>
+    </Image>
+    <Image Include="Textures\skydome.png">
+      <Filter>Soubory zdrojů\Textures</Filter>
+    </Image>
+    <Image Include="Textures\cubemap\negx.jpg">
+      <Filter>Soubory zdrojů\Textures</Filter>
+    </Image>
+    <Image Include="Textures\cubemap\negy.jpg">
+      <Filter>Soubory zdrojů\Textures</Filter>
+    </Image>
+    <Image Include="Textures\cubemap\negz.jpg">
+      <Filter>Soubory zdrojů\Textures</Filter>
+    </Image>
+    <Image Include="Textures\cubemap\posx.jpg">
+      <Filter>Soubory zdrojů\Textures</Filter>
+    </Image>
+    <Image Include="Textures\cubemap\posy.jpg">
+      <Filter>Soubory zdrojů\Textures</Filter>
+    </Image>
+    <Image Include="Textures\cubemap\posz.jpg">
+      <Filter>Soubory zdrojů\Textures</Filter>
+    </Image>
+    <Image Include="Textures\wooden_fence.png">
+      <Filter>Soubory zdrojů\Textures</Filter>
+    </Image>
+    <Image Include="Textures\grass.png">
+      <Filter>Soubory zdrojů\Textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -187,24 +187,51 @@ void Scene::initAndEmplace(std::shared_ptr<ColoredLight>& light)
 
 void Scene::emplaceLight(const glm::vec3 color, const glm::vec3 pos, const gl::Light type)
 {
-	std::shared_ptr<ColoredLight> light = createLight(color, pos, type);
-	this->drawable_object.emplace_back(sphere, sizeof(sphere), ShaderInstances::constant());
-	this->drawable_object.back().Pos_mov(pos);
-	this->drawable_object.back().Pos_mov(glm::vec3(0.f, 0.f, 0.1f));
-	this->drawable_object.back().Pos_scale(0.25);
-	initAndEmplace(light);
-	applyLights();
+	if (test == 4)
+	{
+		std::shared_ptr<ColoredLight> light = createLight(color, pos, type);
+		this->drawable_object.emplace_back(sphere, sizeof(sphere), ShaderInstances::constant());
+		this->drawable_object.back().Pos_mov(pos);
+		this->drawable_object.back().Pos_mov(glm::vec3(0.f, 0.f, (0.1 * (pos.z / abs(pos.z)))));
+		this->drawable_object.back().Pos_scale(0.25);
+		initAndEmplace(light);
+		applyLights();
+	}
+	else
+	{
+		std::shared_ptr<ColoredLight> light = createLight(color, pos, type);
+		this->drawable_object.emplace_back(sphere, sizeof(sphere), ShaderInstances::constant());
+		this->drawable_object.back().Pos_mov(glm::vec3(0.0f, 0.0f, -4.5f));
+		//this->drawable_object.back().Pos_mov(glm::vec3(0.0f, 0.0f, -4.5f));
+		this->drawable_object.back().Pos_scale(0.25);
+		initAndEmplace(light);
+		applyLights();
+	}
 }
 
 void Scene::emplaceLight(glm::vec3 color, glm::vec3 pos, glm::vec3 dir, float cutoff)
 {
-	std::shared_ptr<ColoredLight> light = std::make_shared<Spotlight>(color, pos, dir, cutoff);
-	this->drawable_object.emplace_back(sphere, sizeof(sphere), ShaderInstances::constant());
-	this->drawable_object.back().Pos_mov(pos);
-	this->drawable_object.back().Pos_mov(glm::vec3(0.f, 0.f, 0.1f));
-	this->drawable_object.back().Pos_scale(0.25);
-	initAndEmplace(light);
-	applyLights();
+	if (test == 4)
+	{
+		std::shared_ptr<ColoredLight> light = std::make_shared<Spotlight>(color, pos, dir, cutoff);
+		this->drawable_object.emplace_back(sphere, sizeof(sphere), ShaderInstances::constant());
+		this->drawable_object.back().Pos_mov(pos);
+		this->drawable_object.back().Pos_mov(glm::vec3(0.f, 0.f, 0.1f));
+		this->drawable_object.back().Pos_scale(0.25);
+		initAndEmplace(light);
+		applyLights();
+	}
+	else
+	{
+		std::shared_ptr<ColoredLight> light = std::make_shared<Spotlight>(color, pos, dir, cutoff);
+		this->drawable_object.emplace_back(sphere, sizeof(sphere), ShaderInstances::constant());
+		this->drawable_object.back().Pos_mov(glm::vec3(0.0f, 0.0f, -4.5f));
+		//this->drawable_object.back().Pos_mov(glm::vec3(0.0f, 0.0f, -4.5f));
+		this->drawable_object.back().Pos_scale(0.25);
+		initAndEmplace(light);
+		applyLights();
+	}
+	
 }
 
 std::shared_ptr<ColoredLight> Scene::createLight(glm::vec3 color, glm::vec3 data, gl::Light type)
@@ -307,9 +334,22 @@ Scene::Scene(GLFWwindow* in_window, int test)
 	camera->registerObserver(ShaderInstances::lambert());
 	camera->registerObserver(ShaderInstances::phong());
 
-	emplaceLight(glm::vec3{ 1.f }, glm::vec3{ 0.0f, 4.0f, -4.5f }, gl::Light::Point);
-	emplaceLight(glm::vec3{ 1.f }, glm::vec3{ 0.f, 4.f, 8.0f }, gl::Light::Point);
-	emplaceAmbientLight(glm::vec3{ .1f });
+	if (test == 4)
+	{
+		//emplaceLight(glm::vec3{ 1.f }, glm::vec3{ 0.0f, 4.0f, -4.5f }, gl::Light::Point);
+		//emplaceLight(glm::vec3{ 1.f }, glm::vec3{ 0.f, 4.f, 8.0f }, gl::Light::Point);
+		emplaceLight(glm::vec3{ 1.f,0.f,0.f }, glm::vec3{ 4.f, 0.f, 6.0f }, gl::Light::Point);
+		emplaceLight(glm::vec3{ 0.f, 1.f,1.f }, glm::vec3{ 0.f,1.f,0.6f }, gl::Light::Point);
+		emplaceAmbientLight(glm::vec3{ .1f });
+	}
+	else
+	{
+		emplaceLight(glm::vec3{ 1.f }, glm::vec3{ 0.0f, 0.0f, -4.5f }, gl::Light::Point);
+		//emplaceLight(glm::vec3{ 1.f }, glm::vec3{ 0.f, 4.f, 8.0f }, gl::Light::Point);
+		emplaceAmbientLight(glm::vec3{ .1f });
+	}
+
+	
 	/*for (int i = 0; i < drawable_object.size(); i++)
 	{
 		camera->registerObserver(this->drawable_object[i].getShader()); //adding all draw objects to camera as observer

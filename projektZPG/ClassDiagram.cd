@@ -22,7 +22,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Camera" Collapsed="true">
-    <Position X="6.5" Y="3" Width="1.5" />
+    <Position X="7.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ABACEABAEoAAAEACIAAQMQIDQBgAAEAgAQBIUgAGgSA=</HashCode>
       <FileName>Camera.hpp</FileName>
