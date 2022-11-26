@@ -1,4 +1,4 @@
-#include "Models.h"
+#include "Models.hpp"
 
 void Models::GenerateVBO()
 {
@@ -8,17 +8,18 @@ void Models::GenerateVBO()
 	glBufferData(GL_ARRAY_BUFFER, size_points * sizeof(float), points, GL_STATIC_DRAW);
 }
 
-void Models::GenerateVAO()
+void Models::GenerateVAO(int valuesInRow, int skip, int values)
 {
 	//Vertex Array Object (VAO)
 	glGenVertexArrays(1, &VAO); //generate the VAO
 	glBindVertexArray(VAO); //bind the VAO
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), NULL); //points
+	glVertexAttribPointer(0, values, GL_FLOAT, GL_FALSE, valuesInRow * sizeof(float), NULL); //points
 	glEnableVertexAttribArray(0); //enable vertex attributes
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float))); //colours or lightning
-	glEnableVertexAttribArray(1); //enable vertex attributes
-
+	if (skip != 0) {
+		glVertexAttribPointer(1, values, GL_FLOAT, GL_FALSE, valuesInRow * sizeof(float), (void*)(skip * sizeof(float))); //colours or lightning
+		glEnableVertexAttribArray(1); //enable vertex attributes
+	}
 	//glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
 	//glEnableVertexAttribArray(1);
 
@@ -40,8 +41,12 @@ Models::Models(const float in_points[], int size_points)
 
 void Models::Init()
 {
+}
+
+void Models::Init(int valuesInRow, int skip, int values)
+{
 	GenerateVBO();
-	GenerateVAO();
+	GenerateVAO(valuesInRow, skip, values);
 }
 
 void Models::Bind()
@@ -52,4 +57,10 @@ void Models::Bind()
 void Models::Draw()
 {
 	glDrawArrays(GL_TRIANGLES, 0, 36);
+}
+
+void Models::setIds(GLuint vID, GLuint fID)
+{
+	this->VAO = vID;
+	this->VBO = fID;
 }

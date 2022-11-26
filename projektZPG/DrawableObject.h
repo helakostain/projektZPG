@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 
-#include "Models.h"
+#include "Models.hpp"
 #include "Shader.h"
 #include "Transformation.h"
 #include "Texture.hpp"
@@ -22,6 +22,8 @@ public:
 	DrawableObject(const float points[], int size_points, const char* vertex_path, const char* fragment_path);
 	DrawableObject(const float points[], int size_points, Shader& shader);
 	DrawableObject(const float points[], int size_points, Shader& shader, shared_ptr<Texture> texture);
+	DrawableObject(Models* model, Shader& shader);
+	DrawableObject(Models* model, Shader& shader, shared_ptr<Texture> texture);
 
 	void DoTransformations(const double delta);
 	void sendShaderMatrix();

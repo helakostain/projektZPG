@@ -70,6 +70,10 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <IncludePath>$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -159,7 +163,7 @@
     <ClInclude Include="Camera.hpp" />
     <ClInclude Include="DrawableObject.h" />
     <ClInclude Include="Light.hpp" />
-    <ClInclude Include="Models.h" />
+    <ClInclude Include="Models.hpp" />
     <ClInclude Include="Models\bushes.h.h" />
     <ClInclude Include="Models\gift.h" />
     <ClInclude Include="Models\plain.h" />
@@ -175,7 +179,7 @@
     <ClInclude Include="ShaderInstances.h" />
     <ClInclude Include="ShaderLoader.h" />
     <ClInclude Include="Skybox.h" />
-    <ClInclude Include="Sphere.h" />
+    <ClInclude Include="Sphere.hpp" />
     <ClInclude Include="SuziFlat.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="Texture.hpp" />

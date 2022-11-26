@@ -1,5 +1,5 @@
 #include "Scene.h"
-#include "Sphere.h"
+#include "Sphere.hpp"
 //#include "Models/sphere.h"
 #include "Models/gift.h"
 #include "Models/plain.h"
@@ -15,8 +15,11 @@
 void Scene::Loop()
 {
 	TimePoint lastTime = std::chrono::high_resolution_clock::now(); //current time
-	skybox->draw();
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear window content
+	if (test == 4)
+	{
+		skybox->draw();
+	}
+	glClear(GL_DEPTH_BUFFER_BIT); //clear window content
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_STENCIL_TEST);
 	glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
@@ -51,7 +54,7 @@ void Scene::Loop()
 		this->drawable_object[i].updateObject(0.f);
 		camera->update(1.f);
 		if (test == 4)
-		{
+		{/*
 			for (int j = 0; j < 10; j++) {
 				if (j < 4) {
 					glDrawArrays(GL_TRIANGLES, 0, 2904);
@@ -65,7 +68,8 @@ void Scene::Loop()
 				}
 				else if (j == 9)
 				{
-					glDrawArrays(GL_TRIANGLES, 0, sizeof(sphere) / 6); //mode,first,count
+					//glDrawArrays(GL_TRIANGLES, 0, sizeof(sphere) / 6); //mode,first,count
+					this->drawable_object[i].Draw();
 				}
 				else if (j > 9)
 				{
@@ -78,11 +82,13 @@ void Scene::Loop()
 						}
 					}
 				}
-			}
+			}*/
+			this->drawable_object[i].Draw();
 		}
 		else
 		{
-			glDrawArrays(GL_TRIANGLES, 0, sizeof(sphere) / 6); //mode,first,count
+			//glDrawArrays(GL_TRIANGLES, 0, sizeof(sphere) / 6); //mode,first,count
+			this->drawable_object[i].Draw();
 		}
 	}
 	glfwPollEvents(); // update other events like input handling
@@ -96,7 +102,11 @@ void Scene::Loop()
 	
 	while (!glfwWindowShouldClose(window)) {  //main while loop for constant rendering of scene
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear color and depth buffer
-
+		if (test == 4)
+		{
+			skybox->draw();
+		}
+		glClear(GL_DEPTH_BUFFER_BIT); //clear window content
 		const TimePoint now = std::chrono::high_resolution_clock::now(); //new current time
 		const float delta = std::chrono::duration_cast<Second>(now - lastTime).count(); //change of before and now time
 
@@ -126,7 +136,7 @@ void Scene::Loop()
 			this->drawable_object[i].updateObject(delta);
 			//glDrawArrays(GL_TRIANGLES, 0, 2880); //mode,first,count
 			if (test == 4)
-			{
+			{/*
 				for (int j = 0; j < 12; j++) {
 					if (j < 4) {
 						glDrawArrays(GL_TRIANGLES, 0, 2904);
@@ -140,7 +150,8 @@ void Scene::Loop()
 					}
 					else if (j >= 9 && j < 12)
 					{
-						glDrawArrays(GL_TRIANGLES, 0, sizeof(sphere) / 6); //mode,first,count
+						//glDrawArrays(GL_TRIANGLES, 0, sizeof(sphere) / 6); //mode,first,count
+						this->drawable_object[i].Draw();
 					}
 					else if (j >= 12)
 					{
@@ -153,11 +164,13 @@ void Scene::Loop()
 							}
 						}
 					}
-				}
+				}*/
+				this->drawable_object[i].Draw();
 			}
 			else
 			{
-				glDrawArrays(GL_TRIANGLES, 0, sizeof(sphere) / 6); //mode,first,count
+				//glDrawArrays(GL_TRIANGLES, 0, sizeof(sphere) / 6); //mode,first,count
+				this->drawable_object[i].Draw();
 			}
 			lastTime = now;
 		}
@@ -198,7 +211,7 @@ void Scene::emplaceLight(const glm::vec3 color, const glm::vec3 pos, const gl::L
 	if (test == 4)
 	{
 		std::shared_ptr<ColoredLight> light = createLight(color, pos, type);
-		this->drawable_object.emplace_back(sphere, sizeof(sphere), ShaderInstances::constant());
+		this->drawable_object.emplace_back(new Sphere(), ShaderInstances::constant());
 		this->drawable_object.back().Pos_mov(pos);
 		this->drawable_object.back().Pos_mov(glm::vec3(0.f, 0.f, (0.1 * (pos.z / abs(pos.z)))));
 		this->drawable_object.back().Pos_scale(0.25);
@@ -208,7 +221,7 @@ void Scene::emplaceLight(const glm::vec3 color, const glm::vec3 pos, const gl::L
 	else
 	{
 		std::shared_ptr<ColoredLight> light = createLight(color, pos, type);
-		this->drawable_object.emplace_back(sphere, sizeof(sphere), ShaderInstances::constant());
+		this->drawable_object.emplace_back(new Sphere(), ShaderInstances::constant());
 		this->drawable_object.back().Pos_mov(glm::vec3(0.0f, 0.0f, -4.5f));
 		//this->drawable_object.back().Pos_mov(glm::vec3(0.0f, 0.0f, -4.5f));
 		this->drawable_object.back().Pos_scale(0.25);
@@ -222,7 +235,7 @@ void Scene::emplaceLight(glm::vec3 color, glm::vec3 pos, glm::vec3 dir, float cu
 	if (test == 4)
 	{
 		std::shared_ptr<ColoredLight> light = std::make_shared<Spotlight>(color, pos, dir, cutoff);
-		this->drawable_object.emplace_back(sphere, sizeof(sphere), ShaderInstances::constant());
+		this->drawable_object.emplace_back(new Sphere(), ShaderInstances::constant());
 		this->drawable_object.back().Pos_mov(pos);
 		this->drawable_object.back().Pos_mov(glm::vec3(0.f, 0.f, 0.1f));
 		this->drawable_object.back().Pos_scale(0.25);
@@ -232,7 +245,7 @@ void Scene::emplaceLight(glm::vec3 color, glm::vec3 pos, glm::vec3 dir, float cu
 	else
 	{
 		std::shared_ptr<ColoredLight> light = std::make_shared<Spotlight>(color, pos, dir, cutoff);
-		this->drawable_object.emplace_back(sphere, sizeof(sphere), ShaderInstances::constant());
+		this->drawable_object.emplace_back(new Sphere(), ShaderInstances::constant());
 		this->drawable_object.back().Pos_mov(glm::vec3(0.0f, 0.0f, -4.5f));
 		//this->drawable_object.back().Pos_mov(glm::vec3(0.0f, 0.0f, -4.5f));
 		this->drawable_object.back().Pos_scale(0.25);
@@ -288,18 +301,18 @@ Scene::Scene(GLFWwindow* in_window, int test)
 
 	if (test == 1)
 	{
-		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong_no_textures()));
-		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong_no_textures()));
-		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong_no_textures()));
-		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong_no_textures()));
+		this->drawable_object.emplace_back(DrawableObject(new Sphere(), ShaderInstances::phong_no_textures()));
+		this->drawable_object.emplace_back(DrawableObject(new Sphere(), ShaderInstances::phong_no_textures()));
+		this->drawable_object.emplace_back(DrawableObject(new Sphere(), ShaderInstances::phong_no_textures()));
+		this->drawable_object.emplace_back(DrawableObject(new Sphere(), ShaderInstances::phong_no_textures()));
 	}
 	else if (test == 2)
 	{
-		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "light_no_textures.txt", "PhongBroken.txt"));
+		this->drawable_object.emplace_back(DrawableObject(new Sphere(), "light_no_textures.txt", "PhongBroken.txt"));
 	}
 	else if (test == 3)
 	{
-		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong_no_textures()));
+		this->drawable_object.emplace_back(DrawableObject(new Sphere(), ShaderInstances::phong_no_textures()));
 	}
 	else if (test == 4)
 	{
@@ -324,7 +337,7 @@ Scene::Scene(GLFWwindow* in_window, int test)
 		this->drawable_object.back().Pos_mov(glm::vec3(8, 15.f, 9));
 		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, ShaderInstances::phong_no_textures()));
 		this->drawable_object.back().Pos_mov(glm::vec3(2, 10.f, 15));
-		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong_no_textures()));
+		this->drawable_object.emplace_back(DrawableObject(new Sphere(), ShaderInstances::phong_no_textures()));
 		this->drawable_object.back().Pos_mov(glm::vec3(-5, 2.f, 10));
 
 		for (int i = 10; i < draw_objects; i++) {
@@ -346,7 +359,7 @@ Scene::Scene(GLFWwindow* in_window, int test)
 	}
 	else
 	{
-		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong_no_textures()));
+		this->drawable_object.emplace_back(DrawableObject(new Sphere(), ShaderInstances::phong_no_textures()));
 	}
 
 	camera = new Camera();
@@ -356,7 +369,10 @@ Scene::Scene(GLFWwindow* in_window, int test)
 	camera->registerObserver(ShaderInstances::phong());
 	camera->registerObserver(ShaderInstances::terrain());
 	camera->registerObserver(ShaderInstances::phong_no_textures());
-	camera->registerObserver(ShaderInstances::skybox());
+	if (test == 4)
+	{
+		camera->registerObserver(ShaderInstances::skybox());
+	}
 
 	if (test == 4)
 	{

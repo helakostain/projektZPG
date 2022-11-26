@@ -38,6 +38,24 @@ DrawableObject::DrawableObject(const float points[], int size_points, Shader& sh
     this->texture = texture;
 }
 
+DrawableObject::DrawableObject(Models* model, Shader& shader)
+{
+    this->models = model;
+    this->models->Init();
+    this->shaders = &shader;
+    this->transformations = new Transformation();
+    this->texture = nullptr;
+}
+
+DrawableObject::DrawableObject(Models* model, Shader& shader, shared_ptr<Texture> texture)
+{
+    this->models = model;
+    this->models->Init();
+    this->shaders = &shader;
+    this->transformations = new Transformation();
+    this->texture = texture;
+}
+
 void DrawableObject::DoTransformations(const double delta)
 {
     this->transformations->Update(delta);

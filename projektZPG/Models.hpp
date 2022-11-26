@@ -17,10 +17,13 @@ class Models
 {
 private:
 	void GenerateVBO();
-	void GenerateVAO();
+	void GenerateVAO(int valuesInRow, int skip, int values);
 protected:
 	const float* points;
 	int size_points;
+	int valuesInRow;
+	int skip;
+	int values;
 
 	GLuint VBO; //vertex buffer object (VBO)
 	GLuint VAO; //Vertex Array Object (VAO)
@@ -28,7 +31,10 @@ public:
 	Models();
 	Models(const float in_points[], int size_points);
 
-	virtual void Init(); //for generating VBO and VAO
+	virtual void Init();
+	virtual void Init(int valuesInRow, int skip, int values); //for generating VBO and VAO
 	virtual void Bind(); //binding vertex array
 	virtual void Draw();
+
+	void setIds(GLuint vID, GLuint fID);
 };

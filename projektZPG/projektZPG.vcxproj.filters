@@ -101,7 +101,7 @@
     <ClInclude Include="Callbacks.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
-    <ClInclude Include="Models.h">
+    <ClInclude Include="Models.hpp">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
@@ -137,7 +137,7 @@
     <ClInclude Include="Bushes.h">
       <Filter>Hlavičkové soubory\Models</Filter>
     </ClInclude>
-    <ClInclude Include="Sphere.h">
+    <ClInclude Include="Sphere.hpp">
       <Filter>Hlavičkové soubory\Models</Filter>
     </ClInclude>
     <ClInclude Include="SuziFlat.h">

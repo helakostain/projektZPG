@@ -16,7 +16,7 @@ ShaderInstances::ShaderInstances() :
     _constant("defaultvertex.txt", "defaultfragment.txt"),
     _lambert("light_no_textures.txt", "Lambert.txt"),
     _phong("light.txt", "phong.txt"),
-    _skybox("skybox.vert", ".skybox.frag"),
+    _skybox("skybox.vert", "skybox.frag"),
     _terrain("terrain.vert", "terrain.frag"),
     _phong_no_textures("light_no_textures.txt", "phong_no_textures.txt")
 {}

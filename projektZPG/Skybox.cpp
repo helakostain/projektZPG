@@ -65,12 +65,10 @@ void Skybox::Models_init() {
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
+
     using type = decltype(points)::value_type;
     typeSize = sizeof(type);
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * typeSize, nullptr);
-
-
-
 }
 
 void Skybox::bind_array() {
