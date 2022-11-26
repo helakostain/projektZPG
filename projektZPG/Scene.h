@@ -12,6 +12,8 @@
 #include "Callbacks.h"
 #include "Observer.h"
 #include "Light.hpp"
+#include "Skybox.h"
+#include "Texture.hpp"
 
 //Include GLFW
 #include <GLFW/glfw3.h> // DO NOT MOVE UP!!!!!!
@@ -29,6 +31,8 @@ private:
 	//PositionedLight light{ glm::vec3 { 1.f }, glm::vec3 { 0.f } };
 	std::vector<std::shared_ptr<ColoredLight>> lights;
 	AmbientLight ambientLight;
+	//Skybox sky;
+	std::shared_ptr<Skybox> skybox;
 	int test;
 	
 	void Loop(); //main while loop for window

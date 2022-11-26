@@ -26,6 +26,16 @@ DrawableObject::DrawableObject(const float points[], int size_points, Shader& sh
     this->models->Init();
     this->shaders = &shader;
     this->transformations = new Transformation();
+    this->texture = nullptr;
+}
+
+DrawableObject::DrawableObject(const float points[], int size_points, Shader& shader, shared_ptr<Texture> texture)
+{
+    this->models = new Models(points, size_points);
+    this->models->Init();
+    this->shaders = &shader;
+    this->transformations = new Transformation();
+    this->texture = texture;
 }
 
 void DrawableObject::DoTransformations(const double delta)
@@ -75,6 +85,24 @@ void DrawableObject::Pos_mov(glm::vec3 a)
 void DrawableObject::Draw()
 {
     this->models->Draw();
+}
+
+void DrawableObject::updateObject(const float delta)
+{
+    this->shaders->shaderUseProgram();
+    models->Bind();
+    transformations->Update(delta);
+    sendShaderMatrix();
+    if (this->texture != nullptr)
+    {
+        this->texture->bind(this->shaders);
+    }
+
+    //Draw(); //nefunguje :)
+}
+
+void DrawableObject::applyTexture(std::shared_ptr<Texture> texture)
+{
 }
 
 Shader& DrawableObject::getShader() 

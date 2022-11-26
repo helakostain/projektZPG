@@ -148,6 +148,7 @@
     <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="SuziFlat.cpp" />
+    <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Transformation.cpp" />
   </ItemGroup>
@@ -176,7 +177,8 @@
     <ClInclude Include="Skybox.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="SuziFlat.h" />
-    <ClInclude Include="Texture.h" />
+    <ClInclude Include="Terrain.h" />
+    <ClInclude Include="Texture.hpp" />
     <ClInclude Include="Transformation.h" />
   </ItemGroup>
   <ItemGroup>
@@ -184,9 +186,15 @@
     <Text Include="defaultfragment.txt" />
     <Text Include="defaultvertex.txt" />
     <Text Include="Lambert.txt" />
-    <Text Include="LightShader.txt" />
+    <Text Include="light.txt" />
+    <Text Include="light_no_textures.txt" />
     <Text Include="Phong.txt" />
     <Text Include="PhongBroken.txt" />
+    <Text Include="phong_no_textures.txt" />
+    <Text Include="skybox.frag" />
+    <Text Include="skybox.vert" />
+    <Text Include="terrain.frag" />
+    <Text Include="terrain.vert" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />

@@ -87,6 +87,9 @@
     <ClCompile Include="Skybox.cpp">
       <Filter>Zdrojové soubory\Models</Filter>
     </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>Zdrojové soubory\Models</Filter>
+    </ClCompile>
     <ClCompile Include="Texture.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
@@ -167,7 +170,10 @@
     <ClInclude Include="Skybox.h">
       <Filter>Hlavičkové soubory\Models</Filter>
     </ClInclude>
-    <ClInclude Include="Texture.h">
+    <ClInclude Include="Terrain.h">
+      <Filter>Hlavičkové soubory\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.hpp">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
   </ItemGroup>
@@ -175,7 +181,7 @@
     <Text Include="Phong.txt">
       <Filter>Soubory zdrojů\Fragments</Filter>
     </Text>
-    <Text Include="LightShader.txt">
+    <Text Include="light_no_textures.txt">
       <Filter>Soubory zdrojů\Vertexes</Filter>
     </Text>
     <Text Include="Blinn.txt">
@@ -192,6 +198,24 @@
     </Text>
     <Text Include="Lambert.txt">
       <Filter>Soubory zdrojů\Fragments</Filter>
+    </Text>
+    <Text Include="phong_no_textures.txt">
+      <Filter>Soubory zdrojů\Fragments</Filter>
+    </Text>
+    <Text Include="skybox.frag">
+      <Filter>Soubory zdrojů\Fragments</Filter>
+    </Text>
+    <Text Include="terrain.frag">
+      <Filter>Soubory zdrojů\Fragments</Filter>
+    </Text>
+    <Text Include="light.txt">
+      <Filter>Soubory zdrojů\Vertexes</Filter>
+    </Text>
+    <Text Include="skybox.vert">
+      <Filter>Soubory zdrojů\Vertexes</Filter>
+    </Text>
+    <Text Include="terrain.vert">
+      <Filter>Soubory zdrojů\Vertexes</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,5 @@
 #version 400
+
 #define MAX_LIGHTS 100
 
 struct Light {
@@ -11,24 +12,33 @@ struct Light {
 
 uniform Light lights[MAX_LIGHTS];
 uniform int lightCount;
+
 uniform vec3 cameraPosition;
 uniform vec3 ambientColor;
 uniform vec3 objectColor;
-uniform sampler2D textureUnitID;
+
+
 in vec4 ex_worldPosition;
 in vec3 ex_worldNormal;
-in vec2 uv;
+
+
 out vec4 out_color;
+
 vec3 point_light(vec3 color, vec3 worldPos, vec3 normalVector, vec3 lightPosition, vec3 lightColor) {
+
     const float specularStrength = 0.4;
+
     float dist = length(lightPosition - worldPos);
     float attenuation = clamp(5.0 / dist, 0.0, 1.0);
+    //float attenuation = 1.0 / (1.0 + 0.09 * dist + 0.032 * (dist * dist));
     vec3 viewDir = normalize(cameraPosition - worldPos);
     vec3 lightDir = normalize(lightPosition - worldPos);
     vec3 reflectionDir = reflect(-lightDir, normalVector);
+
     float dot_product = dot(lightDir, normalVector);
-    vec3 diffuse = max(dot_product, 0.0) * color * attenuation;
+    vec3 diffuse = max(dot_product, 0.0) * lightColor * attenuation;
     // vec4 diffuse = dot_product * vec4(0.385, 0.647, 0.812, 1.0);
+
     float specValue = pow(max(dot(viewDir, reflectionDir), 0.0), 16);
     vec3 spec = specularStrength * specValue * lightColor;
     if (dot_product < 0.0) {
@@ -57,7 +67,7 @@ vec3 spotlight(vec3 color, vec3 worldPos, vec3 normalVector, vec3 lightPosition,
     vec3 reflectionDir = reflect(-lightDir, normalVector);
 
     float dot_product = dot(lightDir, normalVector);
-    vec3 diffuse = max(dot_product, 0.0) * color * attenuation;
+    vec3 diffuse = max(dot_product, 0.0) * lightColor * attenuation;
 
     float specValue = pow(max(dot(viewDir, reflectionDir), 0.0), 16);
     vec3 spec = specularStrength * specValue * lightColor;
@@ -96,14 +106,13 @@ void main () {
     vec3 worldPos = ex_worldPosition.xyz / ex_worldPosition.w;
     vec3 normalVector = normalize(ex_worldNormal);
 
-    vec4 tex = texture(textureUnitID, uv);
-    vec3 color = vec3(tex.x, tex.y, tex.z);
+
+    vec3 color = vec3(0,1,0);
 
     for (int index = 0; index < lightCount; ++index) {
 
         vec3 lightPosition = lights[index].position;
         vec3 lightColor = lights[index].lightColor;
-
         vec3 lightDirection = lights[index].direction;
         float cutoff = lights[index].cutoff;
 

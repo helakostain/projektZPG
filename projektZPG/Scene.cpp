@@ -1,6 +1,6 @@
 #include "Scene.h"
-//#include "Sphere.h"
-#include "Models/sphere.h"
+#include "Sphere.h"
+//#include "Models/sphere.h"
 #include "Models/gift.h"
 #include "Models/plain.h"
 #include "Models/suzi_flat.h"
@@ -8,15 +8,19 @@
 #include "Models/tree.h"
 #include "Bushes.h"
 #include "ShaderInstances.h"
+#include "Skybox.h"
 
 #define draw_objects 150
 
 void Scene::Loop()
 {
 	TimePoint lastTime = std::chrono::high_resolution_clock::now(); //current time
-
+	skybox->draw();
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); //clear window content
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_STENCIL_TEST);
+	glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 	if (test == 1)
 	{
 		this->drawable_object[0].Pos_mov(glm::vec3(-2.0f, 0.0f, -4.5f)); //top left sphere
@@ -41,9 +45,10 @@ void Scene::Loop()
 
 	for (int i = 0; i < this->drawable_object.size(); i++) //first draw of scene
 	{
-		this->drawable_object[i].SetUp();
-		this->drawable_object[i].DoTransformations(0.f);
-		this->drawable_object[i].sendShaderMatrix();
+		//this->drawable_object[i].SetUp();
+		//this->drawable_object[i].DoTransformations(0.f);
+		//this->drawable_object[i].sendShaderMatrix();
+		this->drawable_object[i].updateObject(0.f);
 		camera->update(1.f);
 		if (test == 4)
 		{
@@ -114,10 +119,11 @@ void Scene::Loop()
 
 		for (int i = 0; i < this->drawable_object.size(); i++) //apply for all draw objects
 		{
-			this->drawable_object[i].SetUp();
-			this->drawable_object[i].DoTransformations(delta);
-			this->drawable_object[i].sendShaderMatrix();
-			this->drawable_object[i].Draw();
+			//this->drawable_object[i].SetUp();
+			//this->drawable_object[i].DoTransformations(delta);
+			//this->drawable_object[i].sendShaderMatrix();
+			//this->drawable_object[i].Draw();
+			this->drawable_object[i].updateObject(delta);
 			//glDrawArrays(GL_TRIANGLES, 0, 2880); //mode,first,count
 			if (test == 4)
 			{
@@ -181,6 +187,8 @@ void Scene::initAndEmplace(std::shared_ptr<ColoredLight>& light)
 	light->registerObserver(ShaderInstances::lambert());
 	light->registerObserver(ShaderInstances::phong());
 	light->registerObserver(ShaderInstances::blinn());
+	light->registerObserver(ShaderInstances::terrain());
+	light->registerObserver(ShaderInstances::phong_no_textures());
 	light->lightIndex = this->lights.size();
 	this->lights.emplace_back(light);
 }
@@ -260,50 +268,63 @@ void Scene::setShaderCount() const
 	ShaderInstances::blinn().passUniformLocation("lightCount", lights.size());
 	ShaderInstances::lambert().passUniformLocation("lightCount", lights.size());
 	ShaderInstances::phong().passUniformLocation("lightCount", lights.size());
+	ShaderInstances::phong_no_textures().passUniformLocation("lightCount", lights.size());
+	ShaderInstances::terrain().passUniformLocation("lightCount", lights.size());
 }
 
 Scene::Scene(GLFWwindow* in_window, int test)
 {
 	this->test = test;
 	this->window = in_window;
+
+	static std::vector<std::string> cubemapTextures{
+		"Textures/cubemap/posx.jpg",
+		"Textures/cubemap/negx.jpg",
+		"Textures/cubemap/posy.jpg",
+		"Textures/cubemap/negy.jpg",
+		"Textures/cubemap/posz.jpg",
+		"Textures/cubemap/negz.jpg"
+	};
+
 	if (test == 1)
 	{
-		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong()));
-		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong()));
-		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong()));
-		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong()));
+		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong_no_textures()));
+		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong_no_textures()));
+		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong_no_textures()));
+		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong_no_textures()));
 	}
 	else if (test == 2)
 	{
-		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "LightShader.txt", "PhongBroken.txt"));
+		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), "light_no_textures.txt", "PhongBroken.txt"));
 	}
 	else if (test == 3)
 	{
-		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong()));
+		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong_no_textures()));
 	}
 	else if (test == 4)
 	{
 		srand(time(NULL));
-		this->drawable_object.emplace_back(DrawableObject(suziFlat, sizeof(suziFlat)/4, ShaderInstances::phong()));
+		this->skybox = std::make_shared<Skybox>(TextureManager::cubeMap("skybox", cubemapTextures));
+		this->drawable_object.emplace_back(DrawableObject(suziFlat, sizeof(suziFlat)/4, ShaderInstances::phong_no_textures()));
 		this->drawable_object.back().Pos_mov(glm::vec3(50, 2.f, -5));
-		this->drawable_object.emplace_back(DrawableObject(suziFlat, sizeof(suziFlat)/4, ShaderInstances::phong()));
+		this->drawable_object.emplace_back(DrawableObject(suziFlat, sizeof(suziFlat)/4, ShaderInstances::phong_no_textures()));
 		this->drawable_object.back().Pos_mov(glm::vec3(2, 2.f, 8));
-		this->drawable_object.emplace_back(DrawableObject(suziSmooth, sizeof(suziSmooth) / 4, ShaderInstances::phong()));
+		this->drawable_object.emplace_back(DrawableObject(suziSmooth, sizeof(suziSmooth) / 4, ShaderInstances::phong_no_textures()));
 		this->drawable_object.back().Pos_mov(glm::vec3(16, 2.f, -10));
-		this->drawable_object.emplace_back(DrawableObject(suziSmooth, sizeof(suziSmooth) / 4, ShaderInstances::phong()));
+		this->drawable_object.emplace_back(DrawableObject(suziSmooth, sizeof(suziSmooth) / 4, ShaderInstances::phong_no_textures()));
 		this->drawable_object.back().Pos_mov(glm::vec3(4, 2.f, 2));
-		this->drawable_object.emplace_back(DrawableObject(gift, sizeof(gift)/4, ShaderInstances::phong()));
+		this->drawable_object.emplace_back(DrawableObject(gift, sizeof(gift)/4, ShaderInstances::phong_no_textures()));
 		this->drawable_object.back().Pos_mov(glm::vec3(4, 0.f, 2));
-		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, ShaderInstances::constant()));
+		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, ShaderInstances::phong(), TextureManager::getOrEmplace("wood", "Textures/grass.png")));
 		this->drawable_object.back().Pos_mov(glm::vec3(0.f, 0.f, 0.f));
 		this->drawable_object.back().Pos_scale(60);
-		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, ShaderInstances::phong()));
+		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, ShaderInstances::phong_no_textures()));
 		this->drawable_object.back().Pos_mov(glm::vec3(0.f, 20.f, 0.f));
-		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, ShaderInstances::phong()));
+		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, ShaderInstances::phong_no_textures()));
 		this->drawable_object.back().Pos_mov(glm::vec3(8, 15.f, 9));
-		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, ShaderInstances::phong()));
+		this->drawable_object.emplace_back(DrawableObject(plain, sizeof(plain)/4, ShaderInstances::phong_no_textures()));
 		this->drawable_object.back().Pos_mov(glm::vec3(2, 10.f, 15));
-		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong()));
+		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong_no_textures()));
 		this->drawable_object.back().Pos_mov(glm::vec3(-5, 2.f, 10));
 
 		for (int i = 10; i < draw_objects; i++) {
@@ -325,7 +346,7 @@ Scene::Scene(GLFWwindow* in_window, int test)
 	}
 	else
 	{
-		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong()));
+		this->drawable_object.emplace_back(DrawableObject(sphere, sizeof(sphere), ShaderInstances::phong_no_textures()));
 	}
 
 	camera = new Camera();
@@ -333,6 +354,9 @@ Scene::Scene(GLFWwindow* in_window, int test)
 	camera->registerObserver(ShaderInstances::constant());
 	camera->registerObserver(ShaderInstances::lambert());
 	camera->registerObserver(ShaderInstances::phong());
+	camera->registerObserver(ShaderInstances::terrain());
+	camera->registerObserver(ShaderInstances::phong_no_textures());
+	camera->registerObserver(ShaderInstances::skybox());
 
 	if (test == 4)
 	{
@@ -340,6 +364,7 @@ Scene::Scene(GLFWwindow* in_window, int test)
 		//emplaceLight(glm::vec3{ 1.f }, glm::vec3{ 0.f, 4.f, 8.0f }, gl::Light::Point);
 		emplaceLight(glm::vec3{ 1.f,0.f,0.f }, glm::vec3{ 4.f, 0.f, 6.0f }, gl::Light::Point);
 		emplaceLight(glm::vec3{ 0.f, 1.f,1.f }, glm::vec3{ 0.f,1.f,0.6f }, gl::Light::Point);
+		emplaceLight(glm::vec3{ 1.f }, glm::vec3{ -10.f, 50.f, 50.f }, gl::Light::Directional);
 		emplaceAmbientLight(glm::vec3{ .1f });
 	}
 	else
