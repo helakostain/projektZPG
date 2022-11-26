@@ -1,10 +1,9 @@
-#include "Bushes.hpp"
-#include "Models/bushes.h.h"
+#include "Tree.hpp"
 
-Bushes::Bushes() : Models()
+Tree::Tree() : Models()
 {
-	this->points = plain;
-	this->size_points = sizeof(plain); // /4
+	this->points = tree;
+	this->size_points = sizeof(tree)/4;
 
 	this->valuesInRow = 6;
 	this->skip = 3;
@@ -13,8 +12,13 @@ Bushes::Bushes() : Models()
 	this->VBO = 0;
 }
 
-void Bushes::Init() {
+void Tree::Draw()
+{
+	glDrawArrays(GL_TRIANGLES, 0, 92814);
+}
 
+void Tree::Init()
+{
 	glGenBuffers(1, &this->VBO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
@@ -37,9 +41,7 @@ void Bushes::Init() {
 	}
 }
 
-void Bushes::Bind() {
+void Tree::Bind()
+{
 	glBindVertexArray(this->VAO);
-}
-void Bushes::Draw() {
-	glDrawArrays(GL_TRIANGLES, 0, 8730);
 }

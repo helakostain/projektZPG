@@ -4,16 +4,15 @@
 
 #include <glm/mat4x4.hpp>
 
-#include "Models/sphere.h"
 #include "Models.hpp"
 
 #include <iterator>
 #include <vector>
 
-class Sphere : public Models
+class Bushes : public Models
 {
 public:
-	Sphere();
+	Bushes();
 	void Draw() override;
 	void Init() override;
 	void Bind() override;

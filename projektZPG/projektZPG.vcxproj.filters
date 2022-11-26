@@ -93,6 +93,18 @@
     <ClCompile Include="Texture.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
+    <ClCompile Include="Gift.cpp">
+      <Filter>Zdrojové soubory\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Plain.cpp">
+      <Filter>Zdrojové soubory\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="SuziSmooth.cpp">
+      <Filter>Zdrojové soubory\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="Tree.cpp">
+      <Filter>Zdrojové soubory\Models</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -134,13 +146,13 @@
     <ClInclude Include="ShaderInstances.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
-    <ClInclude Include="Bushes.h">
+    <ClInclude Include="Bushes.hpp">
       <Filter>Hlavičkové soubory\Models</Filter>
     </ClInclude>
     <ClInclude Include="Sphere.hpp">
       <Filter>Hlavičkové soubory\Models</Filter>
     </ClInclude>
-    <ClInclude Include="SuziFlat.h">
+    <ClInclude Include="SuziFlat.hpp">
       <Filter>Hlavičkové soubory\Models</Filter>
     </ClInclude>
     <ClInclude Include="Models\bushes.h.h">
@@ -175,6 +187,18 @@
     </ClInclude>
     <ClInclude Include="Texture.hpp">
       <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="Gift.hpp">
+      <Filter>Hlavičkové soubory\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Plain.hpp">
+      <Filter>Hlavičkové soubory\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="SuziSmooth.hpp">
+      <Filter>Hlavičkové soubory\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Tree.hpp">
+      <Filter>Hlavičkové soubory\Models</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

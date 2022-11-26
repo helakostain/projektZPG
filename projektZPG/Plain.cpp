@@ -1,20 +1,25 @@
-#include "Bushes.hpp"
-#include "Models/bushes.h.h"
+#include "Plain.hpp"
+#include "Models/plain.h"
 
-Bushes::Bushes() : Models()
+Plain::Plain() : Models()
 {
 	this->points = plain;
-	this->size_points = sizeof(plain); // /4
+	this->size_points = sizeof(plain);
 
-	this->valuesInRow = 6;
+	this->valuesInRow = 8;
 	this->skip = 3;
 	this->values = 3;
 	this->VAO = 0;
 	this->VBO = 0;
 }
 
-void Bushes::Init() {
+void Plain::Draw()
+{
+	glDrawArrays(GL_TRIANGLES, 0, 6);
+}
 
+void Plain::Init()
+{
 	glGenBuffers(1, &this->VBO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
@@ -23,23 +28,19 @@ void Bushes::Init() {
 	glGenVertexArrays(1, &this->VAO);
 	glBindVertexArray(this->VAO);
 
-
 	glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
-
-
 
 	glVertexAttribPointer(0, values, GL_FLOAT, GL_FALSE, valuesInRow * sizeof(float), NULL);
 	glEnableVertexAttribArray(0);
 
-	if (skip != 0) {
-		glVertexAttribPointer(1, values, GL_FLOAT, GL_FALSE, valuesInRow * sizeof(float), (void*)(skip * sizeof(float)));
-		glEnableVertexAttribArray(1);
-	}
+	glVertexAttribPointer(1, values, GL_FLOAT, GL_FALSE, valuesInRow * sizeof(float), (void*)(skip * sizeof(float)));
+	glEnableVertexAttribArray(1);
+
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, valuesInRow * sizeof(float), (void*)(6 * sizeof(float)));
+	glEnableVertexAttribArray(2);
 }
 
-void Bushes::Bind() {
+void Plain::Bind()
+{
 	glBindVertexArray(this->VAO);
-}
-void Bushes::Draw() {
-	glDrawArrays(GL_TRIANGLES, 0, 8730);
 }

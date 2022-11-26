@@ -1,19 +1,18 @@
 #pragma once
-
 #include <GL/glew.h>
 
 #include <glm/mat4x4.hpp>
 
-#include "Models/sphere.h"
+#include "Models/tree.h"
 #include "Models.hpp"
 
 #include <iterator>
 #include <vector>
 
-class Sphere : public Models
+class Tree : public Models
 {
 public:
-	Sphere();
+	Tree();
 	void Draw() override;
 	void Init() override;
 	void Bind() override;
