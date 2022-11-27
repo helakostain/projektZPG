@@ -64,3 +64,15 @@ void Models::setIds(GLuint vID, GLuint fID)
 	this->VAO = vID;
 	this->VBO = fID;
 }
+
+void Models::addMesh(Mesh&& mesh)
+{
+	meshes.emplace_back(std::move(mesh));
+}
+
+void Models::draw(uint32_t id, Shader* shader) const
+{
+	for (const Mesh& mesh : meshes) {
+		mesh.bindAndDraw(id, shader);
+	}
+}

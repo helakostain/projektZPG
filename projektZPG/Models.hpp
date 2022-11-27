@@ -12,6 +12,8 @@
 #include <vector>
 
 #include "Camera.hpp"
+#include "Mesh.hpp"
+#include "ModelsLoader.hpp"
 
 class Models
 {
@@ -37,4 +39,12 @@ public:
 	virtual void Draw();
 
 	void setIds(GLuint vID, GLuint fID);
+
+	std::vector<Mesh> meshes;
+	std::vector<Material> materials;
+	std::string directory;
+
+	// 3D models
+	void addMesh(Mesh&& mesh);
+	void draw(uint32_t id, Shader* shader) const;
 };

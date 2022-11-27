@@ -31,6 +31,21 @@
     <Filter Include="Zdrojové soubory\Models">
       <UniqueIdentifier>{9b967319-5a8d-4657-a369-2ddb73ae3bf8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Soubory zdrojů\Model\house">
+      <UniqueIdentifier>{d27d1598-5f66-4518-a4bf-2cadad12ab18}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Soubory zdrojů\Model\plane">
+      <UniqueIdentifier>{381f7dd1-ac91-4ca3-ac37-d5be9025a17d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Soubory zdrojů\Model\skybox">
+      <UniqueIdentifier>{4264677c-41cd-42e5-96d4-2b16147744e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Soubory zdrojů\Model\skydome">
+      <UniqueIdentifier>{befb28d3-a441-4372-8deb-03458a481bc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Soubory zdrojů\Model\zombie">
+      <UniqueIdentifier>{d3deb783-9288-4e35-b752-96328f181118}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -105,6 +120,12 @@
     <ClCompile Include="Tree.cpp">
       <Filter>Zdrojové soubory\Models</Filter>
     </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
+    <ClCompile Include="ModelsLoader.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -122,7 +143,7 @@
     <ClInclude Include="Scene.h">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
-    <ClInclude Include="DrawableObject.h">
+    <ClInclude Include="DrawableObject.hpp">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
     <ClInclude Include="Transformation.h">
@@ -161,9 +182,6 @@
     <ClInclude Include="Models\gift.h">
       <Filter>Soubory zdrojů\Model</Filter>
     </ClInclude>
-    <ClInclude Include="Models\plain.h">
-      <Filter>Soubory zdrojů\Model</Filter>
-    </ClInclude>
     <ClInclude Include="Models\sphere.h">
       <Filter>Soubory zdrojů\Model</Filter>
     </ClInclude>
@@ -174,9 +192,6 @@
       <Filter>Soubory zdrojů\Model</Filter>
     </ClInclude>
     <ClInclude Include="Models\tree.h">
-      <Filter>Soubory zdrojů\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="Models\skycube.h">
       <Filter>Soubory zdrojů\Model</Filter>
     </ClInclude>
     <ClInclude Include="Skybox.h">
@@ -199,6 +214,24 @@
     </ClInclude>
     <ClInclude Include="Tree.hpp">
       <Filter>Hlavičkové soubory\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.hpp">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelsLoader.hpp">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\building.h">
+      <Filter>Soubory zdrojů\Model\house</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\skycube.h">
+      <Filter>Soubory zdrojů\Model\skybox</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\plain.h">
+      <Filter>Soubory zdrojů\Model\plane</Filter>
+    </ClInclude>
+    <ClInclude Include="Models\skydome.h">
+      <Filter>Soubory zdrojů\Model\skydome</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -244,6 +277,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="Models\model.mtl">
+      <Filter>Soubory zdrojů\Model\house</Filter>
+    </None>
+    <None Include="Models\untitled.blend">
+      <Filter>Soubory zdrojů\Model\house</Filter>
+    </None>
+    <None Include="Models\plane.mtl">
+      <Filter>Soubory zdrojů\Model\plane</Filter>
+    </None>
+    <None Include="Models\skydome.blend">
+      <Filter>Soubory zdrojů\Model\skydome</Filter>
+    </None>
+    <None Include="Models\skydome.mtl">
+      <Filter>Soubory zdrojů\Model\skydome</Filter>
+    </None>
+    <None Include="Models\zombie.mtl">
+      <Filter>Soubory zdrojů\Model\zombie</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\fulldome3.jpg">
@@ -274,6 +325,12 @@
       <Filter>Soubory zdrojů\Textures</Filter>
     </Image>
     <Image Include="Textures\grass.png">
+      <Filter>Soubory zdrojů\Textures</Filter>
+    </Image>
+    <Image Include="Models\test.png">
+      <Filter>Soubory zdrojů\Textures</Filter>
+    </Image>
+    <Image Include="Textures\zombie.png">
       <Filter>Soubory zdrojů\Textures</Filter>
     </Image>
   </ItemGroup>

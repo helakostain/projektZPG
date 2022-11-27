@@ -108,14 +108,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\adamh\OneDrive\Dokumenty\VŠB\5. semestr\Základy počítačové grafiky\cviceni\Knihovny\glfw-3.3.8.bin.WIN64\include;C:\Users\adamh\OneDrive\Dokumenty\VŠB\5. semestr\Základy počítačové grafiky\cviceni\Knihovny\glew-2.1.0\include;C:\Users\adamh\OneDrive\Dokumenty\VŠB\5. semestr\Základy počítačové grafiky\cviceni\Knihovny\glm-master;C:\Users\adamh\OneDrive\Dokumenty\VŠB\5. semestr\Základy počítačové grafiky\cviceni\Knihovny\soil\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\adamh\OneDrive\Dokumenty\VŠB\5. semestr\Základy počítačové grafiky\cviceni\Knihovny\glfw-3.3.8.bin.WIN64\include;C:\Users\adamh\OneDrive\Dokumenty\VŠB\5. semestr\Základy počítačové grafiky\cviceni\Knihovny\glew-2.1.0\include;C:\Users\adamh\OneDrive\Dokumenty\VŠB\5. semestr\Základy počítačové grafiky\cviceni\Knihovny\glm-master;C:\Users\adamh\OneDrive\Dokumenty\VŠB\5. semestr\Základy počítačové grafiky\cviceni\Knihovny\soil\include;C:\Users\adamh\OneDrive\Dokumenty\VŠB\5. semestr\Základy počítačové grafiky\cviceni\Knihovny\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\adamh\OneDrive\Dokumenty\VŠB\5. semestr\Základy počítačové grafiky\cviceni\Knihovny\glew-2.1.0\lib\Release\x64;C:\Users\adamh\OneDrive\Dokumenty\VŠB\5. semestr\Základy počítačové grafiky\cviceni\Knihovny\glfw-3.3.8.bin.WIN64\lib-vc2022;C:\Users\adamh\OneDrive\Dokumenty\VŠB\5. semestr\Základy počítačové grafiky\cviceni\Knihovny\soil\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;glfw3.lib;glew32.lib;SOIL64.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\adamh\OneDrive\Dokumenty\VŠB\5. semestr\Základy počítačové grafiky\cviceni\Knihovny\glew-2.1.0\lib\Release\x64;C:\Users\adamh\OneDrive\Dokumenty\VŠB\5. semestr\Základy počítačové grafiky\cviceni\Knihovny\glfw-3.3.8.bin.WIN64\lib-vc2022;C:\Users\adamh\OneDrive\Dokumenty\VŠB\5. semestr\Základy počítačové grafiky\cviceni\Knihovny\soil\lib;C:\Users\adamh\OneDrive\Dokumenty\VŠB\5. semestr\Základy počítačové grafiky\cviceni\Knihovny\assimp\lib\x64\v141\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;glfw3.lib;glew32.lib;SOIL64.lib;assimp-vc140-mt.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -143,7 +143,9 @@
     <ClCompile Include="Gift.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Models.cpp" />
+    <ClCompile Include="ModelsLoader.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="Plain.cpp" />
@@ -165,14 +167,18 @@
     <ClInclude Include="Bushes.hpp" />
     <ClInclude Include="Callbacks.h" />
     <ClInclude Include="Camera.hpp" />
-    <ClInclude Include="DrawableObject.h" />
+    <ClInclude Include="DrawableObject.hpp" />
     <ClInclude Include="Gift.hpp" />
     <ClInclude Include="Light.hpp" />
+    <ClInclude Include="Mesh.hpp" />
+    <ClInclude Include="ModelsLoader.hpp" />
     <ClInclude Include="Models.hpp" />
+    <ClInclude Include="Models\building.h" />
     <ClInclude Include="Models\bushes.h.h" />
     <ClInclude Include="Models\gift.h" />
     <ClInclude Include="Models\plain.h" />
     <ClInclude Include="Models\skycube.h" />
+    <ClInclude Include="Models\skydome.h" />
     <ClInclude Include="Models\sphere.h" />
     <ClInclude Include="Models\suzi_flat.h" />
     <ClInclude Include="Models\suzi_smooth.h" />
@@ -210,8 +216,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram.cd" />
+    <None Include="Models\model.mtl" />
+    <None Include="Models\plane.mtl" />
+    <None Include="Models\skydome.blend" />
+    <None Include="Models\skydome.mtl" />
+    <None Include="Models\untitled.blend" />
+    <None Include="Models\zombie.mtl" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Models\test.png" />
     <Image Include="Textures\cubemap\negx.jpg" />
     <Image Include="Textures\cubemap\negy.jpg" />
     <Image Include="Textures\cubemap\negz.jpg" />
@@ -222,6 +235,7 @@
     <Image Include="Textures\grass.png" />
     <Image Include="Textures\skydome.png" />
     <Image Include="Textures\wooden_fence.png" />
+    <Image Include="Textures\zombie.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -7,7 +7,7 @@
 #include <optional>
 
 #include "Application.h"
-#include "DrawableObject.h"
+#include "DrawableObject.hpp"
 #include "Camera.hpp"
 #include "Mouse.h"
 #include "Scene.h"

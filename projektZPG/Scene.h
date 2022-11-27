@@ -6,7 +6,7 @@
 #include <functional>
 #include <vector>
 
-#include "DrawableObject.h"
+#include "DrawableObject.hpp"
 #include "Camera.hpp"
 #include "Shader.h"
 #include "Callbacks.h"

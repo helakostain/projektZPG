@@ -48,7 +48,6 @@ private:
 	static float calcNewV(float current, float acc, float dec);
 	static float getAcc(Direction dir);
 
-	void rotate(float degree, glm::vec3 axis);
 	void scale(glm::vec3 scales);
 	void updateForces(const float dt);
 	void updateRotation(const float dt);
@@ -66,4 +65,5 @@ public:
 	void applyFy(Direction dir);
 	void setGrowth(Growth growth);
 	void setRotation(Rotation rotation);
+	void rotate(float degree, glm::vec3 axis);
 };

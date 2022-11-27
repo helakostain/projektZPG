@@ -52,7 +52,7 @@ void Scene::Loop()
 		//this->drawable_object[i].sendShaderMatrix();
 		this->drawable_object[i].updateObject(0.f);
 		camera->update(1.f);
-		if (test == 4)
+		/*if (test == 4)
 		{
 			this->drawable_object[i].Draw();
 		}
@@ -60,7 +60,7 @@ void Scene::Loop()
 		{
 			//glDrawArrays(GL_TRIANGLES, 0, sizeof(sphere) / 6); //mode,first,count
 			this->drawable_object[i].Draw();
-		}
+		}*/
 	}
 	glfwPollEvents(); // update other events like input handling
 	glfwSwapBuffers(window); // put the stuff weve been drawing onto the display
@@ -100,7 +100,7 @@ void Scene::Loop()
 			//this->drawable_object[i].Draw();
 			this->drawable_object[i].updateObject(delta);
 			//glDrawArrays(GL_TRIANGLES, 0, 2880); //mode,first,count
-			if (test == 4)
+			/*if (test == 4)
 			{
 				this->drawable_object[i].Draw();
 			}
@@ -108,7 +108,7 @@ void Scene::Loop()
 			{
 				//glDrawArrays(GL_TRIANGLES, 0, sizeof(sphere) / 6); //mode,first,count
 				this->drawable_object[i].Draw();
-			}
+			}*/
 			lastTime = now;
 		}
 		camera->update(delta);

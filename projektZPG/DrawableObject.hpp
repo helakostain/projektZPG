@@ -37,6 +37,7 @@ public:
 	void Draw();
 	void updateObject(const float delta);
 	void applyTexture(std::shared_ptr<Texture> texture);
+	void rotate(float degree, glm::vec3 axis);
 
 	Shader& getShader();
 };

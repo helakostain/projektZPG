@@ -1,4 +1,4 @@
-#include "DrawableObject.h"
+#include "DrawableObject.hpp"
 
 DrawableObject::DrawableObject()
 {
@@ -116,11 +116,16 @@ void DrawableObject::updateObject(const float delta)
         this->texture->bind(this->shaders);
     }
 
-    //Draw(); //nefunguje :)
+    Draw();
 }
 
 void DrawableObject::applyTexture(std::shared_ptr<Texture> texture)
 {
+}
+
+void DrawableObject::rotate(float degree, glm::vec3 axis)
+{
+    this->transformations->rotate(degree, axis);
 }
 
 Shader& DrawableObject::getShader() 
