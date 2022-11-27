@@ -4,15 +4,17 @@ DrawableObject::DrawableObject()
 {
 }
 
-DrawableObject::DrawableObject(Models* model, const char* vertex_path, const char* fragment_path)
+DrawableObject::DrawableObject(Models* model, const char* vertex_path, const char* fragment_path, int size)
 {
     this->models = model;
     this->models->Init();
     this->shaders = new Shader(vertex_path, fragment_path);
     this->transformations = new Transformation();
+    this->isObject = false;
+    this->id = size;
 }
 
-DrawableObject::DrawableObject(const float points[], int size_points, const char* vertex_path, const char* fragment_path)
+/*DrawableObject::DrawableObject(const float points[], int size_points, const char* vertex_path, const char* fragment_path)
 {
     this->models = new Models(points, size_points);
     this->models->Init();
@@ -36,24 +38,39 @@ DrawableObject::DrawableObject(const float points[], int size_points, Shader& sh
     this->shaders = &shader;
     this->transformations = new Transformation();
     this->texture = texture;
-}
+}*/
 
-DrawableObject::DrawableObject(Models* model, Shader& shader)
+DrawableObject::DrawableObject(Models* model, Shader& shader, int size)
 {
     this->models = model;
     this->models->Init();
     this->shaders = &shader;
     this->transformations = new Transformation();
     this->texture = nullptr;
+    this->isObject = false;
+    this->id = size;
 }
 
-DrawableObject::DrawableObject(Models* model, Shader& shader, shared_ptr<Texture> texture)
+DrawableObject::DrawableObject(Models* model, Shader& shader, shared_ptr<Texture> texture, int size)
 {
     this->models = model;
     this->models->Init();
     this->shaders = &shader;
     this->transformations = new Transformation();
     this->texture = texture;
+    this->isObject = false;
+    this->id = size;
+}
+
+DrawableObject::DrawableObject(Models* model, Shader& shader, shared_ptr<Texture> texture, int size, bool object)
+{
+    this->models = model;
+    //this->models->Init();
+    this->shaders = &shader;
+    this->transformations = new Transformation();
+    this->texture = texture;
+    this->isObject = object;
+    this->id = size;
 }
 
 void DrawableObject::DoTransformations(const double delta)
@@ -108,15 +125,22 @@ void DrawableObject::Draw()
 void DrawableObject::updateObject(const float delta)
 {
     this->shaders->shaderUseProgram();
-    models->Bind();
+    //models->Bind();
+    if (!isObject)
+    {
+        models->Bind();
+        glStencilFunc(GL_ALWAYS, id, 0xFF);
+    }
     transformations->Update(delta);
     sendShaderMatrix();
-    if (this->texture != nullptr)
+    if (isObject)
     {
-        this->texture->bind(this->shaders);
+        models->draw(id, this->shaders);
     }
-
-    Draw();
+    else
+    {
+        Draw();
+    }
 }
 
 void DrawableObject::applyTexture(std::shared_ptr<Texture> texture)

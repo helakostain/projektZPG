@@ -2,9 +2,9 @@
 
 #include "Shader.h"
 
-std::unordered_map<std::string, std::shared_ptr<Models>> ModelsLoader::models;
+std::unordered_map<std::string, Models*> ModelsLoader::models;
 
-std::shared_ptr<Models> ModelsLoader::get(const std::string& key) {
+Models* ModelsLoader::get(const std::string& key) {
 
     auto iter = models.find(key);
 
@@ -32,17 +32,17 @@ Mesh ModelsLoader::processMesh(aiMesh& mesh, const aiScene& scene, const Models&
     processIndices(mesh, indices);
     const Material& mat = model.materials[mesh.mMaterialIndex];
 
-    std::shared_ptr<Texture> texture = nullptr;
+    /*std::shared_ptr<Texture> texture = nullptr;
     if (not mat.diffuseMap.empty()) {
         std::string tex = dewindows(model.directory + "/" + lufthansa(mat.diffuseMap));
         std::cout << tex << std::endl;
         texture = TextureManager::getOrEmplace(tex, tex);
-    }
+    }*/
 
-    return Mesh(std::move(vertices), std::move(indices), texture, mat);
+    return Mesh(std::move(vertices), std::move(indices), mat);
 }
 
-void ModelsLoader::processNode(aiNode& node, const aiScene& scene, std::shared_ptr<Models>& model) {
+void ModelsLoader::processNode(aiNode& node, const aiScene& scene, Models* model) {
     for (uint32_t i = 0; i < node.mNumMeshes; ++i) {
         aiMesh* mesh = scene.mMeshes[node.mMeshes[i]];
         model->addMesh(processMesh(*mesh, scene, *model));
@@ -52,7 +52,7 @@ void ModelsLoader::processNode(aiNode& node, const aiScene& scene, std::shared_p
     }
 }
 
-std::shared_ptr<Models> ModelsLoader::loadModel(const std::string& key) {
+Models* ModelsLoader::loadModel(const std::string& key) {
     auto path = formatName(key);
 
     Assimp::Importer importer;
@@ -68,16 +68,18 @@ std::shared_ptr<Models> ModelsLoader::loadModel(const std::string& key) {
         throw std::runtime_error("Error loading model '" + key + "'");
     }
 
-    auto model = std::make_shared<Models>();
+    auto model = new Models();
     model->directory = path.substr(0, path.find_last_of('/'));
     processMaterials(scene, model->materials);
     processNode(*scene.mRootNode, scene, model);
+
+    models.emplace(key, model);
 
     return model;
 }
 
 std::string ModelsLoader::formatName(const std::string& model) {
-    return "resources/models/" + model + ".obj";
+    return "Models/" + model + ".obj";
 }
 
 

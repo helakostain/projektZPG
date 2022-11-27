@@ -10,14 +10,22 @@
 
 #include <iostream>
 #include <vector>
+#include <memory>
+#include <unordered_map>
+#include <string>
 
 #include "Camera.hpp"
 #include "Mesh.hpp"
 #include "ModelsLoader.hpp"
+#include "Shader.h"
+
+class ModelsLoader;
 
 class Models
 {
 private:
+	friend ModelsLoader;
+
 	void GenerateVBO();
 	void GenerateVAO(int valuesInRow, int skip, int values);
 protected:

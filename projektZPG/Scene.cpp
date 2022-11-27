@@ -69,7 +69,7 @@ void Scene::Loop()
 	applyLights();
 	
 	while (!glfwWindowShouldClose(window)) {  //main while loop for constant rendering of scene
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear color and depth buffer
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT); // clear color and depth buffer
 		if (test == 4)
 		{
 			skybox->draw();
@@ -148,7 +148,7 @@ void Scene::emplaceLight(const glm::vec3 color, const glm::vec3 pos, const gl::L
 	if (test == 4)
 	{
 		std::shared_ptr<ColoredLight> light = createLight(color, pos, type);
-		this->drawable_object.emplace_back(new Sphere(), ShaderInstances::constant());
+		this->drawable_object.emplace_back(new Sphere(), ShaderInstances::constant(), drawable_object.size());
 		this->drawable_object.back().Pos_mov(pos);
 		this->drawable_object.back().Pos_mov(glm::vec3(0.f, 0.f, (0.1 * (pos.z / abs(pos.z)))));
 		this->drawable_object.back().Pos_scale(0.25);
@@ -158,7 +158,7 @@ void Scene::emplaceLight(const glm::vec3 color, const glm::vec3 pos, const gl::L
 	else
 	{
 		std::shared_ptr<ColoredLight> light = createLight(color, pos, type);
-		this->drawable_object.emplace_back(new Sphere(), ShaderInstances::constant());
+		this->drawable_object.emplace_back(new Sphere(), ShaderInstances::constant(), drawable_object.size());
 		this->drawable_object.back().Pos_mov(glm::vec3(0.0f, 0.0f, -4.5f));
 		//this->drawable_object.back().Pos_mov(glm::vec3(0.0f, 0.0f, -4.5f));
 		this->drawable_object.back().Pos_scale(0.25);
@@ -172,7 +172,7 @@ void Scene::emplaceLight(glm::vec3 color, glm::vec3 pos, glm::vec3 dir, float cu
 	if (test == 4)
 	{
 		std::shared_ptr<ColoredLight> light = std::make_shared<Spotlight>(color, pos, dir, cutoff);
-		this->drawable_object.emplace_back(new Sphere(), ShaderInstances::constant());
+		this->drawable_object.emplace_back(new Sphere(), ShaderInstances::constant(), drawable_object.size());
 		this->drawable_object.back().Pos_mov(pos);
 		this->drawable_object.back().Pos_mov(glm::vec3(0.f, 0.f, 0.1f));
 		this->drawable_object.back().Pos_scale(0.25);
@@ -182,7 +182,7 @@ void Scene::emplaceLight(glm::vec3 color, glm::vec3 pos, glm::vec3 dir, float cu
 	else
 	{
 		std::shared_ptr<ColoredLight> light = std::make_shared<Spotlight>(color, pos, dir, cutoff);
-		this->drawable_object.emplace_back(new Sphere(), ShaderInstances::constant());
+		this->drawable_object.emplace_back(new Sphere(), ShaderInstances::constant(), drawable_object.size());
 		this->drawable_object.back().Pos_mov(glm::vec3(0.0f, 0.0f, -4.5f));
 		//this->drawable_object.back().Pos_mov(glm::vec3(0.0f, 0.0f, -4.5f));
 		this->drawable_object.back().Pos_scale(0.25);
@@ -238,54 +238,57 @@ Scene::Scene(GLFWwindow* in_window, int test)
 
 	if (test == 1)
 	{
-		this->drawable_object.emplace_back(DrawableObject(new Sphere(), ShaderInstances::phong_no_textures()));
-		this->drawable_object.emplace_back(DrawableObject(new Sphere(), ShaderInstances::phong_no_textures()));
-		this->drawable_object.emplace_back(DrawableObject(new Sphere(), ShaderInstances::phong_no_textures()));
-		this->drawable_object.emplace_back(DrawableObject(new Sphere(), ShaderInstances::phong_no_textures()));
+		this->drawable_object.emplace_back(DrawableObject(new Sphere(), ShaderInstances::phong_no_textures(), drawable_object.size()));
+		this->drawable_object.emplace_back(DrawableObject(new Sphere(), ShaderInstances::phong_no_textures(), drawable_object.size()));
+		this->drawable_object.emplace_back(DrawableObject(new Sphere(), ShaderInstances::phong_no_textures(), drawable_object.size()));
+		this->drawable_object.emplace_back(DrawableObject(new Sphere(), ShaderInstances::phong_no_textures(), drawable_object.size()));
 	}
 	else if (test == 2)
 	{
-		this->drawable_object.emplace_back(DrawableObject(new Sphere(), "light_no_textures.txt", "PhongBroken.txt"));
+		this->drawable_object.emplace_back(DrawableObject(new Sphere(), "light_no_textures.txt", "PhongBroken.txt", drawable_object.size()));
 	}
 	else if (test == 3)
 	{
-		this->drawable_object.emplace_back(DrawableObject(new Sphere(), ShaderInstances::phong_no_textures()));
+		this->drawable_object.emplace_back(DrawableObject(new Sphere(), ShaderInstances::phong_no_textures(), drawable_object.size()));
 	}
 	else if (test == 4)
 	{
 		srand(time(NULL));
 		this->skybox = std::make_shared<Skybox>(TextureManager::cubeMap("skybox", cubemapTextures));
-		this->drawable_object.emplace_back(DrawableObject(new SuziFlat(), ShaderInstances::phong_no_textures()));
+		this->drawable_object.emplace_back(DrawableObject(new SuziFlat(), ShaderInstances::phong_no_textures(), drawable_object.size()));
 		this->drawable_object.back().Pos_mov(glm::vec3(50, 2.f, -5));
-		this->drawable_object.emplace_back(DrawableObject(new SuziFlat(), ShaderInstances::phong_no_textures()));
+		this->drawable_object.emplace_back(DrawableObject(new SuziFlat(), ShaderInstances::phong_no_textures(), drawable_object.size()));
 		this->drawable_object.back().Pos_mov(glm::vec3(2, 2.f, 8));
-		this->drawable_object.emplace_back(DrawableObject(new SuziSmooth(), ShaderInstances::phong_no_textures()));
+		this->drawable_object.emplace_back(DrawableObject(new SuziSmooth(), ShaderInstances::phong_no_textures(), drawable_object.size()));
 		this->drawable_object.back().Pos_mov(glm::vec3(16, 2.f, -10));
-		this->drawable_object.emplace_back(DrawableObject(new SuziSmooth(), ShaderInstances::phong_no_textures()));
+		this->drawable_object.emplace_back(DrawableObject(new SuziSmooth(), ShaderInstances::phong_no_textures(), drawable_object.size()));
 		this->drawable_object.back().Pos_mov(glm::vec3(4, 2.f, 2));
-		this->drawable_object.emplace_back(DrawableObject(new Gift(), ShaderInstances::phong_no_textures()));
+		this->drawable_object.emplace_back(DrawableObject(new Gift(), ShaderInstances::phong_no_textures(), drawable_object.size()));
 		this->drawable_object.back().Pos_mov(glm::vec3(4, 0.f, 2));
-		this->drawable_object.emplace_back(DrawableObject(new Plain(), ShaderInstances::phong(), TextureManager::getOrEmplace("wood", "Textures/grass.png")));
+		this->drawable_object.emplace_back(DrawableObject(new Plain(), ShaderInstances::phong(), TextureManager::getOrEmplace("wood", "Textures/grass.png"), drawable_object.size()));
 		this->drawable_object.back().Pos_mov(glm::vec3(0.f, 0.f, 0.f));
 		this->drawable_object.back().Pos_scale(60);
-		this->drawable_object.emplace_back(DrawableObject(new Plain(), ShaderInstances::phong_no_textures()));
+		this->drawable_object.emplace_back(DrawableObject(new Plain(), ShaderInstances::phong_no_textures(), drawable_object.size()));
 		this->drawable_object.back().Pos_mov(glm::vec3(0.f, 20.f, 0.f));
-		this->drawable_object.emplace_back(DrawableObject(new Plain(), ShaderInstances::phong_no_textures()));
+		this->drawable_object.emplace_back(DrawableObject(new Plain(), ShaderInstances::phong_no_textures(), drawable_object.size()));
 		this->drawable_object.back().Pos_mov(glm::vec3(8, 15.f, 9));
-		this->drawable_object.emplace_back(DrawableObject(new Plain(), ShaderInstances::phong_no_textures()));
+		this->drawable_object.emplace_back(DrawableObject(new Plain(), ShaderInstances::phong_no_textures(), drawable_object.size()));
 		this->drawable_object.back().Pos_mov(glm::vec3(2, 10.f, 15));
-		this->drawable_object.emplace_back(DrawableObject(new Sphere(), ShaderInstances::phong_no_textures()));
+		this->drawable_object.emplace_back(DrawableObject(new Sphere(), ShaderInstances::phong_no_textures(), drawable_object.size()));
 		this->drawable_object.back().Pos_mov(glm::vec3(-5, 2.f, 10));
+		this->drawable_object.emplace_back(DrawableObject(ModelsLoader::get("model"), ShaderInstances::phong(), TextureManager::getOrEmplace("house", "Models/test.png"), drawable_object.size(), true));
+		//this->drawable_object.emplace_back(DrawableObject(ModelsLoader::get("zombie"), ShaderInstances::phong(), TextureManager::getOrEmplace("zombie", "Textures/zombie.png"), drawable_object.size(), true));
+
 
 		for (int i = 10; i < draw_objects; i++) {
 			if (i % 2 == 0) {
-				this->drawable_object.emplace_back(DrawableObject(new Tree(), ShaderInstances::lambert()));
+				this->drawable_object.emplace_back(DrawableObject(new Tree(), ShaderInstances::lambert(), drawable_object.size()));
 				float x = ((float)rand() / (float)(RAND_MAX)) * 50;
 				float z = ((float)rand() / (float)(RAND_MAX)) * 50;
 				this->drawable_object.back().Pos_mov(glm::vec3(x, 0.f, z));
 			}
 			else {
-				this->drawable_object.emplace_back(DrawableObject(new Bushes(), ShaderInstances::blinn()));
+				this->drawable_object.emplace_back(DrawableObject(new Bushes(), ShaderInstances::blinn(), drawable_object.size()));
 				float x = ((float)rand() / (float)(RAND_MAX)) * 50;
 				float z = ((float)rand() / (float)(RAND_MAX)) * 50;
 				this->drawable_object.back().Pos_mov(glm::vec3(x, 0.f, z));
@@ -295,7 +298,7 @@ Scene::Scene(GLFWwindow* in_window, int test)
 	}
 	else
 	{
-		this->drawable_object.emplace_back(DrawableObject(new Sphere(), ShaderInstances::phong_no_textures()));
+		this->drawable_object.emplace_back(DrawableObject(new Sphere(), ShaderInstances::phong_no_textures(), drawable_object.size()));
 	}
 
 	camera = new Camera();

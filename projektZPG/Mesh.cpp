@@ -13,12 +13,6 @@ void Mesh::bindAndDraw(const unsigned int id, Shader* shader) const {
     glBindVertexArray(0);
 }
 
-Mesh::Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices, std::shared_ptr<Texture> tex, const Material& material) :
-    vertices(std::move(vertices)), indices(std::move(indices)), texture(std::move(tex)), material(material) {
-
-    init();
-}
-
 void Mesh::init() {
     glGenVertexArrays(1, &vao);
     glGenBuffers(1, &vbo);
@@ -48,6 +42,12 @@ void Mesh::init() {
     glBindVertexArray(0);
 }
 
+Mesh::Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices, const Material& material) : 
+    vertices(std::move(vertices)), indices(std::move(indices)), material(material) 
+{
+    init();
+}
+
 Mesh::Mesh(Mesh&& mesh) noexcept :
-    vertices(std::move(mesh.vertices)), indices(std::move(mesh.indices)), texture(std::move(mesh.texture)),
+    vertices(std::move(mesh.vertices)), indices(std::move(mesh.indices)),
     vbo(mesh.vbo), vao(mesh.vao), ebo(mesh.ebo), material(mesh.material) { }

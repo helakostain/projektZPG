@@ -116,5 +116,5 @@ void main () {
         }
     }
 
-    out_color = vec4(ambientColor + fragColor, 1.0);
+    out_color = vec4(ambientColor + fragColor, 1);
 }

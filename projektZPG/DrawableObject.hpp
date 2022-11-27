@@ -16,14 +16,18 @@ private:
 
 	const char* vertex_shader;
 	const char* fragment_shader;
+
+	bool isObject;
+	int id;
 public:
 	DrawableObject();
-	DrawableObject(Models* model, const char* vertex_path, const char* fragment_path);
-	DrawableObject(const float points[], int size_points, const char* vertex_path, const char* fragment_path);
-	DrawableObject(const float points[], int size_points, Shader& shader);
-	DrawableObject(const float points[], int size_points, Shader& shader, shared_ptr<Texture> texture);
-	DrawableObject(Models* model, Shader& shader);
-	DrawableObject(Models* model, Shader& shader, shared_ptr<Texture> texture);
+	//DrawableObject(const float points[], int size_points, const char* vertex_path, const char* fragment_path);
+	//DrawableObject(const float points[], int size_points, Shader& shader);
+	//DrawableObject(const float points[], int size_points, Shader& shader, shared_ptr<Texture> texture);
+	DrawableObject(Models* model, const char* vertex_path, const char* fragment_path, int size);
+	DrawableObject(Models* model, Shader& shader, int size);
+	DrawableObject(Models* model, Shader& shader, shared_ptr<Texture> texture, int size);
+	DrawableObject(Models* model, Shader& shader, shared_ptr<Texture> texture, int size, bool object);
 
 	void DoTransformations(const double delta);
 	void sendShaderMatrix();

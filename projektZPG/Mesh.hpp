@@ -2,10 +2,6 @@
 #include <glm/mat4x4.hpp>
 #include <GL/glew.h>
 
-#include<assimp/Importer.hpp>// C++ importerinterface
-#include<assimp/scene.h>// aiSceneoutputdata structure
-#include<assimp/postprocess.h>// Post processingflags
-
 #include <vector>
 #include <memory>
 #include <unordered_map>
@@ -35,8 +31,8 @@ struct Material {
 
 class Mesh
 {
-    GLuint vbo = 0;
-    GLuint vao = 0;
+    GLuint vbo = 0; // drží model
+    GLuint vao = 0; // drží model
     GLuint ebo = 0;
 
     std::vector<Vertex> vertices;
@@ -49,7 +45,8 @@ class Mesh
 
 public:
 
-    Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices, std::shared_ptr<Texture> texture, const Material& material);
+    //Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices, std::shared_ptr<Texture> texture, const Material& material);
+    Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices, const Material& material);
     Mesh(Mesh&& mesh) noexcept;
 
     void bindAndDraw(unsigned int id, Shader* shader) const;

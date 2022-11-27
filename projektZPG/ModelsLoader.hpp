@@ -28,9 +28,9 @@ class ModelsLoader
     static void processIndices(aiMesh& mesh, std::vector<uint32_t>& indices);
     static glm::vec3 extractVector(aiVector3D& vec);
 protected:
-    static std::unordered_map<std::string, std::shared_ptr<Models>> models;
+    static std::unordered_map<std::string, Models*> models;
 
-    static std::shared_ptr<Models> loadModel(const std::string& model);
+    static Models* loadModel(const std::string& model);
 
     static constexpr uint32_t importOpts = aiProcess_OptimizeMeshes
         bitor aiProcess_JoinIdenticalVertices
@@ -41,10 +41,8 @@ protected:
 
     static std::string formatName(const std::string& model);
 
-    static void processNode(aiNode& node, const aiScene& scene, std::shared_ptr<Models>& model);
+    static void processNode(aiNode& node, const aiScene& scene, Models* model);
     static Mesh processMesh(aiMesh& mesh, const aiScene& scene, const Models& model);
 public:
-
-    static std::shared_ptr<Models> get(const std::string& model);
-
+    static Models* get(const std::string& model);
 };
