@@ -277,7 +277,7 @@ Scene::Scene(GLFWwindow* in_window, int test)
 		this->drawable_object.emplace_back(DrawableObject(new Sphere(), ShaderInstances::phong_no_textures(), drawable_object.size()));
 		this->drawable_object.back().Pos_mov(glm::vec3(-5, 2.f, 10));
 		this->drawable_object.emplace_back(DrawableObject(ModelsLoader::get("model"), ShaderInstances::phong(), TextureManager::getOrEmplace("house", "Models/test.png"), drawable_object.size(), true));
-		//this->drawable_object.emplace_back(DrawableObject(ModelsLoader::get("zombie"), ShaderInstances::phong(), TextureManager::getOrEmplace("zombie", "Textures/zombie.png"), drawable_object.size(), true));
+		this->drawable_object.emplace_back(DrawableObject(ModelsLoader::get("zombie"), ShaderInstances::phong(), TextureManager::getOrEmplace("zombie", "Textures/zombie.png"), drawable_object.size(), true));
 
 
 		for (int i = 10; i < draw_objects; i++) {

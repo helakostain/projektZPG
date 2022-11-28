@@ -80,7 +80,7 @@ void Skybox::draw() {
     glDepthMask(GL_FALSE);
     shader->shaderUseProgram();
     cubeMap->bind(shader);
-    glStencilFunc(GL_ALWAYS, -1, 0xFF);
+    glStencilFunc(GL_ALWAYS, 0, 0xFF);
     this->bind_array();
     glDrawArrays(GL_TRIANGLES, 0, points.size());
     glDepthMask(GL_TRUE);

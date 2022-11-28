@@ -129,13 +129,19 @@ void DrawableObject::updateObject(const float delta)
     if (!isObject)
     {
         models->Bind();
-        glStencilFunc(GL_ALWAYS, id, 0xFF);
+        glStencilFunc(GL_ALWAYS, id+1, 0xFF);
     }
     transformations->Update(delta);
     sendShaderMatrix();
+
+    if (this->texture != nullptr)
+    {
+        this->texture->bind(this->shaders);
+    }
+
     if (isObject)
     {
-        models->draw(id, this->shaders);
+        models->draw(id+1, this->shaders);
     }
     else
     {
