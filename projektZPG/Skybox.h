@@ -6,7 +6,6 @@
 #include "ShaderInstances.h"
 
 class Skybox {
-
     std::vector<float> points;
     std::shared_ptr<Texture> cubeMap;
     Shader* shader;

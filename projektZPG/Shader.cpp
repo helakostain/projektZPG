@@ -79,6 +79,10 @@ void Shader::passUniformLocation(const std::string& var, int32_t value) const
 	passUniformLocation(var.c_str(), value);
 }
 
+void Shader::passUniformLocation(const std::string& var, const float value) const {
+	passUniformLocation(var.c_str(), value);
+}
+
 void Shader::passUniformLocation(const std::string& var, const glm::mat3& matrix) const 
 {
 	passUniformLocation(var.c_str(), matrix);
@@ -117,11 +121,13 @@ void Shader::applyLight(ColoredLight& light)
 void Shader::applyLight(PositionedLight& light)
 {
 	passUniformLocation("lights[" + std::to_string(light.lightIndex) + "].position", light.getPosition());
+	passUniformLocation("lights[" + std::to_string(light.lightIndex) + "].lightType", int32_t(light.type()));
 }
 
 void Shader::applyLight(DirectionalLight& light)
 {
 	passUniformLocation("lights[" + std::to_string(light.lightIndex) + "].direction", light.getDirection());
+	passUniformLocation("lights[" + std::to_string(light.lightIndex) + "].lightType", int32_t(light.type()));
 }
 
 void Shader::applyLight(Spotlight& light)
@@ -129,6 +135,7 @@ void Shader::applyLight(Spotlight& light)
 	passUniformLocation("lights[" + std::to_string(light.lightIndex) + "].position", light.getPosition());
 	passUniformLocation("lights[" + std::to_string(light.lightIndex) + "].direction", light.getDirection());
 	passUniformLocation("lights[" + std::to_string(light.lightIndex) + "].cutoff", glm::cos(glm::radians(light.getCutoff())));
+	passUniformLocation("lights[" + std::to_string(light.lightIndex) + "].lightType", int32_t(light.type()));
 }
 
 void Shader::typeChanged(gl::Light type, size_t lightIndex)
@@ -205,7 +212,7 @@ void Shader::positionChanged(glm::vec3 position, size_t lightIndex, gl::Light li
 	}
 	else if (lightType == gl::Light::Spotlight) {
 
-		passUniformLocation("lights[" + std::to_string(lightIndex) + "].direction", position);
+		//passUniformLocation("lights[" + std::to_string(lightIndex) + "].direction", position);
 		passUniformLocation("lights[" + std::to_string(lightIndex) + "].position", position);
 	}
 }
@@ -246,5 +253,12 @@ void Shader::passUniformLocation(const char* var, int32_t value) const
 	const auto location = getUniformLocation(var);
 	if (location >= 0) {
 		glProgramUniform1i(shaderProgram, location, value);
+	}
+}
+
+void Shader::passUniformLocation(const char* var, const float value) const {
+	const auto location = getUniformLocation(var);
+	if (location >= 0) {
+		glProgramUniform1f(shaderProgramID, location, value);
 	}
 }

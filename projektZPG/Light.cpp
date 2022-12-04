@@ -32,6 +32,19 @@ gl::Light ColoredLight::type() const
 	return gl::Light::Ambient;
 }
 
+void ColoredLight::setCutoff(float cutoff) const
+{
+}
+
+float ColoredLight::getCutoff() const
+{
+	return 0.0f;
+}
+
+void ColoredLight::update(const glm::vec3 newDirection, const glm::vec3 newPos)
+{
+}
+
 void ColoredLight::apply() const
 {
 	notifyObservers(EventType::LightChanged, (void*)this);
@@ -114,5 +127,12 @@ void Spotlight::setDirection(glm::vec3 newDirection) const
 void Spotlight::setCutoff(float newCutoff) const
 {
 	cutoff = newCutoff;
+	apply();
+}
+
+void Spotlight::update(const glm::vec3 newDirection, const glm::vec3 newPosition)
+{
+	this->setDirection(newDirection);
+	this->setPosition(newPosition);
 	apply();
 }

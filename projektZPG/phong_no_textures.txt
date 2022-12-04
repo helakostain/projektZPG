@@ -96,7 +96,8 @@ vec3 directional_light(vec3 color, vec3 worldPos, vec3 normalVector, vec3 lightD
         spec = vec3(0.0);
     }
 
-    return (diffuse + spec) * color;
+    return ((diffuse + spec) * color)*0.2; //for moon
+    //return (diffuse + spec) * color; //for sun
 }
 
 void main () {

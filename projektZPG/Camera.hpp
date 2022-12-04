@@ -59,4 +59,5 @@ public:
 	glm::mat4 view() const;
 	glm::mat4 project() const;
 	glm::vec3 position() const;
+	glm::vec3 direction() const;
 };

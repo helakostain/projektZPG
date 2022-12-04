@@ -18,7 +18,7 @@
 //Include GLFW
 #include <GLFW/glfw3.h> // DO NOT MOVE UP!!!!!!
 
-class Scene
+class Scene : public Observer
 {
 private:
 	typedef decltype(std::chrono::high_resolution_clock::now()) TimePoint;
@@ -27,11 +27,8 @@ private:
 	Camera *camera;
 	GLFWwindow* window;
 	Mouse& mouse = Mouse::instance();
-	//AmbientLight ambientLight{ glm::vec3 { 0.1f} };
-	//PositionedLight light{ glm::vec3 { 1.f }, glm::vec3 { 0.f } };
 	std::vector<std::shared_ptr<ColoredLight>> lights;
 	AmbientLight ambientLight;
-	//Skybox sky;
 	std::shared_ptr<Skybox> skybox;
 	int test;
 	
@@ -44,11 +41,16 @@ private:
 	void emplaceLight(glm::vec3 color, glm::vec3 pos, glm::vec3 dir, float cutoff);
 	std::shared_ptr<ColoredLight> createLight(glm::vec3 color, glm::vec3 data, gl::Light type);
 	void applyLights() const;
+	void placeModel(const int mouseX, const int mouseY);
 	void setShaderCount() const;
+
+	void onButtonPress(const MouseData& mouseData);
 public:
 	Scene(GLFWwindow* window, int test);
 
 	std::vector<DrawableObject> drawable_object;
 
 	void Run();
+
+	void notify(EventType eventType, void* object);
 };

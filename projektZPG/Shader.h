@@ -39,6 +39,8 @@ private:
 	void passUniformLocation(const char* var, const glm::vec3& vector) const;
 	void passUniformLocation(const std::string& var, int32_t value) const;
 
+	void passUniformLocation(const std::string& var, const float value) const;
+
 	GLint getUniformLocation(const std::string& var) const;
 	GLint getUniformLocation(const char* var) const;
 
@@ -65,4 +67,5 @@ public:
 	void notify(EventType eventType, void* object) override;
 
 	void passUniformLocation(const char* var, int32_t value) const;
+	void passUniformLocation(const char* var, const float value) const;
 };

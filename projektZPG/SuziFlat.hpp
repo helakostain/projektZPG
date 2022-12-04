@@ -9,7 +9,6 @@
 #include <iterator>
 #include <vector>
 
-
 class SuziFlat : public Models
 {
 public:

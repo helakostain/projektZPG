@@ -10,14 +10,11 @@
 #include "Texture.hpp"
 #include "Shader.h"
 
-
-
 struct Vertex {
     glm::vec3 position;
     glm::vec3 normal;
     glm::vec2 texCoords;
 };
-
 
 struct Material {
     glm::vec3 diffuse{ 0.f };
@@ -44,8 +41,6 @@ class Mesh
     void init();
 
 public:
-
-    //Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices, std::shared_ptr<Texture> texture, const Material& material);
     Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices, const Material& material);
     Mesh(Mesh&& mesh) noexcept;
 

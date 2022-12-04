@@ -16,10 +16,7 @@ void Camera::calcTarget()
 
 void Camera::capAngles() 
 {
-	if (fi < 0) 
-	{
-		fi += 360.f;
-	}
+	
 	fi = std::fmod(fi, 360.f);
 
 	psi = std::max(psi, -85.f);
@@ -154,4 +151,9 @@ glm::mat4 Camera::project() const
 glm::vec3 Camera::position() const 
 {
 	return eye;
+}
+
+glm::vec3 Camera::direction() const
+{
+	return this->target;
 }

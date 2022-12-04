@@ -5,12 +5,14 @@
 #include <stdio.h>
 #include <vector>
 #include <optional>
+#include <memory>
 
 #include "Application.h"
 #include "DrawableObject.hpp"
 #include "Camera.hpp"
 #include "Mouse.h"
 #include "Scene.h"
+#include "Light.hpp"
 
 class Callbacks
 {
@@ -19,6 +21,7 @@ private:
 	static double clickY;
 	static std::vector<DrawableObject> drawableObj;
 	static Camera* camera;
+	static shared_ptr<ColoredLight> flashlight;
 
 	static void error_callback(int error, const char* description);
 	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
@@ -33,4 +36,6 @@ public:
 	~Callbacks();
 
 	static void Init(GLFWwindow* window, std::vector<DrawableObject>& dO, Camera *camera);
+	static void setObject(int id);
+	static void updateObjects(std::vector<DrawableObject>& dObjects);
 };

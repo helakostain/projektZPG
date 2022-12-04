@@ -46,6 +46,12 @@
     <Filter Include="Soubory zdrojů\Model\zombie">
       <UniqueIdentifier>{d3deb783-9288-4e35-b752-96328f181118}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Soubory zdrojů\Model\terrain">
+      <UniqueIdentifier>{3f14c5a1-793c-46d8-88fd-f0d4f54bce3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Soubory zdrojů\Model\tree">
+      <UniqueIdentifier>{3dba3e6a-d6cc-4bd2-9909-118950137518}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -100,9 +106,6 @@
       <Filter>Zdrojové soubory\Models</Filter>
     </ClCompile>
     <ClCompile Include="Skybox.cpp">
-      <Filter>Zdrojové soubory\Models</Filter>
-    </ClCompile>
-    <ClCompile Include="Terrain.cpp">
       <Filter>Zdrojové soubory\Models</Filter>
     </ClCompile>
     <ClCompile Include="Texture.cpp">
@@ -195,9 +198,6 @@
       <Filter>Soubory zdrojů\Model</Filter>
     </ClInclude>
     <ClInclude Include="Skybox.h">
-      <Filter>Hlavičkové soubory\Models</Filter>
-    </ClInclude>
-    <ClInclude Include="Terrain.h">
       <Filter>Hlavičkové soubory\Models</Filter>
     </ClInclude>
     <ClInclude Include="Texture.hpp">
@@ -295,6 +295,12 @@
     <None Include="Models\zombie.mtl">
       <Filter>Soubory zdrojů\Model\zombie</Filter>
     </None>
+    <None Include="Models\teren.mtl">
+      <Filter>Soubory zdrojů\Model\terrain</Filter>
+    </None>
+    <None Include="Models\tree.mtl">
+      <Filter>Soubory zdrojů\Model\tree</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Textures\fulldome3.jpg">
@@ -331,6 +337,9 @@
       <Filter>Soubory zdrojů\Textures</Filter>
     </Image>
     <Image Include="Textures\zombie.png">
+      <Filter>Soubory zdrojů\Textures</Filter>
+    </Image>
+    <Image Include="Textures\tree.png">
       <Filter>Soubory zdrojů\Textures</Filter>
     </Image>
   </ItemGroup>

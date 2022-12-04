@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 
 #include <vector>
 #include <memory>
@@ -14,7 +13,6 @@
 
 #include "Mesh.hpp"
 #include "Models.hpp"
-
 
 class Models;
 
@@ -36,7 +34,6 @@ protected:
         bitor aiProcess_JoinIdenticalVertices
         bitor aiProcess_Triangulate
         bitor aiProcess_CalcTangentSpace
-        // bitor aiProcess_FlipUVs
         bitor aiProcess_GenSmoothNormals;
 
     static std::string formatName(const std::string& model);

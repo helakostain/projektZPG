@@ -15,16 +15,10 @@ namespace gl {
         Spotlight = 3
     };
 }
-/*enum class LightType {
-    Default,
-    Ambient
-};*/
 
 class ColoredLight : public Observable {
-
 protected:
     mutable glm::vec3 color{ 1.f };
-    //glm::vec3 position{ 0.f };
 
 public:
     ColoredLight();
@@ -36,7 +30,9 @@ public:
     virtual void setColor(glm::vec3 color) const;
     glm::vec3 getColor() const;
     virtual gl::Light type() const;
-
+    virtual void setCutoff(float cutoff) const;
+    virtual float getCutoff() const;
+    virtual void update(const glm::vec3 newDirection, const glm::vec3 newPos);
     virtual void apply() const;
 };
 
@@ -47,7 +43,6 @@ public:
     PositionedLight();
     PositionedLight(glm::vec3 color, glm::vec3 position);
 
-    //void move(glm::vec3 delta);
     void setPosition(glm::vec3 newPos) const;
     void move(glm::vec3 delta) const;
 
@@ -79,7 +74,8 @@ public:
 
     gl::Light type() const override;
     glm::vec3 getDirection() const;
-    float getCutoff() const;
     void setDirection(glm::vec3 newDirection) const;
-    void setCutoff(float newCutoff) const;
+    void setCutoff(float cutoff) const override;
+    void update(const glm::vec3 newDirection, const glm::vec3 newPosition) override;
+    float getCutoff() const override;
 };

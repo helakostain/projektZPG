@@ -4,6 +4,8 @@ double Callbacks::clickX = 0;
 double Callbacks::clickY = 0;
 std::vector<DrawableObject> Callbacks::drawableObj = std::vector<DrawableObject>{};
 Camera* Callbacks::camera = nullptr;
+std::shared_ptr<ColoredLight> Callbacks::flashlight = nullptr;
+int model_id = -1;
 
 void Callbacks::error_callback(int error, const char* description)
 {
@@ -18,19 +20,29 @@ void Callbacks::key_callback(GLFWwindow* window, int key, int scancode, int acti
     }
 
     switch (key) {
-    case GLFW_KEY_SPACE:
-
     case GLFW_KEY_I:
-        drawableObj.front().setFy((action == GLFW_RELEASE) ? Direction::none : Direction::up);
+        if (model_id > 1)
+        {
+            drawableObj[model_id].setFy((action == GLFW_RELEASE) ? Direction::none : Direction::up);
+        }
         break;
     case GLFW_KEY_K:
-        drawableObj.front().setFy((action == GLFW_RELEASE) ? Direction::none : Direction::down);
+        if (model_id > 1)
+        {
+            drawableObj[model_id].setFy((action == GLFW_RELEASE) ? Direction::none : Direction::down);
+        }
         break;
     case GLFW_KEY_J:
-        drawableObj.front().setFx((action == GLFW_RELEASE) ? Direction::none : Direction::left);
+        if (model_id > 1)
+        {
+            drawableObj[model_id].setFx((action == GLFW_RELEASE) ? Direction::none : Direction::left);
+        }
         break;
     case GLFW_KEY_L:
-        drawableObj.front().setFx((action == GLFW_RELEASE) ? Direction::none : Direction::right);
+        if (model_id > 1)
+        {
+            drawableObj[model_id].setFx((action == GLFW_RELEASE) ? Direction::none : Direction::right);
+        }
         break;
     case GLFW_KEY_W:
         camera->moveForward((action == GLFW_RELEASE) ? Direction::none : Direction::up);
@@ -57,16 +69,28 @@ void Callbacks::key_callback(GLFWwindow* window, int key, int scancode, int acti
         camera->rotateHor((action == GLFW_RELEASE) ? Direction::none : Direction::right);
         break;
     case GLFW_KEY_U:
-        drawableObj.front().setRot((action == GLFW_RELEASE) ? Rotation::none : Rotation::left);
+        if (model_id > 1)
+        {
+            drawableObj[model_id].setRot((action == GLFW_RELEASE) ? Rotation::none : Rotation::left);
+        }
         break;
     case GLFW_KEY_O:
-        drawableObj.front().setRot((action == GLFW_RELEASE) ? Rotation::none : Rotation::right);
+        if (model_id > 1)
+        {
+            drawableObj[model_id].setRot((action == GLFW_RELEASE) ? Rotation::none : Rotation::right);
+        }
         break;
     case GLFW_KEY_KP_ADD:
-        drawableObj.front().setGrow((action == GLFW_RELEASE) ? Growth::none : Growth::grow);
+        if (model_id > 1)
+        {
+            drawableObj[model_id].setGrow((action == GLFW_RELEASE) ? Growth::none : Growth::grow);
+        }
         break;
     case GLFW_KEY_KP_SUBTRACT:
-        drawableObj.front().setGrow((action == GLFW_RELEASE) ? Growth::none : Growth::shrink);
+        if (model_id > 1)
+        {
+            drawableObj[model_id].setGrow((action == GLFW_RELEASE) ? Growth::none : Growth::shrink);
+        }
         break;
     default:
         break;
@@ -150,4 +174,14 @@ void Callbacks::Init(GLFWwindow* window, std::vector<DrawableObject> &dO, Camera
 	glfwSetWindowFocusCallback(window, Callbacks::window_focus_callback);
 	glfwSetWindowIconifyCallback(window, Callbacks::window_iconify_callback);
 	glfwSetWindowSizeCallback(window, Callbacks::window_size_callback);
+}
+
+void Callbacks::setObject(int id)
+{
+    model_id = id - 1;
+}
+
+void Callbacks::updateObjects(std::vector<DrawableObject>& dObjects)
+{
+    drawableObj = dObjects;
 }

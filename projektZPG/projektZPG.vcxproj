@@ -157,7 +157,6 @@
     <ClCompile Include="Sphere.cpp" />
     <ClCompile Include="SuziFlat.cpp" />
     <ClCompile Include="SuziSmooth.cpp" />
-    <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Transformation.cpp" />
     <ClCompile Include="Tree.cpp" />
@@ -194,7 +193,6 @@
     <ClInclude Include="Sphere.hpp" />
     <ClInclude Include="SuziFlat.hpp" />
     <ClInclude Include="SuziSmooth.hpp" />
-    <ClInclude Include="Terrain.h" />
     <ClInclude Include="Texture.hpp" />
     <ClInclude Include="Transformation.h" />
     <ClInclude Include="Tree.hpp" />
@@ -220,6 +218,8 @@
     <None Include="Models\plane.mtl" />
     <None Include="Models\skydome.blend" />
     <None Include="Models\skydome.mtl" />
+    <None Include="Models\teren.mtl" />
+    <None Include="Models\tree.mtl" />
     <None Include="Models\untitled.blend" />
     <None Include="Models\zombie.mtl" />
   </ItemGroup>
@@ -234,6 +234,7 @@
     <Image Include="Textures\fulldome3.jpg" />
     <Image Include="Textures\grass.png" />
     <Image Include="Textures\skydome.png" />
+    <Image Include="Textures\tree.png" />
     <Image Include="Textures\wooden_fence.png" />
     <Image Include="Textures\zombie.png" />
   </ItemGroup>
