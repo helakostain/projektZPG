@@ -51,6 +51,10 @@ vec3 point_light(vec3 color, vec3 worldPos, vec3 normalVector, vec3 lightPositio
 
 vec3 spotlight(vec3 color, vec3 worldPos, vec3 normalVector, vec3 lightPosition, vec3 lightDirection, vec3 lightColor, float cutoff) {
 
+    if(cutoff <=0.f){
+        return vec3(1,1,1);
+     }
+
     vec3 lightDir = normalize(lightPosition - worldPos);
 
     float theta = dot(lightDir, normalize(-lightDirection));

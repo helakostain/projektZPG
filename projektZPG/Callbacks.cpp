@@ -56,6 +56,12 @@ void Callbacks::key_callback(GLFWwindow* window, int key, int scancode, int acti
     case GLFW_KEY_D:
         camera->moveSideways((action == GLFW_RELEASE) ? Direction::none : Direction::right);
         break;
+    case GLFW_KEY_E:
+        if (Callbacks::flashlight->getCutoff() != 0 && action == GLFW_PRESS)
+            Callbacks::flashlight->setCutoff(0);
+        else if (action == GLFW_PRESS)
+            Callbacks::flashlight->setCutoff(9.f);
+        break;
     case GLFW_KEY_UP:
         camera->rotateVer((action == GLFW_RELEASE) ? Direction::none : Direction::up);
         break;
@@ -143,10 +149,11 @@ Callbacks::~Callbacks()
 {
 }
 
-void Callbacks::Init(GLFWwindow* window, std::vector<DrawableObject> &dO, Camera *cam)
+void Callbacks::Init(GLFWwindow* window, std::vector<DrawableObject> &dO, Camera *cam, shared_ptr<ColoredLight> new_flashlight)
 {
     Callbacks::camera = cam;
     Callbacks::drawableObj = dO;
+    Callbacks::flashlight = new_flashlight;
 
     auto mouseButton = [](GLFWwindow* win, int button, int action, int mode) {
         Mouse::Button btn = Mouse::Button::Other;
@@ -174,6 +181,11 @@ void Callbacks::Init(GLFWwindow* window, std::vector<DrawableObject> &dO, Camera
 	glfwSetWindowFocusCallback(window, Callbacks::window_focus_callback);
 	glfwSetWindowIconifyCallback(window, Callbacks::window_iconify_callback);
 	glfwSetWindowSizeCallback(window, Callbacks::window_size_callback);
+}
+
+void Callbacks::Init(GLFWwindow* window, std::vector<DrawableObject>& dO, Camera* camera)
+{
+    Init(window, dO, camera, nullptr);
 }
 
 void Callbacks::setObject(int id)

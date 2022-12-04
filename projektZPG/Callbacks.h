@@ -35,7 +35,8 @@ public:
 	Callbacks();
 	~Callbacks();
 
-	static void Init(GLFWwindow* window, std::vector<DrawableObject>& dO, Camera *camera);
+	static void Init(GLFWwindow* window, std::vector<DrawableObject>& dO, Camera *camera, shared_ptr<ColoredLight> new_flashlight);
+	static void Init(GLFWwindow* window, std::vector<DrawableObject>& dO, Camera* camera);
 	static void setObject(int id);
 	static void updateObjects(std::vector<DrawableObject>& dObjects);
 };

@@ -75,6 +75,10 @@ void Scene::Loop()
 			lastTime = now;
 		}
 		camera->update(delta);
+		if (test == 4)
+		{
+			lights[1]->update(camera->direction(), camera->position());
+		}
 		glfwPollEvents(); // update other events like input handling
 		glfwSwapBuffers(window); // put the stuff weve been drawing onto the display
 	}
@@ -346,7 +350,14 @@ Scene::Scene(GLFWwindow* in_window, int test)
 	mouse.instance().registerObserver(*camera); 
 	mouse.instance().registerObserver(*this);
 	
-	Callbacks::Init(window, std::ref(drawable_object), camera); //Initialize Callbacks with drawable object and camera
+	if (test == 4)
+	{
+		Callbacks::Init(window, std::ref(drawable_object), camera, lights[1]); //Initialize Callbacks with drawable object and camera
+	}
+	else
+	{
+		Callbacks::Init(window, std::ref(drawable_object), camera); //Initialize Callbacks with drawable object and camera
+	}
 }
 
 void Scene::Run()
