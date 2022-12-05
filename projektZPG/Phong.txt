@@ -22,15 +22,15 @@ out vec4 out_color;
 vec3 point_light(vec3 color, vec3 worldPos, vec3 normalVector, vec3 lightPosition, vec3 lightColor) {
     const float specularStrength = 0.4;
     float dist = length(lightPosition - worldPos);
-    float attenuation = clamp(5.0 / dist, 0.0, 1.0);
+    float attenuation = clamp(5.0 / dist, 0.0, 1.0); //weaking light over distance
     vec3 viewDir = normalize(cameraPosition - worldPos);
     vec3 lightDir = normalize(lightPosition - worldPos);
     vec3 reflectionDir = reflect(-lightDir, normalVector);
     float dot_product = dot(lightDir, normalVector);
-    vec3 diffuse = max(dot_product, 0.0) * (color+lightColor) * attenuation;
+    vec3 diffuse = max(dot_product, 0.0) * (color+lightColor) * attenuation; //part of object where light lands
     // vec4 diffuse = dot_product * vec4(0.385, 0.647, 0.812, 1.0);
-    float specValue = pow(max(dot(viewDir, reflectionDir), 0.0), 16);
-    vec3 spec = specularStrength * specValue * lightColor;
+    float specValue = pow(max(dot(viewDir, reflectionDir), 0.0), 16); 
+    vec3 spec = specularStrength * specValue * lightColor; //shiniest part of light on object
     if (dot_product < 0.0) {
         spec = vec3(0.0);
     }

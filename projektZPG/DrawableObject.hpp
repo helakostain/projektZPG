@@ -1,10 +1,12 @@
 #pragma once
 #include <vector>
+#include <optional>
 
 #include "Models.hpp"
 #include "Shader.h"
 #include "Transformation.h"
 #include "Texture.hpp"
+#include "MovementCalculator.hpp"
 
 class DrawableObject
 {
@@ -13,6 +15,7 @@ private:
 	Shader* shaders;
 	Transformation* transformations;
 	shared_ptr<Texture> texture;
+	shared_ptr<MovementCalculator> movementCalculator = nullptr;
 
 	const char* vertex_shader;
 	const char* fragment_shader;
@@ -23,8 +26,10 @@ public:
 	DrawableObject();
 	DrawableObject(Models* model, const char* vertex_path, const char* fragment_path, int size);
 	DrawableObject(Models* model, Shader& shader, int size);
+	DrawableObject(Models* model, Shader& shader, shared_ptr<MovementCalculator> movement, int size);
 	DrawableObject(Models* model, Shader& shader, shared_ptr<Texture> texture, int size);
 	DrawableObject(Models* model, Shader& shader, shared_ptr<Texture> texture, int size, bool object);
+	DrawableObject(Models* model, Shader& shader, shared_ptr<Texture> texture, shared_ptr<MovementCalculator> movement, int size, bool object);
 
 	void DoTransformations(const double delta);
 	void sendShaderMatrix();
@@ -39,6 +44,8 @@ public:
 	void updateObject(const float delta);
 	void applyTexture(std::shared_ptr<Texture> texture);
 	void rotate(float degree, glm::vec3 axis);
+	void updateMovement(double delta);
+	int getId();
 
 	Shader& getShader();
 };

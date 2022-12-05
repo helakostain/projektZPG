@@ -129,6 +129,12 @@
     <ClCompile Include="ModelsLoader.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
+    <ClCompile Include="MovementCalculator.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveCircle.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -232,6 +238,12 @@
     </ClInclude>
     <ClInclude Include="Models\skydome.h">
       <Filter>Soubory zdrojů\Model\skydome</Filter>
+    </ClInclude>
+    <ClInclude Include="MovementCalculator.hpp">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveCircle.hpp">
+      <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

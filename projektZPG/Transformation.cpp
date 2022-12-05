@@ -30,6 +30,11 @@ void Transformation::rotate(float degree, const glm::vec3 axis)
 	transform = glm::rotate(transform, degree, axis);
 }
 
+void Transformation::setPosition(glm::vec3 position)
+{
+	transform[3] = glm::vec4(position, 1);
+}
+
 void Transformation::scale(const glm::vec3 scales) 
 {
 	transform = glm::scale(transform, scales);

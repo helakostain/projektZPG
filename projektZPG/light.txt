@@ -13,7 +13,7 @@ layout(location=1) in vec3 normal;
 layout(location=2) in vec2 in_uv;
 
 void main () {
-    vec4 pos4 = vec4(position, 1.0);
+    vec4 pos4 = vec4(position, 1.0); //fragment position
     gl_Position = (projectionMatrix * viewMatrix * modelMatrix) * pos4;
     ex_worldPosition = modelMatrix * pos4;
     ex_worldNormal = normalize(transpose(inverse(mat3(modelMatrix))) * normal);

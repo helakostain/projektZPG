@@ -98,6 +98,20 @@ void Callbacks::key_callback(GLFWwindow* window, int key, int scancode, int acti
             drawableObj[model_id].setGrow((action == GLFW_RELEASE) ? Growth::none : Growth::shrink);
         }
         break;
+    case GLFW_KEY_DELETE:
+        if (model_id > 1)
+        {
+            /*auto iter = std::find_if(drawableObj.begin(), drawableObj.end(),
+                [&](DrawableObject& p) {return p.getId() == drawableObj[model_id].getId(); });
+
+            // if found, erase it
+            if (iter != drawableObj.end())
+                drawableObj.erase(iter);*/
+            /*drawableObj.erase(std::next(drawableObj.begin(), model_id - 1), std::next(drawableObj.begin(), model_id + 1));
+            updateObjects(drawableObj);*/
+            //MAYBE ONE DAY
+        }
+        break;
     default:
         break;
     }

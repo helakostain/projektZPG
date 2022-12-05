@@ -66,4 +66,5 @@ public:
 	void setGrowth(Growth growth);
 	void setRotation(Rotation rotation);
 	void rotate(float degree, glm::vec3 axis);
+	void setPosition(glm::vec3 position);
 };

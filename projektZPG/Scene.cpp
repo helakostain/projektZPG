@@ -8,6 +8,7 @@
 #include "Bushes.hpp"
 #include "ShaderInstances.h"
 #include "Skybox.h"
+#include "MoveCircle.hpp"
 
 #define draw_objects 150
 
@@ -288,6 +289,18 @@ Scene::Scene(GLFWwindow* in_window, int test)
 		this->drawable_object.emplace_back(DrawableObject(ModelsLoader::get("model"), ShaderInstances::phong(), TextureManager::getOrEmplace("house", "Models/test.png"), drawable_object.size(), true));
 		this->drawable_object.back().Pos_mov(glm::vec3(-15, 0.f, 10));
 		this->drawable_object.back().rotate(45, glm::vec3(0.0f, 1.f, 0.f));
+		this->drawable_object.emplace_back(new Sphere(), ShaderInstances::constant(), std::make_shared<MovementCalculator>(
+			std::make_shared<MoveCircle>(
+				glm::vec3{ 0.f, 30.f, 0.f },
+				40.f),
+			glm::vec3{ 30.0, 30.0, 0.0 },
+			20.f), drawable_object.size());
+		this->drawable_object.emplace_back(DrawableObject(ModelsLoader::get("zombie"), ShaderInstances::phong(), TextureManager::getOrEmplace("zombie", "Textures/zombie.png"), std::make_shared<MovementCalculator>(
+			std::make_shared<MoveCircle>(
+				glm::vec3{ 0.f, 2.f, 0.f },
+				8.f),
+			glm::vec3{ 0.0, 3.0, 0.0 },
+			20.f), drawable_object.size(), true));
 
 		for (int i = 10; i < draw_objects; i++) {
 			if (i % 2 == 0) {

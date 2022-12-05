@@ -9,7 +9,7 @@ uniform mat4 viewMatrix;
 
 void main() {
     texCoords = position;
-    mat4 view = mat4(mat3(viewMatrix));
+    mat4 view = mat4(mat3(viewMatrix)); //move skybox on camera position
     gl_Position = projectionMatrix * view * vec4(position, 1.0);
 
 

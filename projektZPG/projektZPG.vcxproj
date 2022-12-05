@@ -147,6 +147,8 @@
     <ClCompile Include="Models.cpp" />
     <ClCompile Include="ModelsLoader.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="MoveCircle.cpp" />
+    <ClCompile Include="MovementCalculator.cpp" />
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="Plain.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -170,6 +172,8 @@
     <ClInclude Include="Gift.hpp" />
     <ClInclude Include="Light.hpp" />
     <ClInclude Include="Mesh.hpp" />
+    <ClInclude Include="MoveCircle.hpp" />
+    <ClInclude Include="MovementCalculator.hpp" />
     <ClInclude Include="ModelsLoader.hpp" />
     <ClInclude Include="Models.hpp" />
     <ClInclude Include="Models\building.h" />
