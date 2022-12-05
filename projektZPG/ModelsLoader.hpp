@@ -21,7 +21,6 @@ class ModelsLoader
     static void processMaterials(const aiScene& scene, std::vector<Material>& materials);
     static Material loadMaterial(aiMaterial& mat, Material& material);
     static glm::vec3 toVector(const aiColor3D& color);
-    static std::string dewindows(std::string str);
     static void processVertices(aiMesh& mesh, std::vector<Vertex>& vertices);
     static void processIndices(aiMesh& mesh, std::vector<uint32_t>& indices);
     static glm::vec3 extractVector(aiVector3D& vec);

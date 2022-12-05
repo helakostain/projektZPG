@@ -27,10 +27,7 @@ void Tree::Init()
 	glGenVertexArrays(1, &this->VAO);
 	glBindVertexArray(this->VAO);
 
-
 	glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
-
-
 
 	glVertexAttribPointer(0, values, GL_FLOAT, GL_FALSE, valuesInRow * sizeof(float), NULL);
 	glEnableVertexAttribArray(0);

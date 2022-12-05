@@ -20,7 +20,6 @@ void Application::StartGLEW()
 void Application::CreateWindow()
 {
 	window = glfwCreateWindow(width, height, "ZPG - HAV0262", NULL, NULL);
-	//window = glfwCreateWindow(1024, 768, "ZPG - HAV0262", NULL, NULL); 
 	if (!window) {
 		glfwTerminate();
 		exit(EXIT_FAILURE);
@@ -46,7 +45,6 @@ Application::Application()
 	this->width = 1024;
 	StartGLFW();
 	CreateWindow();	
-	//Callbacks::Init(window);
 }
 
 Application::~Application()

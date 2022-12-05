@@ -28,8 +28,8 @@ struct Material {
 
 class Mesh
 {
-    GLuint vbo = 0; // drží model
-    GLuint vao = 0; // drží model
+    GLuint vbo = 0; 
+    GLuint vao = 0; 
     GLuint ebo = 0;
 
     std::vector<Vertex> vertices;

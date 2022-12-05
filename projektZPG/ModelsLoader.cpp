@@ -1,5 +1,4 @@
 #include "ModelsLoader.hpp"
-
 #include "Shader.h"
 
 std::unordered_map<std::string, Models*> ModelsLoader::models;
@@ -14,16 +13,6 @@ Models* ModelsLoader::get(const std::string& key) {
     return loadModel(key);
 }
 
-std::string lufthansa(std::string str) { // useless remove
-
-    std::string factory = "Factory Livery";
-    if (str.find(factory) == 0) {
-        str = "Lufthansa" + str.substr(factory.size());
-    }
-    return str;
-
-}
-
 Mesh ModelsLoader::processMesh(aiMesh& mesh, const aiScene& scene, const Models& model) {
     std::vector<Vertex> vertices;
     std::vector<uint32_t> indices;
@@ -31,13 +20,6 @@ Mesh ModelsLoader::processMesh(aiMesh& mesh, const aiScene& scene, const Models&
     processVertices(mesh, vertices);
     processIndices(mesh, indices);
     const Material& mat = model.materials[mesh.mMaterialIndex];
-
-    /*std::shared_ptr<Texture> texture = nullptr;
-    if (not mat.diffuseMap.empty()) {
-        std::string tex = dewindows(model.directory + "/" + lufthansa(mat.diffuseMap));
-        std::cout << tex << std::endl;
-        texture = TextureManager::getOrEmplace(tex, tex);
-    }*/
 
     return Mesh(std::move(vertices), std::move(indices), mat);
 }
@@ -124,26 +106,6 @@ Material ModelsLoader::loadMaterial(aiMaterial& mat, Material& material) {
 
 glm::vec3 ModelsLoader::toVector(const aiColor3D& color) {
     return glm::vec3{ color.r, color.g, color.b };
-}
-
-std::string ModelsLoader::dewindows(std::string str) // useless remove
-{
-    int bsCounter = 0;
-
-    for (size_t i = 0; i < str.size(); ++i) {
-
-        if (str[i] == '\\' and not bsCounter) {
-            str[i] = '/';
-            ++bsCounter;
-        }
-        else if (str[i] == '\\' and bsCounter) {
-            str.erase(str.begin() + i);
-            bsCounter = 0;
-            --i;
-        }
-    }
-
-    return str;
 }
 
 void ModelsLoader::processVertices(aiMesh& mesh, std::vector<Vertex>& vertices) {

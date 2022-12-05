@@ -11,8 +11,8 @@ int main(void)
 	glfwWindowHint(GLFW_OPENGL_PROFILE,
 	GLFW_OPENGL_CORE_PROFILE);  //*/
 	int test = 0;
-	std::cout << "4 spheres with phong light in middle (1); broken phong light (2); correct phong light (3); more than 100 objects (4)" << endl;
-	std::cout << "Write number (1-4) of test to display: ";
+	std::cout << "4 spheres with phong light in middle (1); more than 100 objects (2)" << endl;
+	std::cout << "Write number (1-2) of test to display: ";
 	std::cin >> test;
 	std::cout << endl;
 

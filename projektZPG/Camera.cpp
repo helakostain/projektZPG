@@ -92,7 +92,11 @@ void Camera::update(const float dt)
 	calcTarget();
 	updateCameraMatrix();
 
-	apply();
+	if (changeMade)
+	{
+		apply();
+		changeMade = false;
+	}
 }
 
 void Camera::apply() 
@@ -119,10 +123,6 @@ void Camera::onMouseMove(const MouseData& md)
 	capAngles();
 
 	changeMade = dFi || dPsi;
-	/*if (changeMade)
-	{
-		apply();
-	}*/
 }
 
 void Camera::WindowChange(int width, int height)

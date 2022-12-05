@@ -11,16 +11,13 @@ struct MovementCurve {
 };
 
 class MovementCalculator {
-
     std::shared_ptr<MovementCurve> curve;
     const glm::vec3 offset;
     const float duration;
     float t = 0.0;
 
     float currentT() const;
-
 public:
-
     MovementCalculator(std::shared_ptr<MovementCurve> curve, glm::vec3 rotationOffset, float duration);
 
     void update(float dt);

@@ -58,13 +58,10 @@ void Skybox::Models_init() {
     int typeSize = sizeof(decltype(points)::value_type);
     glBufferData(GL_ARRAY_BUFFER, points.size() * typeSize, points.data(), GL_STATIC_DRAW);
 
-
-
     glGenVertexArrays(1, &VAO);
     glBindVertexArray(VAO);
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
 
     using type = decltype(points)::value_type;
     typeSize = sizeof(type);
@@ -76,7 +73,6 @@ void Skybox::bind_array() {
 }
 
 void Skybox::draw() {
-
     glDepthMask(GL_FALSE);
     shader->shaderUseProgram();
     cubeMap->bind(shader);
@@ -84,5 +80,4 @@ void Skybox::draw() {
     this->bind_array();
     glDrawArrays(GL_TRIANGLES, 0, points.size());
     glDepthMask(GL_TRUE);
-
 }

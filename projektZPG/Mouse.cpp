@@ -2,7 +2,6 @@
 
 Mouse* Mouse::mouse = nullptr;
 
-//-------------MouseData-----------------------------------
 bool MouseData::lbPressed() const 
 {
 	return buttons & (uint8_t)Mouse::Button::LB;
@@ -24,7 +23,6 @@ MouseData::MouseData() :
 MouseData::MouseData(const int x, const int y, const int dx, const int dy, const uint8_t buttons) :
 	x(x), y(y), dx(dx), dy(dy), buttons(buttons) {}
 
-//-------------Mouse----------------------------------------
 Mouse::Mouse() = default;
 
 void Mouse::buttonPress(const Button button) 

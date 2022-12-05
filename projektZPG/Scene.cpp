@@ -15,7 +15,7 @@
 void Scene::Loop()
 {
 	TimePoint lastTime = std::chrono::high_resolution_clock::now(); //current time
-	if (test == 4)
+	if (test == 2)
 	{
 		skybox->draw();
 	}
@@ -32,14 +32,6 @@ void Scene::Loop()
 		this->drawable_object[3].Pos_mov(glm::vec3(2.0f, 0.0f, -4.5f)); //bottom right sphere
 	}
 	else if (test == 2)
-	{
-		this->drawable_object[0].Pos_mov(glm::vec3(0.0f, 1.0f, -2.0f)); //top left sphere 4,3,-3
-	}
-	else if (test == 3)
-	{
-		this->drawable_object[0].Pos_mov(glm::vec3(0.0f, 1.0f, -2.0f)); //top left sphere 4,3,-3
-	}
-	else if (test == 4)
 	{
 	}
 	else
@@ -59,7 +51,7 @@ void Scene::Loop()
 	
 	while (!glfwWindowShouldClose(window)) {  //main while loop for constant rendering of scene
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT); // clear color and depth buffer
-		if (test == 4)
+		if (test == 2)
 		{
 			skybox->draw();
 		}
@@ -70,13 +62,20 @@ void Scene::Loop()
 		ambientLight.apply();
 		applyLights();
 
+		if (test == 2)
+		{
+			this->drawable_object[3].Pos_mov(glm::vec3(2.f, 2.f, 6.f));
+			this->drawable_object[3].rotate(0.01f, glm::vec3(1.f, 0.f, 0.f));
+			this->drawable_object[3].Pos_mov(glm::vec3(-2.f, -2.f, -6.f));
+		}
+
 		for (int i = 0; i < this->drawable_object.size(); i++) //apply for all draw objects
 		{
 			this->drawable_object[i].updateObject(delta);
 			lastTime = now;
 		}
 		camera->update(delta);
-		if (test == 4)
+		if (test == 2)
 		{
 			lights[1]->update(camera->direction(), camera->position());
 		}
@@ -115,7 +114,7 @@ void Scene::initAndEmplace(std::shared_ptr<ColoredLight>& light)
 
 void Scene::emplaceLight(const glm::vec3 color, const glm::vec3 pos, const gl::Light type)
 {
-	if (test == 4)
+	if (test == 2)
 	{
 		std::shared_ptr<ColoredLight> light = createLight(color, pos, type);
 		this->drawable_object.emplace_back(new Sphere(), ShaderInstances::constant(), drawable_object.size());
@@ -138,7 +137,7 @@ void Scene::emplaceLight(const glm::vec3 color, const glm::vec3 pos, const gl::L
 
 void Scene::emplaceLight(glm::vec3 color, glm::vec3 pos, glm::vec3 dir, float cutoff)
 {
-	if (test == 4)
+	if (test == 2)
 	{
 		std::shared_ptr<ColoredLight> light = std::make_shared<Spotlight>(color, pos, dir, cutoff);
 		this->drawable_object.emplace_back(new Sphere(), ShaderInstances::constant(), drawable_object.size());
@@ -262,14 +261,6 @@ Scene::Scene(GLFWwindow* in_window, int test)
 	}
 	else if (test == 2)
 	{
-		this->drawable_object.emplace_back(DrawableObject(new Sphere(), ShaderInstances::phong_no_textures(), drawable_object.size()));
-	}
-	else if (test == 3)
-	{
-		this->drawable_object.emplace_back(DrawableObject(new Sphere(), ShaderInstances::phong_no_textures(), drawable_object.size()));
-	}
-	else if (test == 4)
-	{
 		srand(time(NULL));
 		this->skybox = std::make_shared<Skybox>(TextureManager::cubeMap("skybox", cubemapTextures));
 		this->drawable_object.emplace_back(DrawableObject(ModelsLoader::get("teren"), ShaderInstances::phong(), TextureManager::getOrEmplace("teren", "Textures/grass.png"), drawable_object.size(), true));
@@ -279,7 +270,7 @@ Scene::Scene(GLFWwindow* in_window, int test)
 		this->drawable_object.emplace_back(DrawableObject(new SuziFlat(), ShaderInstances::phong_no_textures(), drawable_object.size()));
 		this->drawable_object.back().Pos_mov(glm::vec3(2, 2.f, 8));
 		this->drawable_object.emplace_back(DrawableObject(new SuziSmooth(), ShaderInstances::phong_no_textures(), drawable_object.size()));
-		this->drawable_object.back().Pos_mov(glm::vec3(16, 2.f, -10));
+		this->drawable_object.back().Pos_mov(glm::vec3(-15.f, 0.f, 6.f));
 		this->drawable_object.emplace_back(DrawableObject(new SuziSmooth(), ShaderInstances::phong_no_textures(), drawable_object.size()));
 		this->drawable_object.back().Pos_mov(glm::vec3(4, 2.f, 2));
 		this->drawable_object.emplace_back(DrawableObject(new Gift(), ShaderInstances::phong_no_textures(), drawable_object.size()));
@@ -340,18 +331,17 @@ Scene::Scene(GLFWwindow* in_window, int test)
 	camera->registerObserver(ShaderInstances::phong());
 	camera->registerObserver(ShaderInstances::terrain());
 	camera->registerObserver(ShaderInstances::phong_no_textures());
-	if (test == 4)
+	if (test == 2)
 	{
 		camera->registerObserver(ShaderInstances::skybox());
 	}
 
-	if (test == 4)
+	if (test == 2)
 	{
 		//emplaceLight(glm::vec3{ 1.f,0.f,0.f }, glm::vec3{ 4.f, 10.f, 6.0f }, gl::Light::Point);
 		//emplaceLight(glm::vec3{ 0.f, 1.f,1.f }, glm::vec3{ 0.f,1.f,0.6f }, gl::Light::Point);
-		emplaceLight(glm::vec3{ 1.f }, glm::vec3{ -10.f, 50.f, 50.f }, gl::Light::Directional); //slunicko nebo mesicek
-		//pridat Spotlight jako baterku
-		emplaceLight(glm::vec3{ 0.f, 1.f,1.f }, glm::vec3{ -1.f, 2.f, 5.f }, -glm::vec3{ 40.f, 8.f, 0.f }, 9 );
+		emplaceLight(glm::vec3{ 1.f }, glm::vec3{ -10.f, 50.f, 50.f }, gl::Light::Directional); //SUN OR MOON
+		emplaceLight(glm::vec3{ 0.f, 1.f,1.f }, glm::vec3{ -1.f, 2.f, 5.f }, -glm::vec3{ 40.f, 8.f, 0.f }, 9 ); // FLASHLIGHT (spotlight) - position is set in while loop
 		emplaceAmbientLight(glm::vec3{ .1f });
 	}
 	else
@@ -363,7 +353,7 @@ Scene::Scene(GLFWwindow* in_window, int test)
 	mouse.instance().registerObserver(*camera); 
 	mouse.instance().registerObserver(*this);
 	
-	if (test == 4)
+	if (test == 2)
 	{
 		Callbacks::Init(window, std::ref(drawable_object), camera, lights[1]); //Initialize Callbacks with drawable object and camera
 	}

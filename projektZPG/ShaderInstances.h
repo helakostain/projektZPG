@@ -14,7 +14,6 @@ private:
 	static ShaderInstances& instance();
 
 	ShaderInstances();
-
 public:
 	static Shader& blinn();
 	static Shader& constant();

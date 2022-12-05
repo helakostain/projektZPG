@@ -28,7 +28,6 @@ vec3 point_light(vec3 color, vec3 worldPos, vec3 normalVector, vec3 lightPositio
     vec3 reflectionDir = reflect(-lightDir, normalVector);
     float dot_product = dot(lightDir, normalVector);
     vec3 diffuse = max(dot_product, 0.0) * (color+lightColor) * attenuation; //part of object where light lands
-    // vec4 diffuse = dot_product * vec4(0.385, 0.647, 0.812, 1.0);
     float specValue = pow(max(dot(viewDir, reflectionDir), 0.0), 16); 
     vec3 spec = specularStrength * specValue * lightColor; //shiniest part of light on object
     if (dot_product < 0.0) {
