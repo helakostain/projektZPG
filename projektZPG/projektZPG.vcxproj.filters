@@ -135,6 +135,12 @@
     <ClCompile Include="MoveCircle.cpp">
       <Filter>Zdrojové soubory</Filter>
     </ClCompile>
+    <ClCompile Include="MoveLine.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveBezier.cpp">
+      <Filter>Zdrojové soubory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h">
@@ -245,30 +251,36 @@
     <ClInclude Include="MoveCircle.hpp">
       <Filter>Hlavičkové soubory</Filter>
     </ClInclude>
+    <ClInclude Include="MoveLine.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveBezier.h">
+      <Filter>Hlavičkové soubory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Phong.txt">
+    <Text Include="Phong.frag">
       <Filter>Soubory zdrojů\Fragments</Filter>
     </Text>
-    <Text Include="light_no_textures.txt">
+    <Text Include="light_no_textures.vert">
       <Filter>Soubory zdrojů\Vertexes</Filter>
     </Text>
-    <Text Include="Blinn.txt">
+    <Text Include="Blinn.frag">
       <Filter>Soubory zdrojů\Fragments</Filter>
     </Text>
-    <Text Include="defaultfragment.txt">
+    <Text Include="defaultfragment.frag">
       <Filter>Soubory zdrojů\Fragments</Filter>
     </Text>
-    <Text Include="defaultvertex.txt">
+    <Text Include="defaultvertex.vert">
       <Filter>Soubory zdrojů\Vertexes</Filter>
     </Text>
-    <Text Include="PhongBroken.txt">
+    <Text Include="PhongBroken.frag">
       <Filter>Soubory zdrojů\Fragments</Filter>
     </Text>
-    <Text Include="Lambert.txt">
+    <Text Include="Lambert.frag">
       <Filter>Soubory zdrojů\Fragments</Filter>
     </Text>
-    <Text Include="phong_no_textures.txt">
+    <Text Include="phong_no_textures.frag">
       <Filter>Soubory zdrojů\Fragments</Filter>
     </Text>
     <Text Include="skybox.frag">
@@ -277,7 +289,7 @@
     <Text Include="terrain.frag">
       <Filter>Soubory zdrojů\Fragments</Filter>
     </Text>
-    <Text Include="light.txt">
+    <Text Include="light.vert">
       <Filter>Soubory zdrojů\Vertexes</Filter>
     </Text>
     <Text Include="skybox.vert">

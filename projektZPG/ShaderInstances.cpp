@@ -12,13 +12,13 @@ ShaderInstances& ShaderInstances::instance()
 }
 
 ShaderInstances::ShaderInstances() : 
-    _blinn("light_no_textures.txt", "Blinn.txt"), 
-    _constant("defaultvertex.txt", "defaultfragment.txt"),
-    _lambert("light_no_textures.txt", "Lambert.txt"),
-    _phong("light.txt", "phong.txt"),
+    _blinn("light_no_textures.vert", "Blinn.frag"), 
+    _constant("defaultvertex.vert", "defaultfragment.frag"),
+    _lambert("light_no_textures.vert", "Lambert.frag"),
+    _phong("light.vert", "phong.frag"),
     _skybox("skybox.vert", "skybox.frag"),
     _terrain("terrain.vert", "terrain.frag"),
-    _phong_no_textures("light_no_textures.txt", "phong_no_textures.txt")
+    _phong_no_textures("light_no_textures.vert", "phong_no_textures.frag")
 {}
 
 Shader& ShaderInstances::blinn()

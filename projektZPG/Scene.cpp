@@ -9,6 +9,8 @@
 #include "ShaderInstances.h"
 #include "Skybox.h"
 #include "MoveCircle.hpp"
+#include "MoveLine.h"
+#include "MoveBezier.h"
 
 #define draw_objects 150
 
@@ -271,7 +273,15 @@ Scene::Scene(GLFWwindow* in_window, int test)
 		this->drawable_object.back().Pos_mov(glm::vec3(2, 2.f, 8));
 		this->drawable_object.emplace_back(DrawableObject(new SuziSmooth(), ShaderInstances::phong_no_textures(), drawable_object.size()));
 		this->drawable_object.back().Pos_mov(glm::vec3(-15.f, 0.f, 6.f));
-		this->drawable_object.emplace_back(DrawableObject(new SuziSmooth(), ShaderInstances::phong_no_textures(), drawable_object.size()));
+		this->drawable_object.emplace_back(DrawableObject(new SuziSmooth(), ShaderInstances::phong_no_textures(), std::make_shared<MovementCalculator>(
+			std::make_shared<BezierCurveMove>(
+				glm::vec3{ 40.f, 10.f, 25.f },
+				glm::vec3{ -40.f, 10.f, 25.f },
+				glm::vec3{ -40.f, 10.f, -25.f },
+				glm::vec3{ 40.f, 10.f, -25.f }),
+			glm::vec3{ 0.0, 0.0, 0.0 },
+			10.f
+			), drawable_object.size()));
 		this->drawable_object.back().Pos_mov(glm::vec3(4, 2.f, 2));
 		this->drawable_object.emplace_back(DrawableObject(new Gift(), ShaderInstances::phong_no_textures(), drawable_object.size()));
 		this->drawable_object.back().Pos_mov(glm::vec3(4, 0.f, 2));

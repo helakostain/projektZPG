@@ -147,7 +147,9 @@
     <ClCompile Include="Models.cpp" />
     <ClCompile Include="ModelsLoader.cpp" />
     <ClCompile Include="Mouse.cpp" />
+    <ClCompile Include="MoveBezier.cpp" />
     <ClCompile Include="MoveCircle.cpp" />
+    <ClCompile Include="MoveLine.cpp" />
     <ClCompile Include="MovementCalculator.cpp" />
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="Plain.cpp" />
@@ -172,7 +174,9 @@
     <ClInclude Include="Gift.hpp" />
     <ClInclude Include="Light.hpp" />
     <ClInclude Include="Mesh.hpp" />
+    <ClInclude Include="MoveBezier.h" />
     <ClInclude Include="MoveCircle.hpp" />
+    <ClInclude Include="MoveLine.h" />
     <ClInclude Include="MovementCalculator.hpp" />
     <ClInclude Include="ModelsLoader.hpp" />
     <ClInclude Include="Models.hpp" />
@@ -202,15 +206,15 @@
     <ClInclude Include="Tree.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Blinn.txt" />
-    <Text Include="defaultfragment.txt" />
-    <Text Include="defaultvertex.txt" />
-    <Text Include="Lambert.txt" />
-    <Text Include="light.txt" />
-    <Text Include="light_no_textures.txt" />
-    <Text Include="Phong.txt" />
-    <Text Include="PhongBroken.txt" />
-    <Text Include="phong_no_textures.txt" />
+    <Text Include="Blinn.frag" />
+    <Text Include="defaultfragment.frag" />
+    <Text Include="defaultvertex.vert" />
+    <Text Include="Lambert.frag" />
+    <Text Include="light.vert" />
+    <Text Include="light_no_textures.vert" />
+    <Text Include="Phong.frag" />
+    <Text Include="PhongBroken.frag" />
+    <Text Include="phong_no_textures.frag" />
     <Text Include="skybox.frag" />
     <Text Include="skybox.vert" />
     <Text Include="terrain.frag" />

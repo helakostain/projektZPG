@@ -128,6 +128,7 @@ void Camera::onMouseMove(const MouseData& md)
 void Camera::WindowChange(int width, int height)
 {
 	projection = glm::perspective(glm::radians(45.f), (float)width / (float)height, 0.1f, 100.f);
+	apply();
 }
 
 void Camera::notify(EventType eventType, void* object) 

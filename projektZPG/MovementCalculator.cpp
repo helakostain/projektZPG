@@ -1,5 +1,7 @@
 #include "MovementCalculator.hpp"
+#include "MoveLine.h"
 #include "MoveCircle.hpp"
+#include "MoveBezier.h"
 #include <iostream>
 
 float MovementCalculator::currentT() const
